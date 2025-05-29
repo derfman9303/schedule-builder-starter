@@ -1,5 +1,5 @@
 <template>
-    <Head title="Dashboard" />
+    <Head title="Employees" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <h2>Employees</h2>

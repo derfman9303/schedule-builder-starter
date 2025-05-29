@@ -1,8 +1,8 @@
 <template>
-    <Head title="Create a Schedule" />
+    <Head title="Add Employee" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <h2>Create a Schedule</h2>
+        <h2>Add Employee</h2>
     </AppLayout>
 </template>
 
@@ -13,8 +13,12 @@ import { Head } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create a Schedule',
-        href: '/schedules/new',
+        title: 'Employees',
+        href: '/employees',
+    },
+    {
+        title: 'Add Employee',
+        href: '/employees/add',
     },
 ];
 </script>

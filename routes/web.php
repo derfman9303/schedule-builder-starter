@@ -22,6 +22,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/', function () {
             return Inertia::render('employees/Employees');
         })->name('employees.index');
+
+        Route::get('/add', function () {
+            return Inertia::render('employees/AddEmployee');
+        })->name('employees.add');
     });
 
     Route::get('config', function () {
