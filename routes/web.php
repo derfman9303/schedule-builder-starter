@@ -18,6 +18,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         })->name('schedules.new');
     });
 
+    Route::group(['prefix' => 'employees'], function () {
+        Route::get('/', function () {
+            return Inertia::render('employees/Employees');
+        })->name('employees.index');
+    });
+
     Route::get('config', function () {
         return Inertia::render('Config');
     })->name('config');
