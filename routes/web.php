@@ -7,9 +7,21 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::group(['prefix' => 'schedules'], function () {
+        Route::get('/new', function () {
+            return Inertia::render('schedules/NewSchedule');
+        })->name('schedules.new');
+    });
+
+    Route::get('config', function () {
+        return Inertia::render('Config');
+    })->name('config');
+});
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
