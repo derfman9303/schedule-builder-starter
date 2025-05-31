@@ -116,8 +116,9 @@ function submit() {
         return;
     }
 
-    // Clear errors and proceed with form submission
+    // Clear errors and reset processing state
     form.errors.phone = '';
+    form.processing = true;
 
     axios.post('/api/employees', {
         first_name: form.first_name,
@@ -127,19 +128,21 @@ function submit() {
     })
     .then(() => {
         console.log('Employee added successfully');
+        form.processing = false;
     })
     .catch((error) => {
         console.error('Error adding employee:', error.response.data);
         const errors = error.response.data.errors || {};
 
         // Convert validation errors to strings for compatibility
-        for (const key in errors) {
+        Object.keys(errors).forEach((key) => {
             if (Array.isArray(errors[key])) {
                 form.errors[key] = errors[key].join(' '); // Join array elements into a single string
             } else {
                 form.errors[key] = errors[key];
             }
-        }
+        });
+        form.processing = false;
     });
 }
 </script>
