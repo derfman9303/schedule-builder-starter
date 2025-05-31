@@ -117,6 +117,5 @@ function submit() {
 
     // Clear errors and proceed with form submission
     form.errors.phone = '';
-    console.log('Form submitted');
 }
 </script>
