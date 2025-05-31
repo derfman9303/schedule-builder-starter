@@ -130,7 +130,16 @@ function submit() {
     })
     .catch((error) => {
         console.error('Error adding employee:', error.response.data);
-        form.errors = error.response.data.errors || {};
+        const errors = error.response.data.errors || {};
+
+        // Convert validation errors to strings for compatibility
+        for (const key in errors) {
+            if (Array.isArray(errors[key])) {
+                form.errors[key] = errors[key].join(' '); // Join array elements into a single string
+            } else {
+                form.errors[key] = errors[key];
+            }
+        }
     });
 }
 </script>
