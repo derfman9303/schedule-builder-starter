@@ -117,5 +117,14 @@ function submit() {
 
     // Clear errors and proceed with form submission
     form.errors.phone = '';
+
+    form.post('/employees', {
+        onSuccess: () => {
+            console.log('Employee added successfully');
+        },
+        onError: (errors) => {
+            console.error('Error adding employee:', errors);
+        },
+    });
 }
 </script>

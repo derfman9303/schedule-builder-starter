@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -26,6 +27,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/add', function () {
             return Inertia::render('employees/AddEmployee');
         })->name('employees.add');
+
+        Route::post('/', [EmployeeController::class, 'create'], function () {
+            return redirect()->route('employees.index');
+        })->name('employees.create');
     });
 
     Route::get('config', function () {
