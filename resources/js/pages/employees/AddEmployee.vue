@@ -117,6 +117,7 @@ function submit() {
     }
 
     // Clear errors and reset processing state
+    form.errors = {}; // Clear all API validation errors
     form.errors.phone = '';
     form.processing = true;
 
