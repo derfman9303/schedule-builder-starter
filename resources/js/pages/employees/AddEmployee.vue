@@ -2,7 +2,7 @@
     <Head title="Add Employee" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <form @submit.prevent="submit" class="flex flex-col gap-6">
+        <form @submit.prevent="submit" class="flex flex-col gap-6 max-w-lg">
             <div class="grid gap-6 p-4">
                 <div class="grid gap-2">
                     <Label for="first_name">First Name</Label>
@@ -54,7 +54,7 @@
                     />
                     <InputError :message="form.errors.phone" />
                 </div>
-                <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
+                <Button type="submit" class="mt-4 w-fit" :tabindex="4" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                     Add Employee
                 </Button>
