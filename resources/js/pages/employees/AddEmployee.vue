@@ -95,6 +95,13 @@ const form = useForm({
 watch(() => form.phone, (newValue) => {
     const cleanedPhone = newValue.replace(/\D/g, ''); // Remove non-digit characters
 
+    if (cleanedPhone.length > 10) {
+        form.errors.phone = 'Phone number must be exactly 10 digits.';
+        return;
+    }
+
+    form.errors.phone = '';
+
     if (cleanedPhone.length > 0) {
         form.phone = `(${cleanedPhone.slice(0, 3)}) ${cleanedPhone.slice(3, 6)}-${cleanedPhone.slice(6, 10)}`.trim();
     }
@@ -107,9 +114,6 @@ function submit() {
         form.errors.phone = 'Phone number must be exactly 10 digits.';
         return;
     }
-
-    // Auto-format the phone number
-    form.phone = `(${cleanedPhone.slice(0, 3)}) ${cleanedPhone.slice(3, 6)}-${cleanedPhone.slice(6)}`;
 
     // Clear errors and proceed with form submission
     form.errors.phone = '';
