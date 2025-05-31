@@ -73,6 +73,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import InputError from '@/components/InputError.vue';
 import { watch } from 'vue';
+import axios from 'axios';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -118,13 +119,18 @@ function submit() {
     // Clear errors and proceed with form submission
     form.errors.phone = '';
 
-    form.post('/employees', {
-        onSuccess: () => {
-            console.log('Employee added successfully');
-        },
-        onError: (errors) => {
-            console.error('Error adding employee:', errors);
-        },
+    axios.post('/api/employees', {
+        first_name: form.first_name,
+        last_name: form.last_name,
+        email: form.email,
+        phone: form.phone,
+    })
+    .then(() => {
+        console.log('Employee added successfully');
+    })
+    .catch((error) => {
+        console.error('Error adding employee:', error.response.data);
+        form.errors = error.response.data.errors || {};
     });
 }
 </script>
