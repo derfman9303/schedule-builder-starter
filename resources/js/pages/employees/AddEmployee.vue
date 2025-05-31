@@ -72,6 +72,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import InputError from '@/components/InputError.vue';
+import { watch } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -91,8 +92,27 @@ const form = useForm({
     phone: '',
 });
 
+watch(() => form.phone, (newValue) => {
+    const cleanedPhone = newValue.replace(/\D/g, ''); // Remove non-digit characters
+
+    if (cleanedPhone.length > 0) {
+        form.phone = `(${cleanedPhone.slice(0, 3)}) ${cleanedPhone.slice(3, 6)}-${cleanedPhone.slice(6, 10)}`.trim();
+    }
+});
+
 function submit() {
-    // Handle form submission logic here
+    const cleanedPhone = form.phone.replace(/\D/g, ''); // Remove non-digit characters
+
+    if (cleanedPhone.length !== 10) {
+        form.errors.phone = 'Phone number must be exactly 10 digits.';
+        return;
+    }
+
+    // Auto-format the phone number
+    form.phone = `(${cleanedPhone.slice(0, 3)}) ${cleanedPhone.slice(3, 6)}-${cleanedPhone.slice(6)}`;
+
+    // Clear errors and proceed with form submission
+    form.errors.phone = '';
     console.log('Form submitted');
 }
 </script>
