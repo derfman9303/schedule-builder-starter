@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\EmployeeController;
 
-Route::group(['middleware' => ['auth', 'verified']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'employees'], function () {
         Route::post('/', [EmployeeController::class, 'create'], function ($employee) {
             return redirect()->route('employees.index', ['employee' => $employee]);
