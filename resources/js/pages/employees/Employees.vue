@@ -3,11 +3,24 @@
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <h2>Employees</h2>
-        <ul>
-            <li v-for="employee in employees" :key="employee.id">
-                {{ employee.first_name }}
-            </li>
-        </ul>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHead class="text-left">First Name</TableHead>
+                    <TableHead class="text-left">Last Name</TableHead>
+                    <TableHead class="text-left">Email</TableHead>
+                    <TableHead class="text-left">Phone</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow v-for="employee in employees" :key="employee.id">
+                    <TableCell>{{ employee.first_name }}</TableCell>
+                    <TableCell>{{ employee.last_name }}</TableCell>
+                    <TableCell>{{ employee.email }}</TableCell>
+                    <TableCell>{{ employee.phone }}</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
     </AppLayout>
 </template>
 
@@ -18,6 +31,7 @@ import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
+import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
