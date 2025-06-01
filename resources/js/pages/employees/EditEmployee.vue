@@ -83,13 +83,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Edit Employee',
-        href: '/employees/edit',
+        href: '/employees/edit/' + window.location.href.split('/').pop(),
     },
 ];
 
 const employee = ref({} as Employee); // Initialize employee with empty object
 
-breadcrumbs[1].href = `/employees/edit`; // Set breadcrumb dynamically
+breadcrumbs[1].href = `/employees/edit/${employee.value.id}`; // Set breadcrumb dynamically
 
 const form = useForm({
     first_name: '',
@@ -154,16 +154,16 @@ function save() {
 }
 
 onMounted(() => {
-    const employeeId = 9; // Retrieve employee ID from route params
+    const employeeId = window.location.href.split('/').pop(); // Retrieve employee ID from route params
 
     axios.get(`/api/employees/${employeeId}`)
         .then((response) => {
             employee.value = response.data;
+
             form.first_name = employee.value.first_name;
             form.last_name = employee.value.last_name;
             form.email = employee.value.email;
             form.phone = employee.value.phone;
-            form.id = employee.value.id; // Set the employee ID from the returned data
         })
         .catch((error) => {
             console.error('Error fetching employee data:', error);

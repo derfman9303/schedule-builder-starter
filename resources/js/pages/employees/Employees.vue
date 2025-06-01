@@ -20,7 +20,7 @@
                     <TableCell>{{ employee.email }}</TableCell>
                     <TableCell>{{ employee.phone }}</TableCell>
                     <TableCell>
-                        <Button class="text-blue-500" @click="editEmployee(employee.id)">Edit</Button>
+                        <Button class="text-blue-500 cursor-pointer" @click="editEmployee(employee.id)">Edit</Button>
                     </TableCell>
                 </TableRow>
             </TableBody>
