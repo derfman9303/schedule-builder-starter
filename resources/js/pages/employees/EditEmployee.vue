@@ -13,7 +13,7 @@
                         autofocus
                         :tabindex="1"
                         v-model="form.first_name"
-                        :disabled="form.processing"
+                        :disabled="form.processing || loading"
                         placeholder="John"
                     />
                     <InputError :message="form.errors.first_name" />
@@ -26,7 +26,7 @@
                         required
                         :tabindex="2"
                         v-model="form.last_name"
-                        :disabled="form.processing"
+                        :disabled="form.processing || loading"
                         placeholder="Doe"
                     />
                     <InputError :message="form.errors.last_name" />
@@ -41,7 +41,7 @@
                         :tabindex="1"
                         autocomplete="email"
                         v-model="form.email"
-                        :disabled="form.processing"
+                        :disabled="form.processing || loading"
                         placeholder="email@example.com"
                     />
                     <InputError :message="form.errors.email" />
@@ -53,13 +53,13 @@
                         type="text"
                         :tabindex="3"
                         v-model="form.phone"
-                        :disabled="form.processing"
+                        :disabled="form.processing || loading"
                         placeholder="(123) 456-7890"
                     />
                     <InputError :message="form.errors.phone" />
                 </div>
-                <Button type="submit" class="mt-4 w-fit" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                <Button type="submit" class="mt-4 w-fit" :tabindex="4" :disabled="form.processing || loading">
+                    <LoaderCircle v-if="form.processing || loading" class="h-4 w-4 animate-spin" />
                     Save
                 </Button>
             </div>
@@ -91,9 +91,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const employee = ref({} as Employee); // Initialize employee with empty object
+const employee = ref({} as Employee);
+const loading = ref(true);
 
-breadcrumbs[1].href = `/employees/edit/${employee.value.id}`; // Set breadcrumb dynamically
+breadcrumbs[1].href = `/employees/edit/${employee.value.id}`;
 
 const form = useForm({
     first_name: '',
@@ -171,6 +172,9 @@ onMounted(() => {
         })
         .catch((error) => {
             console.error('Error fetching employee data:', error);
+        })
+        .finally(() => {
+            loading.value = false; // Set loading state to false after data is loaded
         });
 });
 </script>
