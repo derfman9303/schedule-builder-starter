@@ -120,8 +120,7 @@ function submit() {
         return;
     }
 
-    // Clear errors and reset processing state
-    form.errors = {}; // Clear all API validation errors
+    form.errors = {};
     form.errors.phone = '';
     form.processing = true;
 
@@ -142,7 +141,7 @@ function submit() {
         // Convert validation errors to strings for compatibility
         Object.keys(errors).forEach((key) => {
             if (Array.isArray(errors[key])) {
-                form.errors[key] = errors[key].join(' '); // Join array elements into a single string
+                form.errors[key] = errors[key].join(' ');
             } else {
                 form.errors[key] = errors[key];
             }

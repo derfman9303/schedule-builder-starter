@@ -126,8 +126,7 @@ function save() {
         return;
     }
 
-    // Clear errors and reset processing state
-    form.errors = {}; // Clear all API validation errors
+    form.errors = {};
     form.errors.phone = '';
     form.processing = true;
 
@@ -149,7 +148,7 @@ function save() {
         Object.keys(errors).forEach((key) => {
             const typedKey = key as keyof typeof form.errors;
             if (Array.isArray(errors[typedKey])) {
-                form.errors[typedKey] = errors[typedKey].join(' '); // Join array elements into a single string
+                form.errors[typedKey] = errors[typedKey].join(' ');
             } else {
                 form.errors[typedKey] = errors[typedKey];
             }
@@ -159,7 +158,7 @@ function save() {
 }
 
 onMounted(() => {
-    const employeeId = window.location.href.split('/').pop(); // Retrieve employee ID from route params
+    const employeeId = window.location.href.split('/').pop();
 
     axios.get(`/api/employees/${employeeId}`)
         .then((response) => {
@@ -174,7 +173,7 @@ onMounted(() => {
             console.error('Error fetching employee data:', error);
         })
         .finally(() => {
-            loading.value = false; // Set loading state to false after data is loaded
+            loading.value = false;
         });
 });
 </script>
