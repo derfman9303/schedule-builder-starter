@@ -37,4 +37,37 @@ class EmployeeController extends Controller
 
         return $employees;
     }
+
+    /**
+     * Show the details of a specific employee.
+     */
+    public function details(Employee $employee): Employee
+    {
+        if ($employee->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return $employee;
+    }
+
+    /**
+     * Update the employee details.
+     */
+    public function update(Request $request, Employee $employee): Employee
+    {
+        if ($employee->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255|unique:employees,email,' . $employee->id,
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        $employee->update($validatedData);
+
+        return $employee;
+    }
 }

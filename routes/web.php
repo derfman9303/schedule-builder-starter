@@ -27,6 +27,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::get('/add', function () {
             return Inertia::render('employees/AddEmployee');
         })->name('employees.add');
+
+        Route::get('/edit/{employee}', function ($employee) {
+            return Inertia::render('employees/EditEmployee', ['employee' => $employee]);
+        })->name('employees.edit');
     });
 
     Route::get('config', function () {

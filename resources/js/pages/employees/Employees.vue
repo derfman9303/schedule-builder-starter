@@ -10,6 +10,7 @@
                     <TableHead class="text-left">Last Name</TableHead>
                     <TableHead class="text-left">Email</TableHead>
                     <TableHead class="text-left">Phone</TableHead>
+                    <TableHead class="text-left">Actions</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -18,6 +19,9 @@
                     <TableCell>{{ employee.last_name }}</TableCell>
                     <TableCell>{{ employee.email }}</TableCell>
                     <TableCell>{{ employee.phone }}</TableCell>
+                    <TableCell>
+                        <Button class="text-blue-500" @click="editEmployee(employee.id)">Edit</Button>
+                    </TableCell>
                 </TableRow>
             </TableBody>
         </Table>
@@ -51,4 +55,9 @@ onMounted(() => {
             console.error('Error fetching employees:', error);
         });
 });
+
+function editEmployee(employeeId) {
+    console.log(`Edit employee with ID: ${employeeId}`);
+    // Add navigation or modal logic here
+}
 </script>

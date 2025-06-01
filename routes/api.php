@@ -8,6 +8,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'employees'], function () {
         Route::get('/', [EmployeeController::class, 'list'])->name('employees.list');
 
+        Route::get('/{employee}', [EmployeeController::class, 'details'])->name('employee.details');
+
+        Route::post('/{employee}', [EmployeeController::class, 'update'])->name('employee.update');
+
         Route::post('/', [EmployeeController::class, 'create'])->name('employees.create');
     });
 });
