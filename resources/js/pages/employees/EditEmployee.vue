@@ -137,7 +137,6 @@ function save() {
         phone: form.phone,
     })
     .then(() => {
-        console.log('Employee updated successfully');
         form.processing = false;
         window.location.href = '/employees';
     })

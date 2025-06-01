@@ -131,8 +131,8 @@ function submit() {
         phone: form.phone,
     })
     .then(() => {
-        console.log('Employee added successfully');
         form.processing = false;
+        window.location.href = '/employees';
     })
     .catch((error) => {
         console.error('Error adding employee:', error.response.data);
