@@ -46,4 +46,12 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the employees for the user.
+     */
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

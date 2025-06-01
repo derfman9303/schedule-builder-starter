@@ -6,9 +6,9 @@ use App\Http\Controllers\EmployeeController;
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'employees'], function () {
-        Route::post('/', [EmployeeController::class, 'create'], function ($employee) {
-            return redirect()->route('employees.index', ['employee' => $employee]);
-        })->name('employees.create');
+        Route::get('/', [EmployeeController::class, 'list'])->name('employees.list');
+
+        Route::post('/', [EmployeeController::class, 'create'])->name('employees.create');
     });
 });
 
