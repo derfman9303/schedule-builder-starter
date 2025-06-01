@@ -56,8 +56,7 @@ onMounted(() => {
         });
 });
 
-function editEmployee(employeeId) {
-    console.log(`Edit employee with ID: ${employeeId}`);
-    // Add navigation or modal logic here
+function editEmployee(employeeId: number) {
+    window.location.href = `/employees/edit/${employeeId}`;
 }
 </script>
