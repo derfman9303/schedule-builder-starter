@@ -20,7 +20,14 @@
                     <TableCell>{{ employee.email }}</TableCell>
                     <TableCell>{{ employee.phone }}</TableCell>
                     <TableCell>
-                        <Button class="text-blue-500 cursor-pointer" @click="editEmployee(employee.id)">Edit</Button>
+                        <Button
+                            class="text-blue-500 cursor-pointer"
+                            @click="editEmployee(employee.id)"
+                            variant="link"
+                            size="sm"
+                        >
+                            Edit
+                        </Button>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -36,6 +43,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

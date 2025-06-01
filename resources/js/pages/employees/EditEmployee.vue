@@ -139,6 +139,7 @@ function save() {
     .then(() => {
         console.log('Employee updated successfully');
         form.processing = false;
+        window.location.href = '/employees';
     })
     .catch((error) => {
         console.error('Error updating employee:', error.response.data);
