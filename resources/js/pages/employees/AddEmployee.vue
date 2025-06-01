@@ -14,6 +14,7 @@
                         :tabindex="1"
                         v-model="form.first_name"
                         placeholder="John"
+                        :disabled="form.processing"
                     />
                     <InputError :message="form.errors.first_name" />
                 </div>
@@ -26,6 +27,7 @@
                         :tabindex="2"
                         v-model="form.last_name"
                         placeholder="Doe"
+                        :disabled="form.processing"
                     />
                     <InputError :message="form.errors.last_name" />
                 </div>
@@ -40,6 +42,7 @@
                         autocomplete="email"
                         v-model="form.email"
                         placeholder="email@example.com"
+                        :disabled="form.processing"
                     />
                     <InputError :message="form.errors.email" />
                 </div>
@@ -51,6 +54,7 @@
                         :tabindex="3"
                         v-model="form.phone"
                         placeholder="(123) 456-7890"
+                        :disabled="form.processing"
                     />
                     <InputError :message="form.errors.phone" />
                 </div>

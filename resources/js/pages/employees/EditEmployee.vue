@@ -13,6 +13,7 @@
                         autofocus
                         :tabindex="1"
                         v-model="form.first_name"
+                        :disabled="form.processing"
                         placeholder="John"
                     />
                     <InputError :message="form.errors.first_name" />
@@ -25,6 +26,7 @@
                         required
                         :tabindex="2"
                         v-model="form.last_name"
+                        :disabled="form.processing"
                         placeholder="Doe"
                     />
                     <InputError :message="form.errors.last_name" />
@@ -39,6 +41,7 @@
                         :tabindex="1"
                         autocomplete="email"
                         v-model="form.email"
+                        :disabled="form.processing"
                         placeholder="email@example.com"
                     />
                     <InputError :message="form.errors.email" />
@@ -50,6 +53,7 @@
                         type="text"
                         :tabindex="3"
                         v-model="form.phone"
+                        :disabled="form.processing"
                         placeholder="(123) 456-7890"
                     />
                     <InputError :message="form.errors.phone" />
