@@ -164,10 +164,10 @@ onMounted(() => {
         .then((response) => {
             employee.value = response.data;
 
-            form.first_name = employee.value.first_name;
-            form.last_name = employee.value.last_name;
-            form.email = employee.value.email;
-            form.phone = employee.value.phone;
+            form.first_name = employee.value.first_name ?? '';
+            form.last_name = employee.value.last_name ?? '';
+            form.email = employee.value.email ?? '';
+            form.phone = employee.value.phone ?? '';
         })
         .catch((error) => {
             console.error('Error fetching employee data:', error);
