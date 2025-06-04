@@ -11,7 +11,6 @@
                         type="text"
                         required
                         autofocus
-                        :tabindex="1"
                         v-model="form.first_name"
                         placeholder="John"
                         :disabled="form.processing"
@@ -24,7 +23,6 @@
                         id="last_name"
                         type="text"
                         required
-                        :tabindex="2"
                         v-model="form.last_name"
                         placeholder="Doe"
                         :disabled="form.processing"
@@ -38,7 +36,6 @@
                         type="email"
                         required
                         autofocus
-                        :tabindex="1"
                         autocomplete="email"
                         v-model="form.email"
                         placeholder="email@example.com"
@@ -51,15 +48,21 @@
                     <Input
                         id="phone"
                         type="text"
-                        :tabindex="3"
                         v-model="form.phone"
                         placeholder="(123) 456-7890"
                         :disabled="form.processing"
                     />
                     <InputError :message="form.errors.phone" />
                 </div>
-                <Button type="submit" class="mt-4 w-fit" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                <Button
+                    type="submit"
+                    class="w-fit"
+                    :disabled="form.processing"
+                >
+                    <LoaderCircle
+                        v-if="form.processing"
+                        class="h-4 w-4 animate-spin"
+                    />
                     Add Employee
                 </Button>
             </div>
@@ -70,7 +73,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, router } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -132,7 +135,7 @@ function submit() {
     })
     .then(() => {
         form.processing = false;
-        window.location.href = '/employees';
+        router.get('/employees'); // Use Inertia for navigation
     })
     .catch((error) => {
         const errors = error.response.data.errors || {};
