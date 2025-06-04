@@ -72,12 +72,4 @@ onMounted(() => {
             console.error('Error fetching employees:', error);
         });
 });
-
-function editEmployee(employeeId: number) {
-    window.location.href = `/employees/edit/${employeeId}`;
-}
-
-function addEmployee() {
-    window.location.href = '/employees/add';
-}
 </script>
