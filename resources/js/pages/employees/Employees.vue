@@ -23,7 +23,7 @@
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="employee in employees" :key="employee.id" class="hover:bg-gray-50">
+                    <TableRow v-for="employee in paginatedEmployees" :key="employee.id" class="hover:bg-gray-50">
                         <TableCell class="border-t px-4 py-2">{{ employee.first_name }}</TableCell>
                         <TableCell class="border-t px-4 py-2">{{ employee.last_name }}</TableCell>
                         <TableCell class="border-t px-4 py-2">{{ employee.email }}</TableCell>
@@ -40,6 +40,23 @@
                 </TableBody>
             </Table>
         </div>
+        <div class="flex justify-between items-center mt-4 mb-4 px-5">
+            <Button
+                class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+                :disabled="currentPage === 1"
+                @click="currentPage--"
+            >
+                Previous
+            </Button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <Button
+                class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+                :disabled="currentPage === totalPages"
+                @click="currentPage++"
+            >
+                Next
+            </Button>
+        </div>
     </AppLayout>
 </template>
 
@@ -47,7 +64,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
@@ -62,8 +79,20 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const employees = ref<Employee[]>([]);
+const currentPage = ref(1);
+const itemsPerPage = 10;
 
-onMounted(() => {
+const paginatedEmployees = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return employees.value.slice(start, end);
+});
+
+const totalPages = computed(() => {
+    return Math.ceil(employees.value.length / itemsPerPage);
+});
+
+const fetchEmployees = () => {
     axios.get('/api/employees')
         .then((response) => {
             employees.value = response.data;
@@ -71,5 +100,9 @@ onMounted(() => {
         .catch((error) => {
             console.error('Error fetching employees:', error);
         });
+};
+
+onMounted(() => {
+    fetchEmployees();
 });
 </script>
