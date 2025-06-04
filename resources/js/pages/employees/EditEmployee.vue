@@ -70,7 +70,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, router } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -138,7 +138,7 @@ function save() {
     })
     .then(() => {
         form.processing = false;
-        window.location.href = '/employees';
+        router.get('/employees'); // Use Inertia for navigation
     })
     .catch((error) => {
         console.error('Error updating employee:', error.response.data);
