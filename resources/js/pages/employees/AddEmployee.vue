@@ -135,15 +135,15 @@ function submit() {
         window.location.href = '/employees';
     })
     .catch((error) => {
-        console.error('Error adding employee:', error.response.data);
         const errors = error.response.data.errors || {};
 
         // Convert validation errors to strings for compatibility
         Object.keys(errors).forEach((key) => {
-            if (Array.isArray(errors[key])) {
-                form.errors[key] = errors[key].join(' ');
+            const typedKey = key as keyof typeof form.errors; // Explicitly cast key to the correct type
+            if (Array.isArray(errors[typedKey])) {
+                form.errors[typedKey] = errors[typedKey].join(' ');
             } else {
-                form.errors[key] = errors[key];
+                form.errors[typedKey] = errors[typedKey];
             }
         });
         form.processing = false;
