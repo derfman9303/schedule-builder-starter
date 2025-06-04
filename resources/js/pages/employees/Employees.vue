@@ -2,8 +2,16 @@
     <Head title="Employees" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <h2 class="text-2xl font-bold mb-6">Employees</h2>
-        <div class="overflow-x-auto">
+        <div class="flex justify-between items-center mb-6 px-4 pt-5">
+            <h2 class="text-2xl font-bold">Employees</h2>
+            <Button
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                @click="addEmployee"
+            >
+                Add New Employee
+            </Button>
+        </div>
+        <div class="overflow-x-auto px-4">
             <Table class="min-w-full border border-gray-200">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
@@ -68,5 +76,9 @@ onMounted(() => {
 
 function editEmployee(employeeId: number) {
     window.location.href = `/employees/edit/${employeeId}`;
+}
+
+function addEmployee() {
+    window.location.href = '/employees/add';
 }
 </script>
