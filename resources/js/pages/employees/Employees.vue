@@ -42,7 +42,7 @@
         </div>
         <div class="flex justify-between items-center mt-4 mb-4 px-5">
             <Button
-                class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+                class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
                 :disabled="currentPage === 1"
                 @click="currentPage--"
             >
@@ -50,7 +50,7 @@
             </Button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>
             <Button
-                class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+                class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
                 :disabled="currentPage === totalPages"
                 @click="currentPage++"
             >
