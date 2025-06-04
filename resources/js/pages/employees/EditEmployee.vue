@@ -11,7 +11,6 @@
                         type="text"
                         required
                         autofocus
-                        :tabindex="1"
                         v-model="form.first_name"
                         :disabled="form.processing || loading"
                         placeholder="John"
@@ -24,7 +23,6 @@
                         id="last_name"
                         type="text"
                         required
-                        :tabindex="2"
                         v-model="form.last_name"
                         :disabled="form.processing || loading"
                         placeholder="Doe"
@@ -38,7 +36,6 @@
                         type="email"
                         required
                         autofocus
-                        :tabindex="1"
                         autocomplete="email"
                         v-model="form.email"
                         :disabled="form.processing || loading"
@@ -51,15 +48,21 @@
                     <Input
                         id="phone"
                         type="text"
-                        :tabindex="3"
                         v-model="form.phone"
                         :disabled="form.processing || loading"
                         placeholder="(123) 456-7890"
                     />
                     <InputError :message="form.errors.phone" />
                 </div>
-                <Button type="submit" class="mt-4 w-fit" :tabindex="4" :disabled="form.processing || loading">
-                    <LoaderCircle v-if="form.processing || loading" class="h-4 w-4 animate-spin" />
+                <Button
+                    type="submit"
+                    class="w-fit bg-blue-500 hover:bg-blue-600"
+                    :disabled="form.processing || loading"
+                >
+                    <LoaderCircle
+                        v-if="form.processing || loading"
+                        class="h-4 w-4 animate-spin"
+                    />
                     Save
                 </Button>
             </div>

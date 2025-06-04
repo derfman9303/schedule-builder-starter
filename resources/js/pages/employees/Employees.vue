@@ -6,9 +6,10 @@
             <h2 class="text-2xl font-bold">Employees</h2>
             <Link
                 href="/employees/add"
-                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"
             >
-                Add New Employee
+                <Plus />
+                Add
             </Link>
         </div>
         <div class="overflow-x-auto px-5">
@@ -68,6 +69,7 @@ import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
+import { Plus } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/vue3';
 

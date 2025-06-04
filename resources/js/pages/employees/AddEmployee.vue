@@ -56,7 +56,7 @@
                 </div>
                 <Button
                     type="submit"
-                    class="w-fit"
+                    class="w-fit bg-blue-500 hover:bg-blue-600"
                     :disabled="form.processing"
                 >
                     <LoaderCircle
