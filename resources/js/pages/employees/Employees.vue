@@ -2,36 +2,38 @@
     <Head title="Employees" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <h2>Employees</h2>
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableHead class="text-left">First Name</TableHead>
-                    <TableHead class="text-left">Last Name</TableHead>
-                    <TableHead class="text-left">Email</TableHead>
-                    <TableHead class="text-left">Phone</TableHead>
-                    <TableHead class="text-left">Actions</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow v-for="employee in employees" :key="employee.id">
-                    <TableCell>{{ employee.first_name }}</TableCell>
-                    <TableCell>{{ employee.last_name }}</TableCell>
-                    <TableCell>{{ employee.email }}</TableCell>
-                    <TableCell>{{ employee.phone }}</TableCell>
-                    <TableCell>
-                        <Button
-                            class="text-blue-500 cursor-pointer"
-                            @click="editEmployee(employee.id)"
-                            variant="link"
-                            size="sm"
-                        >
-                            Edit
-                        </Button>
-                    </TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
+        <h2 class="text-2xl font-bold mb-6">Employees</h2>
+        <div class="overflow-x-auto">
+            <Table class="min-w-full border border-gray-200">
+                <TableHeader class="bg-gray-100">
+                    <TableRow>
+                        <TableHead class="text-left px-4 py-2">First Name</TableHead>
+                        <TableHead class="text-left px-4 py-2">Last Name</TableHead>
+                        <TableHead class="text-left px-4 py-2">Email</TableHead>
+                        <TableHead class="text-left px-4 py-2">Phone</TableHead>
+                        <TableHead class="text-left px-4 py-2">Actions</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow v-for="employee in employees" :key="employee.id" class="hover:bg-gray-50">
+                        <TableCell class="border-t px-4 py-2">{{ employee.first_name }}</TableCell>
+                        <TableCell class="border-t px-4 py-2">{{ employee.last_name }}</TableCell>
+                        <TableCell class="border-t px-4 py-2">{{ employee.email }}</TableCell>
+                        <TableCell class="border-t px-4 py-2">{{ employee.phone }}</TableCell>
+                        <TableCell class="border-t px-4 py-2">
+                            <Button
+                                class="text-blue-500 hover:underline"
+                                @click="editEmployee(employee.id)"
+                                variant="link"
+                                size="sm"
+                            >
+                                Edit
+                            </Button>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </div>
     </AppLayout>
 </template>
 
