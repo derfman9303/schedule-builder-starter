@@ -70,6 +70,19 @@
                 </Button>
             </div>
         </div>
+
+        <AlertDialog v-model:open="dialogOpen">
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <h2 class="text-lg font-bold">Confirm Deletion</h2>
+                    <p>Are you sure you want to delete this employee?</p>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel @click="dialogOpen = false">Cancel</AlertDialogCancel>
+                    <AlertDialogAction @click="deleteEmployee(selectedEmployeeId)">Delete</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     </AppLayout>
 </template>
 
@@ -85,6 +98,7 @@ import { Plus } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -97,6 +111,8 @@ const employees = ref<Employee[]>([]);
 const currentPage = ref(1);
 const itemsPerPage = 10;
 const isLoading = ref(true);
+const dialogOpen = ref(false);
+const selectedEmployeeId = ref<number | null>(null);
 
 const paginatedEmployees = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage;
@@ -119,6 +135,22 @@ const fetchEmployees = () => {
         })
         .finally(() => {
             isLoading.value = false;
+        });
+};
+
+const openDialog = (employeeId: number) => {
+    selectedEmployeeId.value = employeeId;
+    dialogOpen.value = true;
+};
+
+const deleteEmployee = (employeeId: number) => {
+    axios.delete(`/api/employees/${employeeId}`)
+        .then(() => {
+            employees.value = employees.value.filter(employee => employee.id !== employeeId);
+            dialogOpen.value = false;
+        })
+        .catch((error) => {
+            console.error('Error deleting employee:', error);
         });
 };
 
