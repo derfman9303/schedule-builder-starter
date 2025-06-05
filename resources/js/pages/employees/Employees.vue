@@ -78,8 +78,18 @@
                     <p>{{ deleteMessage }}</p>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel @click="dialogOpen = false">Cancel</AlertDialogCancel>
-                    <AlertDialogAction @click="deleteEmployee(selectedEmployeeId)">Delete</AlertDialogAction>
+                    <AlertDialogCancel
+                        @click="dialogOpen = false"
+                        class="cursor-pointer"
+                    >
+                        Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                        @click="deleteEmployee(selectedEmployeeId)"
+                        class="bg-red-500 hover:bg-red-600 cursor-pointer text-white"
+                    >
+                        Delete
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
