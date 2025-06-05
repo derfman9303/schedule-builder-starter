@@ -70,4 +70,16 @@ class EmployeeController extends Controller
 
         return $employee;
     }
+
+    /**
+     * Delete the employee.
+     */
+    public function delete(Employee $employee): void
+    {
+        if ($employee->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $employee->delete();
+    }
 }
