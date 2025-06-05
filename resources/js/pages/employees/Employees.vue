@@ -41,7 +41,7 @@
                                     Edit
                                 </Link>
                                 <Button
-                                    @click="openDialog(employee.id)"
+                                    @click="openDialog(employee.id, employee.first_name, employee.last_name)"
                                     variant="link"
                                     class="text-red-500 cursor-pointer hover:underline"
                                 >
@@ -75,7 +75,7 @@
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <h2 class="text-lg font-bold">Confirm Deletion</h2>
-                    <p>Are you sure you want to delete this employee?</p>
+                    <p>{{ deleteMessage }}</p>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel @click="dialogOpen = false">Cancel</AlertDialogCancel>
@@ -113,6 +113,7 @@ const itemsPerPage = 10;
 const isLoading = ref(true);
 const dialogOpen = ref(false);
 const selectedEmployeeId = ref<number | null>(null);
+const deleteMessage = ref('');
 
 const paginatedEmployees = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage;
@@ -138,20 +139,25 @@ const fetchEmployees = () => {
         });
 };
 
-const openDialog = (employeeId: number) => {
+const openDialog = (employeeId: number, firstName: string, lastName: string) => {
     selectedEmployeeId.value = employeeId;
+    deleteMessage.value = `Are you sure you want to delete ${firstName} ${lastName}?`;
     dialogOpen.value = true;
 };
 
-const deleteEmployee = (employeeId: number) => {
-    axios.delete(`/api/employees/${employeeId}`)
-        .then(() => {
-            employees.value = employees.value.filter(employee => employee.id !== employeeId);
-            dialogOpen.value = false;
-        })
-        .catch((error) => {
-            console.error('Error deleting employee:', error);
-        });
+const deleteEmployee = (employeeId: number|null) => {
+    if (!!employeeId) {
+        axios.delete(`/api/employees/${employeeId}`)
+            .then(() => {
+                employees.value = employees.value.filter(employee => employee.id !== employeeId);
+                dialogOpen.value = false;
+            })
+            .catch((error) => {
+                console.error('Error deleting employee:', error);
+            });
+    } else {
+        console.error('No employee ID provided for deletion.');
+    }
 };
 
 onMounted(() => {
