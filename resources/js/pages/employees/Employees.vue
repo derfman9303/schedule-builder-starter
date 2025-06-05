@@ -40,6 +40,13 @@
                                 >
                                     Edit
                                 </Link>
+                                <Button
+                                    @click="openDialog(employee.id)"
+                                    variant="link"
+                                    class="text-red-500 cursor-pointer hover:underline"
+                                >
+                                    Delete
+                                </Button>
                             </TableCell>
                         </TableRow>
                     </TableBody>
