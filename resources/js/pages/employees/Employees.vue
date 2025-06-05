@@ -74,7 +74,7 @@
         <AlertDialog v-model:open="dialogOpen">
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <h2 class="text-lg font-bold">Confirm Deletion</h2>
+                    <AlertDialogTitle class="text-lg font-bold">Confirm Deletion</AlertDialogTitle>
                     <p>{{ deleteMessage }}</p>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -108,7 +108,7 @@ import { Plus } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogCancel, AlertDialogAction, AlertDialogTitle } from '@/components/ui/alert-dialog';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
