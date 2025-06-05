@@ -1,5 +1,5 @@
 <template>
-    <Head title="Dashboard" />
+    <Head title="Create a Schedule" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <h2>Create a Schedule</h2>
