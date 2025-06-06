@@ -9,14 +9,15 @@ use Illuminate\Support\Facades\Auth;
 class ShiftController extends Controller
 {
     /**
-     * Store new shifts for a given date.
+     * Store new shifts for a given week.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'date' => 'required|date',
+            'week_start' => 'required|date',
             'entries' => 'required|array',
             'entries.*.employee_id' => 'required|integer|exists:employees,id',
+            'entries.*.date' => 'required|date',
             'entries.*.start_time' => 'nullable|date_format:H:i',
             'entries.*.end_time' => 'nullable|date_format:H:i',
         ]);
@@ -28,7 +29,7 @@ class ShiftController extends Controller
             $shifts[] = Shift::create([
                 Shift::USER_ID => $userId,
                 Shift::EMPLOYEE_ID => $entry['employee_id'],
-                Shift::DATE => $validated['date'],
+                Shift::DATE => $entry['date'],
                 Shift::START_TIME => $entry['start_time'] ?? null,
                 Shift::END_TIME => $entry['end_time'] ?? null,
             ]);
