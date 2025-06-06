@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ShiftController;
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'employees'], function () {
@@ -13,6 +14,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('/{employee}', [EmployeeController::class, 'update'])->name('employee.update');
 
         Route::delete('/{employee}', [EmployeeController::class, 'delete'])->name('employee.delete');
+    });
+
+    Route::group(['prefix' => 'schedules'], function () {
+        Route::post('/', [ShiftController::class, 'store'])->name('schedules.store');
     });
 });
 
