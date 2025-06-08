@@ -4,7 +4,7 @@
     <AppLayout :breadcrumbs="breadcrumbs">
         <h2 class="text-2xl font-bold px-5">Create a Schedule</h2>
         <div class="overflow-x-auto px-5">
-            <Table class="border border-gray-200">
+            <Table class="border border-gray-200 w-max">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
                         <TableHead class="text-left px-4 py-2">Employee</TableHead>
