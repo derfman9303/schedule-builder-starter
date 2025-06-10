@@ -32,22 +32,24 @@
                     type="time"
                 />
             </div>
-            <PopoverClose class="w-full mt-4">
-                <Button
-                    class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-full"
-                    @click="updateShift"
-                >
-                    Update Shift
-                </Button>
-            </PopoverClose>
-            <PopoverClose class="w-full mt-2">
-                <Button
-                    class="bg-red-500 hover:bg-red-600 text-white cursor-pointer w-full"
-                    @click="removeShift"
-                >
-                    Remove Shift
-                </Button>
-            </PopoverClose>
+            <div class="flex justify-between w-full mt-4">
+                <PopoverClose class="w-[48%]">
+                    <Button
+                        class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-full"
+                        @click="updateShift"
+                    >
+                        Update Shift
+                    </Button>
+                </PopoverClose>
+                <PopoverClose class="w-[48%]">
+                    <Button
+                        class="bg-red-500 hover:bg-red-600 text-white cursor-pointer w-full"
+                        @click="removeShift"
+                    >
+                        Remove Shift
+                    </Button>
+                </PopoverClose>
+            </div>
         </PopoverContent>
     </Popover>
 </template>
@@ -57,7 +59,7 @@ import { defineProps, ref } from 'vue';
 import { type Shift } from '@/types/Shift';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
-import { Plus, X } from 'lucide-vue-next';
+import { X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
 const props = defineProps<{
