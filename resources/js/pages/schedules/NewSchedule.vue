@@ -22,25 +22,33 @@
                     <TableRow v-for="work_week in schedule.work_weeks" :key="work_week.employee_id" class="hover:bg-gray-50">
                         <TableCell class="border-t px-4 py-2">{{ work_week.employee_name }}</TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'monday')"
+                                :shift="getShift(work_week, 'monday')"
+                                @update-shift="(shift) => updateShift(work_week, 'monday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'monday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'tuesday', shift)" />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'wednesday', shift)" />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'thursday', shift)" />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'friday', shift)" />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'saturday', shift)" />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <ShiftComponent />
+                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'sunday', shift)" />
                         </TableCell>
                         <TableCell class="border-t p-0">
                             <Button
@@ -74,12 +82,14 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import ShiftComponent from './ShiftComponent.vue';
+import AddShiftComponent from './AddShiftComponent.vue';
+import EditShiftComponent from './EditShiftComponent.vue';
 import { Plus } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
 import { type WorkWeek } from '@/types/WorkWeek';
+import { type Shift } from '@/types/Shift';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -134,6 +144,26 @@ function removeWorkWeek(workWeek: WorkWeek) {
     const index = schedule.value.work_weeks?.indexOf(workWeek);
     if (!!index && index > -1) {
         schedule.value.work_weeks?.splice(index, 1);
+    }
+}
+
+function addShift(workWeek: WorkWeek, day: string, shift: Shift) {
+    if (!workWeek.shifts) {
+        workWeek.shifts = [];
+    }
+
+    workWeek.shifts.push({
+        week_day: day,
+        start_time: shift.start_time,
+        end_time: shift.end_time,
+    });
+}
+
+function updateShift(workWeek: WorkWeek, day: string, shift: Shift) {
+    const existingShift = getShift(workWeek, day);
+    if (existingShift) {
+        existingShift.start_time = shift.start_time;
+        existingShift.end_time = shift.end_time;
     }
 }
 

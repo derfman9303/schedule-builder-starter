@@ -1,8 +1,10 @@
 <template>
-    <Popover>
+        <Popover>
         <PopoverTrigger>
             <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                <Plus class="text-gray-400 m-auto" />
+                {{ shift?.start_time }}
+                <br />
+                {{ shift?.end_time }}
             </div>
         </PopoverTrigger>
         <PopoverContent class="w-64">
@@ -34,9 +36,9 @@
             <PopoverClose class="w-full mt-4">
                 <Button
                     class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-full"
-                    @click="addShift"
+                    @click="updateShift"
                 >
-                    Add Shift
+                    Update Shift
                 </Button>
             </PopoverClose>
         </PopoverContent>
@@ -44,21 +46,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { defineProps, ref } from 'vue';
+import { type Shift } from '@/types/Shift';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
 import { Plus, X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
-const startTime = ref('08:00');
-const endTime = ref('17:00');
+const props = defineProps<{
+    shift: Shift | undefined;
+    onUpdateShift: (shift: Shift) => void;
+}>();
 
-const emit = defineEmits(['add-shift']);
+const startTime = ref(props.shift?.start_time);
+const endTime = ref(props.shift?.end_time);
 
-function addShift() {
-    emit('add-shift', {
-        startTime: startTime.value,
-        endTime: endTime.value,
+function updateShift() {
+    props.onUpdateShift({
+        ...props.shift,
+        start_time: startTime.value,
+        end_time: endTime.value,
     });
 }
 </script>
