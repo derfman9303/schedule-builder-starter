@@ -1,10 +1,9 @@
 <template>
-        <Popover>
+    <Popover>
         <PopoverTrigger>
-            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                {{ shift?.start_time }}
-                <br />
-                {{ shift?.end_time }}
+            <div class="border rounded p-2 w-[80px] min-h-[60px] cursor-pointer hover:bg-gray-100">
+                <p class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.start_time) }}</p>
+                <p class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.end_time) }}</p>
             </div>
         </PopoverTrigger>
         <PopoverContent class="w-64">
@@ -67,5 +66,15 @@ function updateShift() {
         start_time: startTime.value,
         end_time: endTime.value,
     });
+}
+
+function formatTimeTo12Hour(time: string | undefined): string {
+    if (!time) return '';
+
+    const [hour, minute] = time.split(':').map(Number);
+    const period = hour >= 12 ? ' PM' : ' AM';
+    const formattedHour = hour % 12 || 12; // Convert 0 to 12 for midnight
+
+    return `${formattedHour}:${minute.toString().padStart(2, '0')}${period}`;
 }
 </script>
