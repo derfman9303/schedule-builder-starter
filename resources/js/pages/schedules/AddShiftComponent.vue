@@ -2,7 +2,7 @@
     <Popover>
         <PopoverTrigger>
             <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                <Plus class="text-gray-400 m-auto" />
+                <Plus class="text-gray-300 m-auto" />
             </div>
         </PopoverTrigger>
         <PopoverContent class="w-64">

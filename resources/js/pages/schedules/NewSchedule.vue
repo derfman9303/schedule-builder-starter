@@ -33,22 +33,70 @@
                             />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'tuesday', shift)" />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'tuesday')"
+                                :shift="getShift(work_week, 'tuesday')"
+                                @update-shift="(shift) => updateShift(work_week, 'tuesday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'tuesday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'wednesday', shift)" />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'wednesday')"
+                                :shift="getShift(work_week, 'wednesday')"
+                                @update-shift="(shift) => updateShift(work_week, 'wednesday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'wednesday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'thursday', shift)" />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'thursday')"
+                                :shift="getShift(work_week, 'thursday')"
+                                @update-shift="(shift) => updateShift(work_week, 'thursday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'thursday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'friday', shift)" />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'friday')"
+                                :shift="getShift(work_week, 'friday')"
+                                @update-shift="(shift) => updateShift(work_week, 'friday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'friday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'saturday', shift)" />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'saturday')"
+                                :shift="getShift(work_week, 'saturday')"
+                                @update-shift="(shift) => updateShift(work_week, 'saturday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'saturday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <AddShiftComponent @add-shift="(shift) => addShift(work_week, 'sunday', shift)" />
+                            <EditShiftComponent
+                                v-if="getShift(work_week, 'sunday')"
+                                :shift="getShift(work_week, 'sunday')"
+                                @update-shift="(shift) => updateShift(work_week, 'sunday', shift)"
+                            />
+                            <AddShiftComponent
+                                v-else
+                                @add-shift="(shift) => addShift(work_week, 'sunday', shift)"
+                            />
                         </TableCell>
                         <TableCell class="border-t p-0">
                             <Button
