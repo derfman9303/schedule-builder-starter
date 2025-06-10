@@ -22,39 +22,25 @@
                     <TableRow v-for="work_week in schedule.work_weeks" :key="work_week.employee_id" class="hover:bg-gray-50">
                         <TableCell class="border-t px-4 py-2">{{ work_week.employee_name }}</TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
-                                <Plus class="text-gray-400 m-auto" />
-                            </div>
+                            <ShiftComponent />
                         </TableCell>
                         <TableCell class="border-t p-0">
                             <Button
@@ -88,6 +74,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import ShiftComponent from './ShiftComponent.vue';
 import { Plus } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
