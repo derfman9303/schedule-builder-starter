@@ -40,6 +40,14 @@
                     Update Shift
                 </Button>
             </PopoverClose>
+            <PopoverClose class="w-full mt-2">
+                <Button
+                    class="bg-red-500 hover:bg-red-600 text-white cursor-pointer w-full"
+                    @click="removeShift"
+                >
+                    Remove Shift
+                </Button>
+            </PopoverClose>
         </PopoverContent>
     </Popover>
 </template>
@@ -55,6 +63,7 @@ import { Button } from '@/components/ui/button';
 const props = defineProps<{
     shift: Shift | undefined;
     onUpdateShift: (shift: Shift) => void;
+    onRemoveShift: (shift: Shift) => void;
 }>();
 
 const startTime = ref(props.shift?.start_time);
@@ -65,6 +74,12 @@ function updateShift() {
         ...props.shift,
         start_time: startTime.value,
         end_time: endTime.value,
+    });
+}
+
+function removeShift() {
+    props.onRemoveShift({
+        ...props.shift
     });
 }
 

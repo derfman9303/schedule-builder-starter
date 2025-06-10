@@ -26,6 +26,7 @@
                                 v-if="getShift(work_week, 'monday')"
                                 :shift="getShift(work_week, 'monday')"
                                 @update-shift="(shift) => updateShift(work_week, 'monday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'monday')"
                             />
                             <AddShiftComponent
                                 v-else
@@ -37,6 +38,7 @@
                                 v-if="getShift(work_week, 'tuesday')"
                                 :shift="getShift(work_week, 'tuesday')"
                                 @update-shift="(shift) => updateShift(work_week, 'tuesday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'tuesday')"
                             />
                             <AddShiftComponent
                                 v-else
@@ -48,6 +50,7 @@
                                 v-if="getShift(work_week, 'wednesday')"
                                 :shift="getShift(work_week, 'wednesday')"
                                 @update-shift="(shift) => updateShift(work_week, 'wednesday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'wednesday')"
                             />
                             <AddShiftComponent
                                 v-else
@@ -59,17 +62,19 @@
                                 v-if="getShift(work_week, 'thursday')"
                                 :shift="getShift(work_week, 'thursday')"
                                 @update-shift="(shift) => updateShift(work_week, 'thursday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'thursday')"
                             />
                             <AddShiftComponent
                                 v-else
                                 @add-shift="(shift) => addShift(work_week, 'thursday', shift)"
                             />
-                        </TableCell>
+                        </TableCell class="border-t p-0">
                         <TableCell class="border-t p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'friday')"
                                 :shift="getShift(work_week, 'friday')"
                                 @update-shift="(shift) => updateShift(work_week, 'friday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'friday')"
                             />
                             <AddShiftComponent
                                 v-else
@@ -81,6 +86,7 @@
                                 v-if="getShift(work_week, 'saturday')"
                                 :shift="getShift(work_week, 'saturday')"
                                 @update-shift="(shift) => updateShift(work_week, 'saturday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'saturday')"
                             />
                             <AddShiftComponent
                                 v-else
@@ -92,6 +98,7 @@
                                 v-if="getShift(work_week, 'sunday')"
                                 :shift="getShift(work_week, 'sunday')"
                                 @update-shift="(shift) => updateShift(work_week, 'sunday', shift)"
+                                @remove-shift="() => removeShift(work_week, 'sunday')"
                             />
                             <AddShiftComponent
                                 v-else
@@ -212,6 +219,15 @@ function updateShift(workWeek: WorkWeek, day: string, shift: Shift) {
     if (existingShift) {
         existingShift.start_time = shift.start_time;
         existingShift.end_time = shift.end_time;
+    }
+}
+
+function removeShift(workWeek: WorkWeek, day: string) {
+    if (workWeek.shifts) {
+        const index = workWeek.shifts.findIndex(shift => shift.week_day === day);
+        if (index > -1) {
+            workWeek.shifts.splice(index, 1);
+        }
     }
 }
 
