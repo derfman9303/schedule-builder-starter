@@ -130,11 +130,13 @@ function initSchedule() {
         schedule.value.work_weeks.push({
             employee_id: employee.id,
             employee_name: employee.first_name + ' ' + employee.last_name,
-            shifts: [
-                
-            ],
+            shifts: [],
         });
     });
+}
+
+function getShift(workWeek: WorkWeek, day: string) {
+    return workWeek.shifts?.find(shift => shift.week_day === day);
 }
 
 function addEmployee() {
