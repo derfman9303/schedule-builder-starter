@@ -4,7 +4,7 @@
     <AppLayout :breadcrumbs="breadcrumbs">
         <h2 class="text-2xl font-bold px-5">Create a Schedule</h2>
         <div class="overflow-x-auto px-5">
-            <Table class="border border-gray-200 w-max">
+            <Table class="border border-gray-200 w-max m-auto">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
                         <TableHead class="text-left px-4 py-2">Employee</TableHead>
@@ -19,40 +19,40 @@
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="employee in selectedEmployees" :key="employee.id" class="hover:bg-gray-50">
-                        <TableCell class="border-t px-4 py-2">{{ employee.first_name }} {{ employee.last_name }}</TableCell>
+                    <TableRow v-for="work_week in schedule.work_weeks" :key="work_week.employee_id" class="hover:bg-gray-50">
+                        <TableCell class="border-t px-4 py-2">{{ work_week.employee_name }}</TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer hover:bg-gray-100">
                                 <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
@@ -60,7 +60,7 @@
                             <Button
                                 class="text-red-500 cursor-pointer hover:underline"
                                 variant="link"
-                                @click="removeEmployee(employee)"
+                                @click="removeWorkWeek(work_week)"
                             >
                                 Remove
                             </Button>
@@ -88,9 +88,11 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Plus, X } from 'lucide-vue-next';
+import { Plus } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
+import { type Schedule } from '@/types/Schedule';
+import { type WorkWeek } from '@/types/WorkWeek';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -100,28 +102,49 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const employees = ref<Employee[]>([]);
-const selectedEmployees = ref<Employee[]>([]);
+
+const schedule = ref<Schedule>({
+    name: '',
+    start_date: '',
+    end_date: '',
+    work_weeks: [],
+});
 
 function loadData() {
     axios.get('/api/employees')
         .then(response => {
             employees.value = response.data;
-            selectedEmployees.value = response.data;
-            console.log('Employees loaded:', employees.value);
+            initSchedule();
         })
         .catch(error => {
             console.error('Error loading employees:', error);
         });
 }
 
+function initSchedule() {
+    employees.value.forEach(employee => {
+        if (!schedule.value.work_weeks) {
+            schedule.value.work_weeks = [];
+        }
+
+        schedule.value.work_weeks.push({
+            employee_id: employee.id,
+            employee_name: employee.first_name + ' ' + employee.last_name,
+            shifts: [
+                
+            ],
+        });
+    });
+}
+
 function addEmployee() {
 
 }
 
-function removeEmployee(employee: Employee) {
-    const index = selectedEmployees.value.indexOf(employee);
-    if (index > -1) {
-        selectedEmployees.value.splice(index, 1);
+function removeWorkWeek(workWeek: WorkWeek) {
+    const index = schedule.value.work_weeks?.indexOf(workWeek);
+    if (!!index && index > -1) {
+        schedule.value.work_weeks?.splice(index, 1);
     }
 }
 
