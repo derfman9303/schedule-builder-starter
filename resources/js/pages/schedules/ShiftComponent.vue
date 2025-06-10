@@ -7,34 +7,53 @@
         </PopoverTrigger>
         <PopoverContent class="w-64">
             <div class="flex flex-row justify-between">
-                <label for="start-time" class="text-gray-700">Start Time:</label>
+                <label for="start-time" class="text-gray-700 p-[5px]">Start Time:</label>
                 <input
                     v-model="startTime"
                     id="start-time"
+                    class="p-[5px]"
                     name="start time"
                     type="time"
                 />
             </div>
             <div class="flex flex-row justify-between">
-                <label for="end-time" class="text-gray-700">End Time:</label>
+                <label for="end-time" class="text-gray-700 p-[5px]">End Time:</label>
                 <input
                     v-model="endTime"
                     id="end-time"
+                    class="p-[5px]"
                     name="end time"
                     type="time"
                 />
             </div>
-            <Button class="w-full mt-2">Save Shift</Button>
+            <PopoverClose class="w-full mt-4">
+                <Button
+                    class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-full"
+                    @click="addShift"
+                >
+                    Add Shift
+                </Button>
+            </PopoverClose>
         </PopoverContent>
     </Popover>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { PopoverClose } from 'reka-ui';
 import { Plus } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
 const startTime = ref('08:00');
 const endTime = ref('17:00');
+
+const emit = defineEmits(['add-shift']);
+
+function addShift() {
+    emit('add-shift', {
+        startTime: startTime.value,
+        endTime: endTime.value,
+    });
+}
 </script>
