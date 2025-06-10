@@ -6,6 +6,11 @@
             </div>
         </PopoverTrigger>
         <PopoverContent class="w-64">
+            <div class="flex flex-col items-end mr-[5px] mb-2">
+                <PopoverClose>
+                    <X :size="20" class="text-gray-400 m-auto cursor-pointer" />
+                </PopoverClose>
+            </div>
             <div class="flex flex-row justify-between">
                 <label for="start-time" class="text-gray-700 p-[5px]">Start Time:</label>
                 <input
@@ -42,7 +47,7 @@
 import { ref, defineEmits } from 'vue';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
-import { Plus } from 'lucide-vue-next';
+import { Plus, X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
 const startTime = ref('08:00');
