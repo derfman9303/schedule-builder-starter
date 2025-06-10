@@ -22,76 +22,49 @@
                     <TableRow v-for="employee in selectedEmployees" :key="employee.id" class="hover:bg-gray-50">
                         <TableCell class="border-t px-4 py-2">{{ employee.first_name }} {{ employee.last_name }}</TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
                         <TableCell class="border-t p-0">
-                            <div class="border rounded p-2 w-[80px]">
-                                <div>
-                                    <input type="text" placeholder="Start" class="w-full" />
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" placeholder="End" class="w-full" />
-                                </div>
+                            <div class="border rounded p-2 w-[80px] min-h-[60px] flex cursor-pointer">
+                                <Plus class="text-gray-400 m-auto" />
                             </div>
                         </TableCell>
-                        <TableCell class="border-t p-0">action buttons</TableCell>
+                        <TableCell class="border-t p-0">
+                            <Button
+                                class="text-red-500 cursor-pointer hover:underline"
+                                variant="link"
+                                @click="removeEmployee(employee)"
+                            >
+                                Remove
+                            </Button>
+                        </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
@@ -115,7 +88,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-vue-next';
+import { Plus, X } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 
@@ -143,6 +116,13 @@ function loadData() {
 
 function addEmployee() {
 
+}
+
+function removeEmployee(employee: Employee) {
+    const index = selectedEmployees.value.indexOf(employee);
+    if (index > -1) {
+        selectedEmployees.value.splice(index, 1);
+    }
 }
 
 onMounted(() => {
