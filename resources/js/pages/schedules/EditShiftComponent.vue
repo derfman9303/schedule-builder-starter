@@ -1,7 +1,7 @@
 <template>
     <Popover>
         <PopoverTrigger>
-            <div class="border rounded p-2 w-[100px] min-h-[60px] cursor-pointer hover:bg-gray-100 text-sm flex flex-col justify-center">
+            <div class="border rounded-lg p-2 w-[100px] min-h-[60px] cursor-pointer hover:bg-gray-100 text-sm flex flex-col justify-center">
                 <div class="flex justify-between">
                     <div class="flex items-center">
                         <ArrowBigRightDash :size="16" class="text-gray-500" />

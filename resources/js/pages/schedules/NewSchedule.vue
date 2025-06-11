@@ -19,9 +19,9 @@
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="work_week in schedule.work_weeks" :key="work_week.employee_id" class="hover:bg-gray-50">
-                        <TableCell class="border-t px-4 py-2">{{ work_week.employee_name }}</TableCell>
-                        <TableCell class="border-t p-0">
+                    <TableRow v-for="work_week in schedule.work_weeks" :key="work_week.employee_id" class="hover:bg-gray-50 border-none">
+                        <TableCell class="border px-4 py-2">{{ work_week.employee_name }}</TableCell>
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'monday')"
                                 :shift="getShift(work_week, 'monday')"
@@ -33,7 +33,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'monday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border-t p-0">
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'tuesday')"
                                 :shift="getShift(work_week, 'tuesday')"
@@ -45,7 +45,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'tuesday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border-t p-0">
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'wednesday')"
                                 :shift="getShift(work_week, 'wednesday')"
@@ -57,7 +57,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'wednesday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border-t p-0">
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'thursday')"
                                 :shift="getShift(work_week, 'thursday')"
@@ -68,8 +68,8 @@
                                 v-else
                                 @add-shift="(shift) => addShift(work_week, 'thursday', shift)"
                             />
-                        </TableCell class="border-t p-0">
-                        <TableCell class="border-t p-0">
+                        </TableCell>
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'friday')"
                                 :shift="getShift(work_week, 'friday')"
@@ -81,7 +81,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'friday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border-t p-0">
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'saturday')"
                                 :shift="getShift(work_week, 'saturday')"
@@ -93,7 +93,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'saturday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border-t p-0">
+                        <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'sunday')"
                                 :shift="getShift(work_week, 'sunday')"
@@ -105,7 +105,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'sunday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border-t p-0">
+                        <TableCell class="border p-0">
                             <Button
                                 class="text-red-500 cursor-pointer hover:underline"
                                 variant="link"
