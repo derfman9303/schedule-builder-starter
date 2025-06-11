@@ -19,12 +19,17 @@
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="work_week in schedule.work_weeks" :key="work_week.employee_id" class="hover:bg-gray-50 border-none">
+                    <TableRow
+                        v-for="(work_week, index) in schedule.work_weeks"
+                        :key="work_week.employee_id"
+                        class="hover:bg-gray-50 border-none"
+                    >
                         <TableCell class="border px-4 py-2">{{ work_week.employee_name }}</TableCell>
                         <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'monday')"
                                 :shift="getShift(work_week, 'monday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'monday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'monday')"
                             />
@@ -37,6 +42,7 @@
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'tuesday')"
                                 :shift="getShift(work_week, 'tuesday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'tuesday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'tuesday')"
                             />
@@ -49,6 +55,7 @@
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'wednesday')"
                                 :shift="getShift(work_week, 'wednesday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'wednesday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'wednesday')"
                             />
@@ -61,6 +68,7 @@
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'thursday')"
                                 :shift="getShift(work_week, 'thursday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'thursday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'thursday')"
                             />
@@ -73,6 +81,7 @@
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'friday')"
                                 :shift="getShift(work_week, 'friday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'friday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'friday')"
                             />
@@ -85,6 +94,7 @@
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'saturday')"
                                 :shift="getShift(work_week, 'saturday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'saturday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'saturday')"
                             />
@@ -97,6 +107,7 @@
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'sunday')"
                                 :shift="getShift(work_week, 'sunday')"
+                                :color="colors[index % colors.length]"
                                 @update-shift="(shift) => updateShift(work_week, 'sunday', shift)"
                                 @remove-shift="() => removeShift(work_week, 'sunday')"
                             />
@@ -151,6 +162,15 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: 'Create a Schedule',
         href: '/schedules/new',
     },
+];
+
+const colors = [
+    'bg-blue-100',
+    'bg-red-100',
+    'bg-yellow-100',
+    'bg-green-100',
+    'bg-purple-100',
+    'bg-orange-100',
 ];
 
 const employees = ref<Employee[]>([]);

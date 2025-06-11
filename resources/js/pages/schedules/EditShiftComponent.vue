@@ -1,7 +1,10 @@
 <template>
     <Popover>
         <PopoverTrigger>
-            <div class="border rounded-lg p-2 w-[100px] min-h-[60px] cursor-pointer hover:bg-gray-100 text-sm flex flex-col justify-center">
+            <div
+                class="border rounded-lg p-2 w-[100px] min-h-[60px] cursor-pointer text-sm flex flex-col justify-center"
+                :class="color"
+            >
                 <div class="flex justify-between">
                     <div class="flex items-center">
                         <ArrowBigRightDash :size="16" class="text-gray-500" />
@@ -74,6 +77,7 @@ import { Button } from '@/components/ui/button';
 
 const props = defineProps<{
     shift: Shift | undefined;
+    color: string;
     onUpdateShift: (shift: Shift) => void;
     onRemoveShift: (shift: Shift) => void;
 }>();
