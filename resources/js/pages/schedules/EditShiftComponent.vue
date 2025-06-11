@@ -1,9 +1,19 @@
 <template>
     <Popover>
         <PopoverTrigger>
-            <div class="border rounded p-2 w-[80px] min-h-[60px] cursor-pointer hover:bg-gray-100">
-                <p class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.start_time) }}</p>
-                <p class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.end_time) }}</p>
+            <div class="border rounded p-2 w-[100px] min-h-[60px] cursor-pointer hover:bg-gray-100 text-sm flex flex-col justify-center">
+                <div class="flex justify-between">
+                    <div class="flex items-center">
+                        <ArrowBigRightDash :size="16" class="text-gray-500" />
+                    </div>
+                    <span class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.start_time) }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <div class="flex items-center">
+                        <ArrowBigLeftDash :size="16" class="text-gray-500" />
+                    </div>
+                    <span class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.end_time) }}</span>
+                </div>
             </div>
         </PopoverTrigger>
         <PopoverContent class="w-64">
@@ -38,7 +48,7 @@
                         class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-full"
                         @click="updateShift"
                     >
-                        Update Shift
+                        Update
                     </Button>
                 </PopoverClose>
                 <PopoverClose class="w-[48%]">
@@ -46,7 +56,7 @@
                         class="bg-red-500 hover:bg-red-600 text-white cursor-pointer w-full"
                         @click="removeShift"
                     >
-                        Remove Shift
+                        Remove
                     </Button>
                 </PopoverClose>
             </div>
@@ -59,7 +69,7 @@ import { defineProps, ref } from 'vue';
 import { type Shift } from '@/types/Shift';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
-import { X } from 'lucide-vue-next';
+import { ArrowBigRightDash, ArrowBigLeftDash, X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
 const props = defineProps<{
