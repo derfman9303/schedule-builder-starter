@@ -2,7 +2,7 @@
     <Popover>
         <PopoverTrigger>
             <div
-                class="rounded-lg p-2 w-[100px] min-h-[60px] cursor-pointer text-sm flex flex-col justify-center"
+                class="rounded-lg px-2 py-[3px] w-[100px] min-h-[50px] cursor-pointer text-sm flex flex-col justify-center"
                 :class="color"
             >
                 <div class="flex justify-between">

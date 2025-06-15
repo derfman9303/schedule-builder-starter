@@ -134,17 +134,34 @@
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell class="border-2 text-sm p-0">
-                            <div class="flex items-center justify-center">
-                                <Button
-                                    @click="addEmployee"
-                                    class="border-blue-500 text-blue-500 h-[55px] w-full cursor-pointer"
-                                    variant="link"
-                                >
-                                    <Plus />
-                                    Add
-                                </Button>
-                            </div>
+                        <TableCell class="border-2 p-0">
+                            <Popover>
+                                <PopoverTrigger class="w-full cursor-pointer h-[45px]">
+                                    <div class="flex items-center justify-center text-sm text-blue-500">
+                                        <Plus :size="16" />
+                                        Add
+                                    </div>
+                                </PopoverTrigger>
+                                <PopoverContent>
+                                    <div class="flex flex-col items-end mr-[5px] mb-2">
+                                        <PopoverClose>
+                                            <X :size="20" class="text-gray-400 m-auto cursor-pointer" />
+                                        </PopoverClose>
+                                    </div>
+                                    <Tabs default-value="existing">
+                                        <TabsList>
+                                            <TabsTrigger value="existing">Existing Employee</TabsTrigger>
+                                            <TabsTrigger value="new">New Employee</TabsTrigger>
+                                        </TabsList>
+                                        <TabsContent value="existing">
+                                            
+                                        </TabsContent>
+                                        <TabsContent value="new">
+                                            
+                                        </TabsContent>
+                                    </Tabs>
+                                </PopoverContent>
+                            </Popover>
                         </TableCell>
                         <TableCell class="border-2 bg-gray-100" :colspan="8"></TableCell>
                     </TableRow>
@@ -160,10 +177,13 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { PopoverClose } from 'reka-ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
-import { Plus, LoaderCircle } from 'lucide-vue-next';
+import { Plus, X, LoaderCircle } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
