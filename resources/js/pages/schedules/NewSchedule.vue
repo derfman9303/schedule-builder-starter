@@ -159,7 +159,11 @@
                                                     <SelectValue placeholder="Select an employee" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem v-for="employee in employees" :key="employee.id" :value="employee.id">
+                                                    <SelectItem
+                                                        v-for="employee in employees.filter(emp => !schedule.work_weeks?.some(ww => ww.employee_id === emp.id))"
+                                                        :key="employee.id"
+                                                        :value="employee.id"
+                                                    >
                                                         {{ employee.first_name }} {{ employee.last_name }}
                                                     </SelectItem>
                                                 </SelectContent>
