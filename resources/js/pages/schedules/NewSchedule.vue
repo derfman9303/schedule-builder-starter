@@ -189,7 +189,7 @@ import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
