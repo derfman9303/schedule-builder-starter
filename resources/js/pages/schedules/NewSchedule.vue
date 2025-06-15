@@ -165,12 +165,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const colors = [
-    'bg-blue-100',
-    'bg-red-100',
-    'bg-yellow-100',
-    'bg-green-100',
-    'bg-purple-100',
-    'bg-orange-100',
+    'bg-sky-600',
+    'bg-rose-700',
+    'bg-violet-600',
+    'bg-emerald-600',
+    'bg-orange-600',
 ];
 
 const employees = ref<Employee[]>([]);

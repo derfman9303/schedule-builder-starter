@@ -2,20 +2,20 @@
     <Popover>
         <PopoverTrigger>
             <div
-                class="border rounded-lg p-2 w-[100px] min-h-[60px] cursor-pointer text-sm flex flex-col justify-center"
+                class="rounded-lg p-2 w-[100px] min-h-[60px] cursor-pointer text-sm flex flex-col justify-center"
                 :class="color"
             >
                 <div class="flex justify-between">
                     <div class="flex items-center">
-                        <ArrowBigRightDash :size="16" class="text-gray-500" />
+                        <ArrowBigRightDash :size="16" class="text-white" />
                     </div>
-                    <span class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.start_time) }}</span>
+                    <span class="text-white">{{ formatTimeTo12Hour(props.shift?.start_time) }}</span>
                 </div>
                 <div class="flex justify-between">
                     <div class="flex items-center">
-                        <ArrowBigLeftDash :size="16" class="text-gray-500" />
+                        <ArrowBigLeftDash :size="16" class="text-white" />
                     </div>
-                    <span class="text-gray-500">{{ formatTimeTo12Hour(props.shift?.end_time) }}</span>
+                    <span class="text-white">{{ formatTimeTo12Hour(props.shift?.end_time) }}</span>
                 </div>
             </div>
         </PopoverTrigger>
