@@ -14,15 +14,15 @@
             <Table class="border border-gray-200 w-max m-auto">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
-                        <TableHead class="text-left px-4 py-2">Employee</TableHead>
-                        <TableHead class="text-left px-4 py-2">Mon.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Tue.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Wed.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Thu.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Fri.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Sat.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Sun.</TableHead>
-                        <TableHead class="text-left px-4 py-2">Actions</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Employee</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Mon.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Tue.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Wed.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Thu.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Fri.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Sat.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Sun.</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
