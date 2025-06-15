@@ -133,17 +133,23 @@
                             </Button>
                         </TableCell>
                     </TableRow>
+                    <TableRow>
+                        <TableCell class="border-2 text-sm p-0">
+                            <div class="flex items-center justify-center">
+                                <Button
+                                    @click="addEmployee"
+                                    class="border-blue-500 text-blue-500 h-[55px] w-full cursor-pointer"
+                                    variant="link"
+                                >
+                                    <Plus />
+                                    Add
+                                </Button>
+                            </div>
+                        </TableCell>
+                        <TableCell class="border-2 bg-gray-100" :colspan="8"></TableCell>
+                    </TableRow>
                 </TableBody>
             </Table>
-            <div class="mt-4">
-                <Button
-                    @click="addEmployee"
-                    class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
-                >
-                    <Plus />
-                    Add
-                </Button>
-            </div>
         </div>
     </AppLayout>
 </template>
