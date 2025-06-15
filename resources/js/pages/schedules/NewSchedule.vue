@@ -160,7 +160,7 @@
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem
-                                                        v-for="employee in employees.filter(emp => !schedule.work_weeks?.some(ww => ww.employee_id === emp.id))"
+                                                        v-for="employee in filteredEmployees"
                                                         :key="employee.id"
                                                         :value="employee.id"
                                                     >
@@ -185,7 +185,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
@@ -228,6 +228,10 @@ const schedule = ref<Schedule>({
     start_date: '',
     end_date: '',
     work_weeks: [],
+});
+
+const filteredEmployees = computed(() => {
+    return employees.value.filter(emp => !schedule.value.work_weeks?.some(ww => ww.employee_id === emp.id));
 });
 
 function loadData() {
