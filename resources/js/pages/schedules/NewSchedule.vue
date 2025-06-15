@@ -2,8 +2,15 @@
     <Head title="Create a Schedule" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <h2 class="text-2xl font-bold px-5">Create a Schedule</h2>
-        <div class="overflow-x-auto px-5">
+        <div
+            v-if="isLoading"
+            class="flex justify-center items-center h-64">
+            <LoaderCircle class="h-8 w-8 animate-spin text-blue-500" />
+        </div>
+        <div
+            v-else
+            class="overflow-x-auto"
+        >
             <Table class="border border-gray-200 w-max m-auto">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
@@ -24,7 +31,7 @@
                         :key="work_week.employee_id"
                         class="hover:bg-gray-50 border-none"
                     >
-                        <TableCell class="border px-4 py-2">{{ work_week.employee_name }}</TableCell>
+                        <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
                         <TableCell class="p-0">
                             <EditShiftComponent
                                 v-if="getShift(work_week, 'monday')"
@@ -116,7 +123,7 @@
                                 @add-shift="(shift) => addShift(work_week, 'sunday', shift)"
                             />
                         </TableCell>
-                        <TableCell class="border p-0">
+                        <TableCell class="border-2 p-0">
                             <Button
                                 class="text-red-500 cursor-pointer hover:underline"
                                 variant="link"
@@ -150,12 +157,14 @@ import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@
 import { Button } from '@/components/ui/button';
 import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
-import { Plus } from 'lucide-vue-next';
+import { Plus, LoaderCircle } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
 import { type WorkWeek } from '@/types/WorkWeek';
 import { type Shift } from '@/types/Shift';
+
+const isLoading = ref(false);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -182,6 +191,8 @@ const schedule = ref<Schedule>({
 });
 
 function loadData() {
+    isLoading.value = true;
+
     axios.get('/api/employees')
         .then(response => {
             employees.value = response.data;
@@ -189,6 +200,9 @@ function loadData() {
         })
         .catch(error => {
             console.error('Error loading employees:', error);
+        })
+        .finally(() => {
+            isLoading.value = false;
         });
 }
 
