@@ -154,20 +154,30 @@
                                             <TabsTrigger value="new">New Employee</TabsTrigger>
                                         </TabsList>
                                         <TabsContent value="existing">
-                                            <Select>
-                                                <SelectTrigger>
+                                            <Select
+                                                class="w-full"
+                                                v-model="selectedEmployee"
+                                            >
+                                                <SelectTrigger class="w-full">
                                                     <SelectValue placeholder="Select an employee" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem
-                                                        v-for="employee in filteredEmployees"
+                                                        v-for="employee in selectedEmployees"
                                                         :key="employee.id"
-                                                        :value="employee.id"
+                                                        :value="employee"
                                                     >
                                                         {{ employee.first_name }} {{ employee.last_name }}
                                                     </SelectItem>
                                                 </SelectContent>
                                             </Select>
+                                            <Button
+                                                @click="addEmployee"
+                                                :disabled="!selectedEmployee"
+                                                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
+                                            >
+                                                Add
+                                            </Button>
                                         </TabsContent>
                                         <TabsContent value="new">
                                             
@@ -230,7 +240,9 @@ const schedule = ref<Schedule>({
     work_weeks: [],
 });
 
-const filteredEmployees = computed(() => {
+const selectedEmployee = ref<Employee | null>(null);
+
+const selectedEmployees = computed(() => {
     return employees.value.filter(emp => !schedule.value.work_weeks?.some(ww => ww.employee_id === emp.id));
 });
 
@@ -269,7 +281,14 @@ function getShift(workWeek: WorkWeek, day: string) {
 }
 
 function addEmployee() {
-
+    if (selectedEmployee.value && schedule.value.work_weeks) {
+        schedule.value.work_weeks.push({
+            employee_id: selectedEmployee.value.id,
+            employee_name: selectedEmployee.value.first_name + ' ' + selectedEmployee.value.last_name,
+            shifts: [],
+        });
+        selectedEmployee.value = null;
+    }
 }
 
 function removeWorkWeek(workWeek: WorkWeek) {
