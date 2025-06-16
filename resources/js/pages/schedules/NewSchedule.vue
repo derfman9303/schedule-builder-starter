@@ -171,13 +171,15 @@
                                                     </SelectItem>
                                                 </SelectContent>
                                             </Select>
-                                            <Button
-                                                @click="addEmployee"
-                                                :disabled="!selectedEmployee"
-                                                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
-                                            >
-                                                Add
-                                            </Button>
+                                            <PopoverClose>
+                                                <Button
+                                                    @click="addEmployee"
+                                                    :disabled="!selectedEmployee"
+                                                    class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
+                                                >
+                                                    Add
+                                                </Button>
+                                            </PopoverClose>
                                         </TabsContent>
                                         <TabsContent value="new">
                                             
