@@ -314,6 +314,7 @@ function addEmployee(employee: Employee | null) {
             shifts: [],
         });
         selectedEmployee.value = null;
+        newEmployee.value.full_name = '';
     }
 }
 
