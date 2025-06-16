@@ -153,13 +153,17 @@
                                             <TabsTrigger value="existing">Existing Employee</TabsTrigger>
                                             <TabsTrigger value="new">New Employee</TabsTrigger>
                                         </TabsList>
-                                        <TabsContent value="existing">
+                                        <TabsContent
+                                            class="mt-2"
+                                            value="existing"
+                                        >
                                             <Select
                                                 class="w-full"
                                                 v-model="selectedEmployee"
+                                                :disabled="selectedEmployees.length === 0"
                                             >
                                                 <SelectTrigger class="w-full">
-                                                    <SelectValue placeholder="Select an employee" />
+                                                    <SelectValue :placeholder="selectedEmployees.length === 0 ? 'No employees available' : 'Select an employee'" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectItem
@@ -173,7 +177,7 @@
                                             </Select>
                                             <PopoverClose>
                                                 <Button
-                                                    @click="addEmployee"
+                                                    @click="addEmployee(selectedEmployee)"
                                                     :disabled="!selectedEmployee"
                                                     class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                 >
@@ -181,8 +185,23 @@
                                                 </Button>
                                             </PopoverClose>
                                         </TabsContent>
-                                        <TabsContent value="new">
-                                            
+                                        <TabsContent
+                                            class="mt-2"
+                                            value="new"
+                                        >
+                                            <Input
+                                                v-model="newEmployee.full_name"
+                                                placeholder="Employee Name"
+                                            />
+                                            <PopoverClose>
+                                                <Button
+                                                    @click="addEmployee(newEmployee)"
+                                                    :disabled="!newEmployee.full_name"
+                                                    class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
+                                                >
+                                                    Add
+                                                </Button>
+                                            </PopoverClose>
                                         </TabsContent>
                                     </Tabs>
                                 </PopoverContent>
@@ -207,6 +226,7 @@ import { PopoverClose } from 'reka-ui';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
 import { Plus, X, LoaderCircle } from 'lucide-vue-next';
@@ -240,6 +260,10 @@ const schedule = ref<Schedule>({
     start_date: '',
     end_date: '',
     work_weeks: [],
+});
+
+const newEmployee = ref<Employee>({ 
+    full_name: '',
 });
 
 const selectedEmployee = ref<Employee | null>(null);
@@ -282,11 +306,11 @@ function getShift(workWeek: WorkWeek, day: string) {
     return workWeek.shifts?.find(shift => shift.week_day === day);
 }
 
-function addEmployee() {
-    if (selectedEmployee.value && schedule.value.work_weeks) {
+function addEmployee(employee: Employee | null) {
+    if (employee && schedule.value.work_weeks) {
         schedule.value.work_weeks.push({
-            employee_id: selectedEmployee.value.id,
-            employee_name: selectedEmployee.value.first_name + ' ' + selectedEmployee.value.last_name,
+            employee_id: employee.id,
+            employee_name: employee.full_name || (employee.first_name + ' ' + employee.last_name),
             shifts: [],
         });
         selectedEmployee.value = null;
