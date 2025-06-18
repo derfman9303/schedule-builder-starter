@@ -257,7 +257,7 @@
                         </TableRow>
                     </TableBody>
                 </Table>
-                <Button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white">
+                <Button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white" @click="saveSchedule">
                     Save Schedule
                 </Button>
             </div>
@@ -418,6 +418,24 @@ function removeShift(workWeek: WorkWeek, day: string) {
             workWeek.shifts.splice(index, 1);
         }
     }
+}
+
+function saveSchedule() {
+    isLoading.value = true;
+
+    schedule.value.start_date = startDate.value?.toString() || '';
+    schedule.value.end_date = endDate.value?.toString() || '';
+
+    axios.post('/api/schedules', schedule.value)
+        .then(response => {
+            console.log('Schedule saved successfully:', response.data);
+        })
+        .catch(error => {
+            console.error('Error saving schedule:', error);
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
 }
 
 watch(
