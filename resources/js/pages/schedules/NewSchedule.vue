@@ -257,6 +257,9 @@
                         </TableRow>
                     </TableBody>
                 </Table>
+                <Button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white">
+                    Save Schedule
+                </Button>
             </div>
         </div>
     </AppLayout>
@@ -418,15 +421,15 @@ function removeShift(workWeek: WorkWeek, day: string) {
 }
 
 watch(
-  () => [ startDate.value, endDate.value ],
-  ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
-    if (newStart?.day && newStart?.day !== oldStart?.day) {
-        endDate.value = newStart.copy().add({weeks: 1});
-    } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
-        startDate.value = newEnd.copy().subtract({weeks: 1});
-    }
-  },
-  { flush: 'post' }
+    () => [ startDate.value, endDate.value ],
+    ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
+        if (newStart?.day && newStart?.day !== oldStart?.day) {
+            endDate.value = newStart.copy().add({days: 6});
+        } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
+            startDate.value = newEnd.copy().subtract({days: 6});
+        }
+    },
+    { flush: 'post' }
 );
 
 onMounted(() => {
