@@ -35,7 +35,7 @@
                             variant="outline"
                             :class="cn(
                             'w-[200px] justify-start text-left font-normal',
-                            !startDate && 'text-muted-foreground',
+                            !endDate && 'text-muted-foreground',
                             )"
                         >
                             <CalendarIcon class="mr-2 h-4 w-4" />
@@ -50,24 +50,24 @@
                     <TableHeader class="bg-gray-100">
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Mon.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Tue.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Wed.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Thu.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Fri.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Sat.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Sun.</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.toDate(getLocalTimeZone())) : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.add({days: 1}).toDate(getLocalTimeZone())) : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.add({days: 2}).toDate(getLocalTimeZone())) : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.add({days: 3}).toDate(getLocalTimeZone())) : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.add({days: 4}).toDate(getLocalTimeZone())) : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.add({days: 5}).toDate(getLocalTimeZone())) : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? header_df.format(startDate.add({days: 6}).toDate(getLocalTimeZone())) : '' }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
                         </TableRow>
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center">Employee</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Mon.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Tue.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Wed.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Thu.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Fri.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Sat.</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">Sun.</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate, 'us')] : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate.add({days: 1}), 'us')] : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate.add({days: 2}), 'us')] : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate.add({days: 3}), 'us')] : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate.add({days: 4}), 'us')] : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate.add({days: 5}), 'us')] : '' }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ startDate ? weekDays[getDayOfWeek(startDate.add({days: 6}), 'us')] : '' }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -263,12 +263,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { cn } from '../../lib/utils';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { DateFormatter, type DateValue, getLocalTimeZone } from '@internationalized/date';
+import { DateFormatter, type DateValue, getLocalTimeZone, getDayOfWeek } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
@@ -326,8 +326,14 @@ const df = new DateFormatter('en-US', {
     dateStyle: 'long',
 });
 
+const header_df = new DateFormatter('en-US', {
+    dateStyle: 'short',
+});
+
 const startDate = ref<DateValue>();
 const endDate = ref<DateValue>();
+
+const weekDays = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
 
 function loadData() {
     isLoading.value = true;
@@ -410,6 +416,18 @@ function removeShift(workWeek: WorkWeek, day: string) {
         }
     }
 }
+
+watch(
+  () => [ startDate.value, endDate.value ],
+  ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
+    if (newStart?.day && newStart?.day !== oldStart?.day) {
+        endDate.value = newStart.copy().add({weeks: 1});
+    } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
+        startDate.value = newEnd.copy().subtract({weeks: 1});
+    }
+  },
+  { flush: 'post' }
+);
 
 onMounted(() => {
     loadData();
