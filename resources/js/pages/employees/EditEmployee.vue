@@ -133,7 +133,7 @@ function save() {
     form.errors.phone = '';
     form.processing = true;
 
-    axios.post('/api/employees/' + employee.value.id, {
+    axios.put('/api/employees/' + employee.value.id, {
         first_name: form.first_name,
         last_name: form.last_name,
         email: form.email,
