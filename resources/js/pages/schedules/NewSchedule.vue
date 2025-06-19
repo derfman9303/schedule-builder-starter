@@ -80,93 +80,93 @@
                             <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(0))"
-                                    :shift="getShift(work_week, weekDay(0))"
+                                    v-if="getShift(work_week, 0)"
+                                    :shift="getShift(work_week, 0)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(0), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(0))"
+                                    @update-shift="(shift) => updateShift(work_week, 0, shift)"
+                                    @remove-shift="() => removeShift(work_week, 0)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(0), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 0, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(1))"
-                                    :shift="getShift(work_week, weekDay(1))"
+                                    v-if="getShift(work_week, 1)"
+                                    :shift="getShift(work_week, 1)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(1), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(1))"
+                                    @update-shift="(shift) => updateShift(work_week, 1, shift)"
+                                    @remove-shift="() => removeShift(work_week, 1)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(1), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 1, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(2))"
-                                    :shift="getShift(work_week, weekDay(2))"
+                                    v-if="getShift(work_week, 2)"
+                                    :shift="getShift(work_week, 2)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(2), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(2))"
+                                    @update-shift="(shift) => updateShift(work_week, 2, shift)"
+                                    @remove-shift="() => removeShift(work_week, 2)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(2), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 2, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(3))"
-                                    :shift="getShift(work_week, weekDay(3))"
+                                    v-if="getShift(work_week, 3)"
+                                    :shift="getShift(work_week, 3)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(3), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(3))"
+                                    @update-shift="(shift) => updateShift(work_week, 3, shift)"
+                                    @remove-shift="() => removeShift(work_week, 3)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(3), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 3, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(4))"
-                                    :shift="getShift(work_week, weekDay(4))"
+                                    v-if="getShift(work_week, 4)"
+                                    :shift="getShift(work_week, 4)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(4), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(4))"
+                                    @update-shift="(shift) => updateShift(work_week, 4, shift)"
+                                    @remove-shift="() => removeShift(work_week, 4)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(4), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 4, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(5))"
-                                    :shift="getShift(work_week, weekDay(5))"
+                                    v-if="getShift(work_week, 5)"
+                                    :shift="getShift(work_week, 5)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(5), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(5))"
+                                    @update-shift="(shift) => updateShift(work_week, 5, shift)"
+                                    @remove-shift="() => removeShift(work_week, 5)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(5), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 5, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, weekDay(6))"
-                                    :shift="getShift(work_week, weekDay(6))"
+                                    v-if="getShift(work_week, 6)"
+                                    :shift="getShift(work_week, 6)"
                                     :color="colors[index % colors.length]"
-                                    @update-shift="(shift) => updateShift(work_week, weekDay(6), shift)"
-                                    @remove-shift="() => removeShift(work_week, weekDay(6))"
+                                    @update-shift="(shift) => updateShift(work_week, 6, shift)"
+                                    @remove-shift="() => removeShift(work_week, 6)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, weekDay(6), shift)"
+                                    @add-shift="(shift) => addShift(work_week, 6, shift)"
                                 />
                             </TableCell>
                             <TableCell class="border-2 p-0">
@@ -369,8 +369,8 @@ function initSchedule() {
     });
 }
 
-function getShift(workWeek: WorkWeek, day: string) {
-    return workWeek.shifts?.find(shift => shift.week_day === day);
+function getShift(workWeek: WorkWeek, dayOffset: number): Shift | undefined {
+    return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset));
 }
 
 function addEmployee(employee: Employee | null) {
@@ -392,29 +392,52 @@ function removeWorkWeek(workWeek: WorkWeek) {
     }
 }
 
-function addShift(workWeek: WorkWeek, day: string, shift: Shift) {
+function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
+    const day = weekDay(dayOffset);
+
     if (!workWeek.shifts) {
         workWeek.shifts = [];
     }
 
     workWeek.shifts.push({
         week_day: day,
+        date: startDate.value?.add({ days: dayOffset }).toString() || '',
+        day_offset: dayOffset,
         start_time: shift.start_time,
         end_time: shift.end_time,
     });
 }
 
-function updateShift(workWeek: WorkWeek, day: string, shift: Shift) {
-    const existingShift = getShift(workWeek, day);
+function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
+    const existingShift = getShift(workWeek, dayOffset);
+
     if (existingShift) {
         existingShift.start_time = shift.start_time;
         existingShift.end_time = shift.end_time;
     }
 }
 
-function removeShift(workWeek: WorkWeek, day: string) {
+function updateShiftDates(newStart: DateValue|undefined, oldStart: DateValue|undefined) {
+    if (!newStart || !oldStart) {
+        return;
+    }
+
+    if (schedule.value.work_weeks) {
+        schedule.value.work_weeks.forEach(workWeek => {
+            workWeek.shifts?.forEach(shift => {
+                const shiftDate = newStart.add({ days: shift.day_offset });
+                const weekDay = weekDaysLowerCase[getDayOfWeek(shiftDate, 'us')];
+
+                shift.date = shiftDate.toString();
+                shift.week_day = weekDay;
+            });
+        });
+    }
+}
+
+function removeShift(workWeek: WorkWeek, dayOffset: number) {
     if (workWeek.shifts) {
-        const index = workWeek.shifts.findIndex(shift => shift.week_day === day);
+        const index = workWeek.shifts.findIndex(shift => shift.week_day === weekDay(dayOffset));
         if (index > -1) {
             workWeek.shifts.splice(index, 1);
         }
@@ -440,7 +463,7 @@ function saveSchedule() {
 }
 
 function weekDay(dayOffset: number): string {
-    return startDate.value ? weekDaysLowerCase[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : '';
+    return startDate.value ? weekDaysLowerCase[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
 }
 
 function weekDayShort(dayOffset: number): string {
@@ -456,8 +479,10 @@ watch(
     ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
         if (newStart?.day && newStart?.day !== oldStart?.day) {
             endDate.value = newStart.copy().add({days: 6});
+            updateShiftDates(newStart, oldStart);
         } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
             startDate.value = newEnd.copy().subtract({days: 6});
+            updateShiftDates(newStart, oldStart);
         }
     },
     { flush: 'post' }

@@ -17,7 +17,7 @@ class ScheduleController extends Controller
             'work_weeks'            => 'required|array|min:1',
             'work_weeks.*.employee_id'   => 'nullable|integer|exists:employees,id',
             'work_weeks.*.employee_name' => 'required|string|max:255',
-            'work_weeks.*.shifts'        => 'required|array',
+            'work_weeks.*.shifts'        => 'nullable|array',
             'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
             'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
             'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
