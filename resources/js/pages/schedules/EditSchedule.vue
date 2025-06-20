@@ -387,9 +387,10 @@ function addEmployee(employee: Employee | null) {
 
 function removeWorkWeek(workWeek: WorkWeek) {
     const index = schedule.value.work_weeks?.indexOf(workWeek);
-    if (!!index && index > -1) {
-        schedule.value.work_weeks?.splice(index, 1);
-    }
+
+    schedule.value.work_weeks = schedule.value.work_weeks?.filter((ww, i) => {
+        return i !== index;
+    });
 }
 
 function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
