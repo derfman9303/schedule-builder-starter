@@ -268,6 +268,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
 import { cn } from '../../lib/utils';
+import { parseDate } from '@internationalized/date';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
@@ -356,8 +357,8 @@ async function loadData() {
     const scheduleRequest = axios.get('/api/schedules/' + page.props.schedule_id)
         .then(response => {
             schedule.value = response.data;
-            startDate.value = new DateValue(schedule.value.start_date);
-            endDate.value = new DateValue(schedule.value.end_date);
+            startDate.value = parseDate(schedule.value.start_date);
+            endDate.value = parseDate(schedule.value.end_date);
         })
         .catch(error => {
             console.error('Error loading schedule:', error);
