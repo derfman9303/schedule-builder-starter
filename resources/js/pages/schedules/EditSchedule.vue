@@ -223,7 +223,7 @@
                                                 </Select>
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="addEmployee(selectedEmployee)"
+                                                        @click="scheduleUtils.addEmployee(selectedEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!selectedEmployee"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -241,7 +241,7 @@
                                                 />
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="addEmployee(newEmployee)"
+                                                        @click="scheduleUtils.addEmployee(newEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!newEmployee.full_name"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -374,18 +374,6 @@ async function loadData() {
 
 function getShift(workWeek: WorkWeek, dayOffset: number): Shift | undefined {
     return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset));
-}
-
-function addEmployee(employee: Employee | null) {
-    if (employee && schedule.value.work_weeks) {
-        schedule.value.work_weeks.push({
-            employee_id: employee.id,
-            employee_name: employee.full_name || (employee.first_name + ' ' + employee.last_name),
-            shifts: [],
-        });
-        selectedEmployee.value = null;
-        newEmployee.value.full_name = '';
-    }
 }
 
 function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
