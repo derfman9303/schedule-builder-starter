@@ -173,7 +173,7 @@
                                 <Button
                                     class="text-red-500 cursor-pointer hover:underline"
                                     variant="link"
-                                    @click="removeWorkWeek(work_week)"
+                                    @click="scheduleUtils.removeWorkWeek(work_week, schedule)"
                                 >
                                     Remove
                                 </Button>
@@ -271,6 +271,7 @@ import { cn } from '../../lib/utils';
 import { parseDate } from '@internationalized/date';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
+import { useSchedule } from '@/composables/useSchedule';
 import { Head } from '@inertiajs/vue3';
 import { DateFormatter, type DateValue, getLocalTimeZone, getDayOfWeek } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
@@ -294,6 +295,8 @@ import { type Shift } from '@/types/Shift';
 const page = usePage<{ schedule_id: number }>();
 
 const isLoading = ref(false);
+
+const scheduleUtils = useSchedule();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -383,14 +386,6 @@ function addEmployee(employee: Employee | null) {
         selectedEmployee.value = null;
         newEmployee.value.full_name = '';
     }
-}
-
-function removeWorkWeek(workWeek: WorkWeek) {
-    const index = schedule.value.work_weeks?.indexOf(workWeek);
-
-    schedule.value.work_weeks = schedule.value.work_weeks?.filter((ww, i) => {
-        return i !== index;
-    });
 }
 
 function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
