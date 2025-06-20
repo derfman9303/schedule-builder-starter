@@ -20,8 +20,8 @@ class ScheduleController extends Controller
             'work_weeks.*.shifts'        => 'nullable|array',
             'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
             'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
-            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
-            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i:s',
+            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i:s|after:work_weeks.*.shifts.*.start_time',
         ]);
 
         $schedule = new Schedule();
@@ -55,5 +55,45 @@ class ScheduleController extends Controller
             'workWeeks.employee',
             'workWeeks.shifts',
         ]);
+    }
+
+    public function update(Request $request, Schedule $schedule): Schedule
+    {
+        $request->validate([
+            'name'                  => 'nullable|string|max:255',
+            'start_date'            => 'required|date',
+            'end_date'              => 'required|date|after_or_equal:start_date',
+            'work_weeks'            => 'required|array|min:1',
+            'work_weeks.*.employee_id'   => 'nullable|integer|exists:employees,id',
+            'work_weeks.*.employee_name' => 'required|string|max:255',
+            'work_weeks.*.shifts'        => 'nullable|array',
+            'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
+            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i:s',
+            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i:s|after:work_weeks.*.shifts.*.start_time',
+        ]);
+
+        $schedule->update($request->only(['name', 'start_date', 'end_date']));
+
+        // Clear existing work weeks and shifts
+        $schedule->workWeeks()->delete();
+
+        foreach ($request->input('work_weeks') as $week) {
+            $workWeek = $schedule->workWeeks()->create([
+                'employee_id' => $week['employee_id'],
+                'employee_name' => $week['employee_name'],
+            ]);
+
+            foreach ($week['shifts'] as $shift) {
+                $workWeek->shifts()->create([
+                    'week_day' => $shift['week_day'],
+                    'date' => $shift['date'],
+                    'start_time' => $shift['start_time'],
+                    'end_time' => $shift['end_time'],
+                ]);
+            }
+        }
+
+        return $schedule;
     }
 }

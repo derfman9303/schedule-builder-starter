@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('', [ScheduleController::class, 'store'])->name('schedules.store');
         Route::group(['prefix' => '{schedule}'], function () {
             Route::get('', [ScheduleController::class, 'show'])->name('schedules.show');
+            Route::put('', [ScheduleController::class, 'update'])->name('schedules.update');
         });
     });
 });
