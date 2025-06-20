@@ -10,7 +10,7 @@ const removeWorkWeek = (workWeek: WorkWeek, schedule: Schedule): void => {
     });
 }
 
-const addEmployee = (employee: Employee|null, schedule: Schedule, selectedEmployee: Employee|null, newEmployee: Employee): void => {
+const addWorkWeek = (employee: Employee|null, schedule: Schedule, selectedEmployee: Employee|null, newEmployee: Employee): void => {
     if (employee && schedule.work_weeks) {
         schedule.work_weeks.push({
             employee_id: employee.id,
@@ -25,6 +25,6 @@ const addEmployee = (employee: Employee|null, schedule: Schedule, selectedEmploy
 export function useSchedule() {
     return {
         removeWorkWeek,
-        addEmployee
+        addWorkWeek
     };
 }

@@ -223,7 +223,7 @@
                                                 </Select>
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="scheduleUtils.addEmployee(selectedEmployee, schedule, selectedEmployee, newEmployee)"
+                                                        @click="scheduleUtils.addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!selectedEmployee"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -241,7 +241,7 @@
                                                 />
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="scheduleUtils.addEmployee(newEmployee, schedule, selectedEmployee, newEmployee)"
+                                                        @click="scheduleUtils.addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!newEmployee.full_name"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >

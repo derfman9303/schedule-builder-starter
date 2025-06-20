@@ -80,7 +80,7 @@ class ScheduleController extends Controller
 
         foreach ($request->input('work_weeks') as $week) {
             $workWeek = $schedule->workWeeks()->create([
-                'employee_id' => $week['employee_id'],
+                'employee_id' => $week['employee_id'] ?? null,
                 'employee_name' => $week['employee_name'],
             ]);
 
