@@ -399,13 +399,15 @@ function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
         workWeek.shifts = [];
     }
 
-    workWeek.shifts.push({
+    const newShift = {
         week_day: day,
         date: startDate.value?.add({ days: dayOffset }).toString() || '',
         day_offset: dayOffset,
         start_time: shift.start_time,
         end_time: shift.end_time,
-    });
+    };
+
+    workWeek.shifts.push(newShift);
 }
 
 function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {

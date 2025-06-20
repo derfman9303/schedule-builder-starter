@@ -19,6 +19,7 @@ class ScheduleController extends Controller
             'work_weeks.*.employee_name' => 'required|string|max:255',
             'work_weeks.*.shifts'        => 'nullable|array',
             'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
             'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
             'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
         ]);
@@ -38,6 +39,7 @@ class ScheduleController extends Controller
             foreach ($week['shifts'] as $shift) {
                 $workWeek->shifts()->create([
                     'week_day' => $shift['week_day'],
+                    'date' => $shift['date'],
                     'start_time' => $shift['start_time'],
                     'end_time' => $shift['end_time'],
                 ]);
