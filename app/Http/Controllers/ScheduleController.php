@@ -48,4 +48,12 @@ class ScheduleController extends Controller
 
         return $schedule;
     }
+
+    public function show(Schedule $schedule): Schedule
+    {
+        return $schedule->load([
+            'workWeeks.employee',
+            'workWeeks.shifts',
+        ]);
+    }
 }

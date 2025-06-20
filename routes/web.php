@@ -18,8 +18,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             return Inertia::render('schedules/NewSchedule');
         })->name('schedules.new');
 
-        Route::get('/edit/{schedule}', function ($schedule) {
-            return Inertia::render('schedules/EditSchedule', ['schedule' => $schedule]);
+        Route::get('/edit/{schedule_id}', function ($schedule_id) {
+            return Inertia::render('schedules/EditSchedule', ['schedule_id' => $schedule_id]);
         })->name('schedules.edit');
     });
 

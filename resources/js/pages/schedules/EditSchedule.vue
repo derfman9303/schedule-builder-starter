@@ -284,10 +284,13 @@ import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
 import { Plus, X, LoaderCircle, CalendarIcon } from 'lucide-vue-next';
 import axios from 'axios';
+import { usePage } from '@inertiajs/vue3';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
 import { type WorkWeek } from '@/types/WorkWeek';
 import { type Shift } from '@/types/Shift';
+
+const page = usePage<{ schedule_id: number }>();
 
 const isLoading = ref(false);
 
@@ -342,30 +345,26 @@ const weekDaysShort = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
 async function loadData() {
     isLoading.value = true;
 
-    await axios.get('/api/employees')
+    const employeeRequest = axios.get('/api/employees')
         .then(response => {
             employees.value = response.data;
-            initSchedule();
         })
         .catch(error => {
             console.error('Error loading employees:', error);
+        });
+
+    const scheduleRequest = axios.get('/api/schedules/' + page.props.schedule_id)
+        .then(response => {
+            schedule.value = response.data;
+            startDate.value = new DateValue(schedule.value.start_date);
+            endDate.value = new DateValue(schedule.value.end_date);
         })
-        .finally(() => {
-            isLoading.value = false;
+        .catch(error => {
+            console.error('Error loading schedule:', error);
         });
-}
 
-function initSchedule() {
-    employees.value.forEach(employee => {
-        if (!schedule.value.work_weeks) {
-            schedule.value.work_weeks = [];
-        }
-
-        schedule.value.work_weeks.push({
-            employee_id: employee.id,
-            employee_name: employee.first_name + ' ' + employee.last_name,
-            shifts: [],
-        });
+    await Promise.all([employeeRequest, scheduleRequest]).then(() => {
+        isLoading.value = false;
     });
 }
 
