@@ -257,7 +257,7 @@
                         </TableRow>
                     </TableBody>
                 </Table>
-                <Button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white" @click="saveSchedule">
+                <Button class="my-4 bg-blue-500 hover:bg-blue-600 text-white" @click="saveSchedule">
                     Save Schedule
                 </Button>
             </div>
