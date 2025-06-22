@@ -50,24 +50,24 @@
                     <TableHeader class="bg-gray-100">
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(0, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(1, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(2, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(3, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(4, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(5, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(6, scheduleUtils.startDate.value) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(0) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(1) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(2) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(3) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(4) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(5) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(6) }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
                         </TableRow>
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center">Employee</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(0, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(1, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(2, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(3, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(4, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(5, scheduleUtils.startDate.value) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(6, scheduleUtils.startDate.value) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(0) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(1) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(2) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(3) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(4) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(5) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(6) }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -80,93 +80,93 @@
                             <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 0, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 0, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 0)"
+                                    :shift="scheduleUtils.getShift(work_week, 0)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 0, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 0, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 0, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 0)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 0, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 0, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 1, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 1, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 1)"
+                                    :shift="scheduleUtils.getShift(work_week, 1)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 1, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 1, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 1, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 1)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 1, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 1, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 2, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 2, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 2)"
+                                    :shift="scheduleUtils.getShift(work_week, 2)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 2, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 2, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 2, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 2)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 2, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 2, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 3, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 3, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 3)"
+                                    :shift="scheduleUtils.getShift(work_week, 3)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 3, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 3, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 3, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 3)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 3, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 3, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 4, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 4, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 4)"
+                                    :shift="scheduleUtils.getShift(work_week, 4)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 4, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 4, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 4, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 4)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 4, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 4, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 5, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 5, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 5)"
+                                    :shift="scheduleUtils.getShift(work_week, 5)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 5, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 5, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 5, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 5)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 5, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 5, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 6, scheduleUtils.startDate.value)"
-                                    :shift="scheduleUtils.getShift(work_week, 6, scheduleUtils.startDate.value)"
+                                    v-if="scheduleUtils.getShift(work_week, 6)"
+                                    :shift="scheduleUtils.getShift(work_week, 6)"
                                     :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 6, shift, scheduleUtils.startDate.value)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 6, scheduleUtils.startDate.value)"
+                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 6, shift)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 6)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 6, shift, scheduleUtils.startDate.value)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 6, shift)"
                                 />
                             </TableCell>
                             <TableCell class="border-2 p-0">

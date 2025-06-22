@@ -60,12 +60,12 @@ const addWorkWeek = (employee: Employee|null, schedule: Schedule, selectedEmploy
     }
 }
 
-const getShift = (workWeek: WorkWeek, dayOffset: number, startDate: DateValue|undefined): Shift | undefined => {
-    return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset, startDate));
+const getShift = (workWeek: WorkWeek, dayOffset: number): Shift | undefined => {
+    return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset));
 }
 
-const updateShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate: DateValue|undefined): void => {
-    const existingShift = getShift(workWeek, dayOffset, startDate);
+const updateShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift): void => {
+    const existingShift = getShift(workWeek, dayOffset);
 
     if (existingShift) {
         existingShift.start_time = shift.start_time;
@@ -73,8 +73,8 @@ const updateShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startD
     }
 }
 
-const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate: DateValue|undefined): void => {
-    const day = weekDay(dayOffset, startDate);
+const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift): void => {
+    const day = weekDay(dayOffset);
 
     if (!workWeek.shifts) {
         workWeek.shifts = [];
@@ -82,7 +82,7 @@ const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate
 
     const newShift = {
         week_day: day,
-        date: startDate?.add({ days: dayOffset }).toString() || '',
+        date: startDate.value?.add({ days: dayOffset }).toString() || '',
         day_offset: dayOffset,
         start_time: shift.start_time,
         end_time: shift.end_time,
@@ -91,9 +91,9 @@ const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate
     workWeek.shifts.push(newShift);
 }
 
-const removeShift = (workWeek: WorkWeek, dayOffset: number, startDate: DateValue|undefined): void => {
+const removeShift = (workWeek: WorkWeek, dayOffset: number): void => {
     if (workWeek.shifts) {
-        const index = workWeek.shifts.findIndex(shift => shift.week_day === weekDay(dayOffset, startDate));
+        const index = workWeek.shifts.findIndex(shift => shift.week_day === weekDay(dayOffset));
         if (index > -1) {
             workWeek.shifts.splice(index, 1);
         }
@@ -118,20 +118,20 @@ const updateShiftDates = (newStart: DateValue|undefined, oldStart: DateValue|und
     }
 }
 
-const weekDay = (dayOffset: number, startDate: DateValue|undefined): string => {
-    return startDate ? weekDaysLowerCase[getDayOfWeek(startDate.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
+const weekDay = (dayOffset: number): string => {
+    return startDate.value ? weekDaysLowerCase[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
 }
 
-const weekDayShort = (dayOffset: number, startDate: DateValue|undefined): string => {
-    return startDate ? weekDaysShort[getDayOfWeek(startDate.add({days: dayOffset}), 'us')] : '';
+const weekDayShort = (dayOffset: number): string => {
+    return startDate.value ? weekDaysShort[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : '';
 }
 
 const getColor = (index: number): string => {
     return colors[index % colors.length];
 }
 
-const headerDateString = (dayOffset: number, startDate: DateValue|undefined): string => {
-    return startDate ? header_df.format(startDate.add({days: dayOffset}).toDate(getLocalTimeZone())) : '';
+const headerDateString = (dayOffset: number): string => {
+    return startDate.value ? header_df.format(startDate.value.add({days: dayOffset}).toDate(getLocalTimeZone())) : '';
 }
 
 export function useSchedule() {
