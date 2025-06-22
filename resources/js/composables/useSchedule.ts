@@ -3,9 +3,24 @@ import { type WorkWeek } from '@/types/WorkWeek';
 import { type Employee } from '@/types/Employee';
 import { type Shift } from '@/types/Shift';
 import { type DateValue, getDayOfWeek } from '@internationalized/date';
-import { OmitUndefined } from 'class-variance-authority/types';
 
-const weekDaysLowerCase = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+const weekDaysLowerCase = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday'
+];
+
+const colors = [
+    'bg-sky-600',
+    'bg-rose-700',
+    'bg-violet-600',
+    'bg-emerald-600',
+    'bg-orange-600',
+];
 
 const removeWorkWeek = (workWeek: WorkWeek, schedule: Schedule): void => {
     const index = schedule.work_weeks?.indexOf(workWeek);
@@ -76,14 +91,20 @@ const weekDay = (dayOffset: number, startDate: DateValue|undefined): string => {
     return startDate ? weekDaysLowerCase[getDayOfWeek(startDate.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
 }
 
+const getColor = (index: number): string => {
+    return colors[index % colors.length];
+}
+
 export function useSchedule() {
     return {
+        weekDaysLowerCase,
+        colors,
         removeWorkWeek,
         addWorkWeek,
         addShift,
         removeShift,
         weekDay,
-        weekDaysLowerCase,
-        updateShiftDates
+        updateShiftDates,
+        getColor,
     };
 }

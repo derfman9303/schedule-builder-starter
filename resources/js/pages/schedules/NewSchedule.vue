@@ -82,7 +82,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 0)"
                                     :shift="getShift(work_week, 0)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 0, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 0, startDate)"
                                 />
@@ -95,7 +95,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 1)"
                                     :shift="getShift(work_week, 1)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 1, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 1, startDate)"
                                 />
@@ -108,7 +108,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 2)"
                                     :shift="getShift(work_week, 2)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 2, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 2, startDate)"
                                 />
@@ -121,7 +121,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 3)"
                                     :shift="getShift(work_week, 3)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 3, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 3, startDate)"
                                 />
@@ -134,7 +134,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 4)"
                                     :shift="getShift(work_week, 4)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 4, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 4, startDate)"
                                 />
@@ -147,7 +147,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 5)"
                                     :shift="getShift(work_week, 5)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 5, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 5, startDate)"
                                 />
@@ -160,7 +160,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 6)"
                                     :shift="getShift(work_week, 6)"
-                                    :color="colors[index % colors.length]"
+                                    :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 6, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 6, startDate)"
                                 />
@@ -299,14 +299,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: 'Create a Schedule',
         href: '/schedules/new',
     },
-];
-
-const colors = [
-    'bg-sky-600',
-    'bg-rose-700',
-    'bg-violet-600',
-    'bg-emerald-600',
-    'bg-orange-600',
 ];
 
 const employees = ref<Employee[]>([]);
