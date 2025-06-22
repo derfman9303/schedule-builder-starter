@@ -60,6 +60,15 @@ const getShift = (workWeek: WorkWeek, dayOffset: number, startDate: DateValue|un
     return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset, startDate));
 }
 
+const updateShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate: DateValue|undefined): void => {
+    const existingShift = getShift(workWeek, dayOffset, startDate);
+
+    if (existingShift) {
+        existingShift.start_time = shift.start_time;
+        existingShift.end_time = shift.end_time;
+    }
+}
+
 const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate: DateValue|undefined): void => {
     const day = weekDay(dayOffset, startDate);
 
@@ -129,6 +138,7 @@ export function useSchedule() {
         removeWorkWeek,
         addWorkWeek,
         getShift,
+        updateShift,
         addShift,
         removeShift,
         weekDay,
