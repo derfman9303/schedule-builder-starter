@@ -3,6 +3,7 @@ import { type WorkWeek } from '@/types/WorkWeek';
 import { type Employee } from '@/types/Employee';
 import { type Shift } from '@/types/Shift';
 import { type DateValue, getDayOfWeek } from '@internationalized/date';
+import { OmitUndefined } from 'class-variance-authority/types';
 
 const weekDaysLowerCase = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
@@ -44,6 +45,15 @@ const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate
     workWeek.shifts.push(newShift);
 }
 
+const removeShift = (workWeek: WorkWeek, dayOffset: number, startDate: DateValue|undefined): void => {
+    if (workWeek.shifts) {
+        const index = workWeek.shifts.findIndex(shift => shift.week_day === weekDay(dayOffset, startDate));
+        if (index > -1) {
+            workWeek.shifts.splice(index, 1);
+        }
+    }
+}
+
 const updateShiftDates = (newStart: DateValue|undefined, oldStart: DateValue|undefined, schedule: Schedule): void => {
     if (!newStart || !oldStart) {
         return;
@@ -71,6 +81,7 @@ export function useSchedule() {
         removeWorkWeek,
         addWorkWeek,
         addShift,
+        removeShift,
         weekDay,
         weekDaysLowerCase,
         updateShiftDates

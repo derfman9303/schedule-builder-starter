@@ -84,7 +84,7 @@
                                     :shift="getShift(work_week, 0)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 0, shift)"
-                                    @remove-shift="() => removeShift(work_week, 0)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 0, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -97,7 +97,7 @@
                                     :shift="getShift(work_week, 1)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 1, shift)"
-                                    @remove-shift="() => removeShift(work_week, 1)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 1, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -110,7 +110,7 @@
                                     :shift="getShift(work_week, 2)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 2, shift)"
-                                    @remove-shift="() => removeShift(work_week, 2)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 2, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -123,7 +123,7 @@
                                     :shift="getShift(work_week, 3)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 3, shift)"
-                                    @remove-shift="() => removeShift(work_week, 3)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 3, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -136,7 +136,7 @@
                                     :shift="getShift(work_week, 4)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 4, shift)"
-                                    @remove-shift="() => removeShift(work_week, 4)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 4, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -149,7 +149,7 @@
                                     :shift="getShift(work_week, 5)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 5, shift)"
-                                    @remove-shift="() => removeShift(work_week, 5)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 5, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -162,7 +162,7 @@
                                     :shift="getShift(work_week, 6)"
                                     :color="colors[index % colors.length]"
                                     @update-shift="(shift) => updateShift(work_week, 6, shift)"
-                                    @remove-shift="() => removeShift(work_week, 6)"
+                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 6, startDate)"
                                 />
                                 <AddShiftComponent
                                     v-else
@@ -384,15 +384,6 @@ function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
     if (existingShift) {
         existingShift.start_time = shift.start_time;
         existingShift.end_time = shift.end_time;
-    }
-}
-
-function removeShift(workWeek: WorkWeek, dayOffset: number) {
-    if (workWeek.shifts) {
-        const index = workWeek.shifts.findIndex(shift => shift.week_day === scheduleUtils.weekDay(dayOffset, startDate.value));
-        if (index > -1) {
-            workWeek.shifts.splice(index, 1);
-        }
     }
 }
 
