@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Models\Schedule;
 use App\Models\Employee;
 
 class ScheduleController extends Controller
 {
+    public function index(): Collection
+    {
+        return Schedule::with(['workWeeks.employee', 'workWeeks.shifts'])
+            ->where('user_id', auth()->id())
+            ->orderBy('start_date', 'desc')
+            ->get();
+    }
+
     public function store(Request $request): Schedule
     {
         $request->validate([
@@ -25,6 +34,7 @@ class ScheduleController extends Controller
         ]);
 
         $schedule = new Schedule();
+        $schedule->user_id = auth()->id();
         $schedule->name = $request->input('name', '');
         $schedule->start_date = $request->input('start_date');
         $schedule->end_date = $request->input('end_date');
