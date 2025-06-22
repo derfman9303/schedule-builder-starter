@@ -14,6 +14,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     })->name('dashboard');
 
     Route::group(['prefix' => 'schedules'], function () {
+        Route::get('', function () {
+            return Inertia::render('schedules/SchedulesList');
+        })->name('schedules.index');
+
         Route::get('/new', function () {
             return Inertia::render('schedules/NewSchedule');
         })->name('schedules.new');
