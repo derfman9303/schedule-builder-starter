@@ -50,13 +50,13 @@
                     <TableHeader class="bg-gray-100">
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(0) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(1) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(2) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(3) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(4) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(5) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(6) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(0, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(1, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(2, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(3, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(4, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(5, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(6, startDate) }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
                         </TableRow>
                         <TableRow>
@@ -272,7 +272,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
-import { DateFormatter, type DateValue, getLocalTimeZone, getDayOfWeek, today } from '@internationalized/date';
+import { DateFormatter, type DateValue, getLocalTimeZone, today } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
@@ -322,10 +322,6 @@ const selectedEmployees = computed(() => {
 
 const df = new DateFormatter('en-US', {
     dateStyle: 'long',
-});
-
-const header_df = new DateFormatter('en-US', {
-    dateStyle: 'short',
 });
 
 const startDate = ref<DateValue>();
@@ -393,10 +389,6 @@ function saveSchedule() {
         .finally(() => {
             isLoading.value = false;
         });
-}
-
-function headerDateString(dayOffset: number): string {
-    return startDate.value ? header_df.format(startDate.value.add({days: dayOffset}).toDate(getLocalTimeZone())) : '';
 }
 
 watch(

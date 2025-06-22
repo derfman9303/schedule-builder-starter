@@ -2,7 +2,7 @@ import { type Schedule } from '@/types/Schedule';
 import { type WorkWeek } from '@/types/WorkWeek';
 import { type Employee } from '@/types/Employee';
 import { type Shift } from '@/types/Shift';
-import { type DateValue, getDayOfWeek } from '@internationalized/date';
+import { type DateValue, getDayOfWeek, getLocalTimeZone, DateFormatter } from '@internationalized/date';
 
 const weekDaysLowerCase = [
     'sunday',
@@ -31,6 +31,10 @@ const colors = [
     'bg-emerald-600',
     'bg-orange-600',
 ];
+
+const header_df = new DateFormatter('en-US', {
+    dateStyle: 'short',
+});
 
 const removeWorkWeek = (workWeek: WorkWeek, schedule: Schedule): void => {
     const index = schedule.work_weeks?.indexOf(workWeek);
@@ -109,6 +113,10 @@ const getColor = (index: number): string => {
     return colors[index % colors.length];
 }
 
+const headerDateString = (dayOffset: number, startDate: DateValue|undefined): string => {
+    return startDate ? header_df.format(startDate.add({days: dayOffset}).toDate(getLocalTimeZone())) : '';
+}
+
 export function useSchedule() {
     return {
         weekDaysLowerCase,
@@ -122,5 +130,6 @@ export function useSchedule() {
         weekDayShort,
         updateShiftDates,
         getColor,
+        headerDateString,
     };
 }
