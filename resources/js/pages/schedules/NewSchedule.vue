@@ -387,24 +387,6 @@ function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
     }
 }
 
-function updateShiftDates(newStart: DateValue|undefined, oldStart: DateValue|undefined) {
-    if (!newStart || !oldStart) {
-        return;
-    }
-
-    if (schedule.value.work_weeks) {
-        schedule.value.work_weeks.forEach(workWeek => {
-            workWeek.shifts?.forEach(shift => {
-                const shiftDate = newStart.add({ days: shift.day_offset });
-                const weekDay = scheduleUtils.weekDaysLowerCase[getDayOfWeek(shiftDate, 'us')];
-
-                shift.date = shiftDate.toString();
-                shift.week_day = weekDay;
-            });
-        });
-    }
-}
-
 function removeShift(workWeek: WorkWeek, dayOffset: number) {
     if (workWeek.shifts) {
         const index = workWeek.shifts.findIndex(shift => shift.week_day === scheduleUtils.weekDay(dayOffset, startDate.value));
@@ -445,10 +427,10 @@ watch(
     ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
         if (newStart?.day && newStart?.day !== oldStart?.day) {
             endDate.value = newStart.copy().add({days: 6});
-            updateShiftDates(newStart, oldStart);
+            scheduleUtils.updateShiftDates(newStart, oldStart, schedule.value);
         } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
             startDate.value = newEnd.copy().subtract({days: 6});
-            updateShiftDates(newStart, oldStart);
+            scheduleUtils.updateShiftDates(newStart, oldStart, schedule.value);
         }
     },
     { flush: 'post' }

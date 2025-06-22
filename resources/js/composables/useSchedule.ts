@@ -44,6 +44,24 @@ const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate
     workWeek.shifts.push(newShift);
 }
 
+const updateShiftDates = (newStart: DateValue|undefined, oldStart: DateValue|undefined, schedule: Schedule): void => {
+    if (!newStart || !oldStart) {
+        return;
+    }
+
+    if (schedule.work_weeks) {
+        schedule.work_weeks.forEach(workWeek => {
+            workWeek.shifts?.forEach(shift => {
+                const shiftDate = newStart.add({ days: shift.day_offset });
+                const weekDay = weekDaysLowerCase[getDayOfWeek(shiftDate, 'us')];
+
+                shift.date = shiftDate.toString();
+                shift.week_day = weekDay;
+            });
+        });
+    }
+}
+
 const weekDay = (dayOffset: number, startDate: DateValue|undefined): string => {
     return startDate ? weekDaysLowerCase[getDayOfWeek(startDate.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
 }
@@ -54,6 +72,7 @@ export function useSchedule() {
         addWorkWeek,
         addShift,
         weekDay,
-        weekDaysLowerCase
+        weekDaysLowerCase,
+        updateShiftDates
     };
 }
