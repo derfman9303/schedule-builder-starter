@@ -30,12 +30,6 @@
                         <TableCell class="text-center">
                             <Link
                                 :href="`/schedules/edit/${schedule.id}`"
-                                class="text-gray-600 hover:text-gray-800 mr-2"
-                            >
-                                View
-                            </Link>
-                            <Link
-                                :href="`/schedules/${schedule.id}/edit`"
                                 class="text-blue-600 hover:text-blue-800"
                             >
                                 Edit
