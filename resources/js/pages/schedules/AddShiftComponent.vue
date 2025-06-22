@@ -50,8 +50,8 @@ import { PopoverClose } from 'reka-ui';
 import { Plus, X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
-const startTime = ref('08:00');
-const endTime = ref('17:00');
+const startTime = ref('08:00:00');
+const endTime = ref('17:00:00');
 
 const emit = defineEmits(['add-shift']);
 
