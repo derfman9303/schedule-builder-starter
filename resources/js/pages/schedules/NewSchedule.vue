@@ -80,8 +80,8 @@
                             <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 0)"
-                                    :shift="getShift(work_week, 0)"
+                                    v-if="scheduleUtils.getShift(work_week, 0, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 0, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 0, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 0, startDate)"
@@ -93,8 +93,8 @@
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 1)"
-                                    :shift="getShift(work_week, 1)"
+                                    v-if="scheduleUtils.getShift(work_week, 1, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 1, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 1, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 1, startDate)"
@@ -106,8 +106,8 @@
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 2)"
-                                    :shift="getShift(work_week, 2)"
+                                    v-if="scheduleUtils.getShift(work_week, 2, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 2, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 2, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 2, startDate)"
@@ -119,8 +119,8 @@
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 3)"
-                                    :shift="getShift(work_week, 3)"
+                                    v-if="scheduleUtils.getShift(work_week, 3, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 3, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 3, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 3, startDate)"
@@ -132,8 +132,8 @@
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 4)"
-                                    :shift="getShift(work_week, 4)"
+                                    v-if="scheduleUtils.getShift(work_week, 4, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 4, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 4, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 4, startDate)"
@@ -145,8 +145,8 @@
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 5)"
-                                    :shift="getShift(work_week, 5)"
+                                    v-if="scheduleUtils.getShift(work_week, 5, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 5, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 5, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 5, startDate)"
@@ -158,8 +158,8 @@
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="getShift(work_week, 6)"
-                                    :shift="getShift(work_week, 6)"
+                                    v-if="scheduleUtils.getShift(work_week, 6, startDate)"
+                                    :shift="scheduleUtils.getShift(work_week, 6, startDate)"
                                     :color="scheduleUtils.getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 6, shift)"
                                     @remove-shift="() => scheduleUtils.removeShift(work_week, 6, startDate)"
@@ -358,10 +358,6 @@ function initSchedule() {
             shifts: [],
         });
     });
-}
-
-function getShift(workWeek: WorkWeek, dayOffset: number): Shift | undefined {
-    return workWeek.shifts?.find(shift => shift.week_day === scheduleUtils.weekDay(dayOffset, startDate.value));
 }
 
 function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {

@@ -56,6 +56,10 @@ const addWorkWeek = (employee: Employee|null, schedule: Schedule, selectedEmploy
     }
 }
 
+const getShift = (workWeek: WorkWeek, dayOffset: number, startDate: DateValue|undefined): Shift | undefined => {
+    return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset, startDate));
+}
+
 const addShift = (workWeek: WorkWeek, dayOffset: number, shift: Shift, startDate: DateValue|undefined): void => {
     const day = weekDay(dayOffset, startDate);
 
@@ -124,6 +128,7 @@ export function useSchedule() {
         colors,
         removeWorkWeek,
         addWorkWeek,
+        getShift,
         addShift,
         removeShift,
         weekDay,
