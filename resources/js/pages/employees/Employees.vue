@@ -135,7 +135,7 @@ const totalPages = computed(() => {
     return Math.ceil(employees.value.length / itemsPerPage);
 });
 
-const fetchEmployees = () => {
+function fetchEmployees() {
     isLoading.value = true;
     axios.get('/api/employees')
         .then((response) => {
