@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
+    const USER_ID = 'user_id';
     const NAME = 'name';
     const START_DATE = 'start_date';
     const END_DATE = 'end_date';
