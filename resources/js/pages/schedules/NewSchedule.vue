@@ -88,7 +88,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 0, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 0, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
@@ -101,7 +101,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 1, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 1, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
@@ -114,7 +114,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 2, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 2, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
@@ -127,7 +127,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 3, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 3, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
@@ -140,7 +140,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 4, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 4, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
@@ -153,7 +153,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 5, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 5, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
@@ -166,7 +166,7 @@
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => addShift(work_week, 6, shift)"
+                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 6, shift, startDate)"
                                 />
                             </TableCell>
                             <TableCell class="border-2 p-0">
@@ -272,7 +272,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
-import { DateFormatter, type DateValue, getLocalTimeZone, getDayOfWeek } from '@internationalized/date';
+import { DateFormatter, type DateValue, getLocalTimeZone, getDayOfWeek, today } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
@@ -339,11 +339,13 @@ const header_df = new DateFormatter('en-US', {
 const startDate = ref<DateValue>();
 const endDate = ref<DateValue>();
 
-const weekDaysLowerCase = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 const weekDaysShort = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
 
 function loadData() {
     isLoading.value = true;
+
+    startDate.value = today(getLocalTimeZone());
+    endDate.value = startDate.value.copy().add({ days: 6 });
 
     axios.get('/api/employees')
         .then(response => {
@@ -373,25 +375,7 @@ function initSchedule() {
 }
 
 function getShift(workWeek: WorkWeek, dayOffset: number): Shift | undefined {
-    return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset));
-}
-
-function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
-    const day = weekDay(dayOffset);
-
-    if (!workWeek.shifts) {
-        workWeek.shifts = [];
-    }
-
-    const newShift = {
-        week_day: day,
-        date: startDate.value?.add({ days: dayOffset }).toString() || '',
-        day_offset: dayOffset,
-        start_time: shift.start_time,
-        end_time: shift.end_time,
-    };
-
-    workWeek.shifts.push(newShift);
+    return workWeek.shifts?.find(shift => shift.week_day === scheduleUtils.weekDay(dayOffset, startDate.value));
 }
 
 function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
@@ -412,7 +396,7 @@ function updateShiftDates(newStart: DateValue|undefined, oldStart: DateValue|und
         schedule.value.work_weeks.forEach(workWeek => {
             workWeek.shifts?.forEach(shift => {
                 const shiftDate = newStart.add({ days: shift.day_offset });
-                const weekDay = weekDaysLowerCase[getDayOfWeek(shiftDate, 'us')];
+                const weekDay = scheduleUtils.weekDaysLowerCase[getDayOfWeek(shiftDate, 'us')];
 
                 shift.date = shiftDate.toString();
                 shift.week_day = weekDay;
@@ -423,7 +407,7 @@ function updateShiftDates(newStart: DateValue|undefined, oldStart: DateValue|und
 
 function removeShift(workWeek: WorkWeek, dayOffset: number) {
     if (workWeek.shifts) {
-        const index = workWeek.shifts.findIndex(shift => shift.week_day === weekDay(dayOffset));
+        const index = workWeek.shifts.findIndex(shift => shift.week_day === scheduleUtils.weekDay(dayOffset, startDate.value));
         if (index > -1) {
             workWeek.shifts.splice(index, 1);
         }
@@ -446,10 +430,6 @@ function saveSchedule() {
         .finally(() => {
             isLoading.value = false;
         });
-}
-
-function weekDay(dayOffset: number): string {
-    return startDate.value ? weekDaysLowerCase[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
 }
 
 function weekDayShort(dayOffset: number): string {
