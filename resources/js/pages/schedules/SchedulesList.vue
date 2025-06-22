@@ -29,7 +29,7 @@
                         <TableCell>{{ formatDate(schedule.end_date) }}</TableCell>
                         <TableCell class="text-center">
                             <Link
-                                :href="`/schedules/${schedule.id}`"
+                                :href="`/schedules/edit/${schedule.id}`"
                                 class="text-gray-600 hover:text-gray-800 mr-2"
                             >
                                 View
