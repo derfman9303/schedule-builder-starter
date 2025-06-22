@@ -61,13 +61,13 @@
                         </TableRow>
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center">Employee</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(0) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(1) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(2) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(3) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(4) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(5) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(6) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(0, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(1, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(2, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(3, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(4, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(5, startDate) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(6, startDate) }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -331,8 +331,6 @@ const header_df = new DateFormatter('en-US', {
 const startDate = ref<DateValue>();
 const endDate = ref<DateValue>();
 
-const weekDaysShort = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
-
 function loadData() {
     isLoading.value = true;
 
@@ -395,10 +393,6 @@ function saveSchedule() {
         .finally(() => {
             isLoading.value = false;
         });
-}
-
-function weekDayShort(dayOffset: number): string {
-    return startDate.value ? weekDaysShort[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : '';
 }
 
 function headerDateString(dayOffset: number): string {

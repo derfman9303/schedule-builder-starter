@@ -14,6 +14,16 @@ const weekDaysLowerCase = [
     'saturday'
 ];
 
+const weekDaysShort = [
+    'Sun.',
+    'Mon.',
+    'Tue.',
+    'Wed.',
+    'Thu.',
+    'Fri.',
+    'Sat.'
+];
+
 const colors = [
     'bg-sky-600',
     'bg-rose-700',
@@ -91,6 +101,10 @@ const weekDay = (dayOffset: number, startDate: DateValue|undefined): string => {
     return startDate ? weekDaysLowerCase[getDayOfWeek(startDate.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
 }
 
+const weekDayShort = (dayOffset: number, startDate: DateValue|undefined): string => {
+    return startDate ? weekDaysShort[getDayOfWeek(startDate.add({days: dayOffset}), 'us')] : '';
+}
+
 const getColor = (index: number): string => {
     return colors[index % colors.length];
 }
@@ -98,12 +112,14 @@ const getColor = (index: number): string => {
 export function useSchedule() {
     return {
         weekDaysLowerCase,
+        weekDaysShort,
         colors,
         removeWorkWeek,
         addWorkWeek,
         addShift,
         removeShift,
         weekDay,
+        weekDayShort,
         updateShiftDates,
         getColor,
     };
