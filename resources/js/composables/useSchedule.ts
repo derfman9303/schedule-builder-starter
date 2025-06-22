@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import { type Schedule } from '@/types/Schedule';
 import { type WorkWeek } from '@/types/WorkWeek';
 import { type Employee } from '@/types/Employee';
@@ -31,6 +32,9 @@ const colors = [
     'bg-emerald-600',
     'bg-orange-600',
 ];
+
+const startDate = ref<DateValue>();
+const endDate = ref<DateValue>();
 
 const header_df = new DateFormatter('en-US', {
     dateStyle: 'short',
@@ -135,6 +139,8 @@ export function useSchedule() {
         weekDaysLowerCase,
         weekDaysShort,
         colors,
+        startDate,
+        endDate,
         removeWorkWeek,
         addWorkWeek,
         getShift,
