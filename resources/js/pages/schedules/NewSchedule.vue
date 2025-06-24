@@ -18,15 +18,15 @@
                             variant="outline"
                             :class="cn(
                             'w-[200px] justify-start text-left font-normal mr-4',
-                            !scheduleUtils.startDate && 'text-muted-foreground',
+                            !startDate && 'text-muted-foreground',
                             )"
                         >
                             <CalendarIcon class="mr-2 h-4 w-4" />
-                            {{ scheduleUtils.startDate.value ? df.format(scheduleUtils.startDate.value.toDate(getLocalTimeZone())) : "Start Date" }}
+                            {{ !!startDate ? df.format(startDate.toDate(getLocalTimeZone())) : "Start Date" }}
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent class="w-auto p-0">
-                        <Calendar v-model="scheduleUtils.startDate.value" initial-focus />
+                        <Calendar v-model="startDate" initial-focus />
                     </PopoverContent>
                 </Popover>
                 <Popover>
@@ -35,39 +35,39 @@
                             variant="outline"
                             :class="cn(
                             'w-[200px] justify-start text-left font-normal',
-                            !scheduleUtils.endDate && 'text-muted-foreground',
+                            !endDate && 'text-muted-foreground',
                             )"
                         >
                             <CalendarIcon class="mr-2 h-4 w-4" />
-                            {{ scheduleUtils.endDate.value ? df.format(scheduleUtils.endDate.value.toDate(getLocalTimeZone())) : "End Date" }}
+                            {{ !!endDate ? df.format(endDate.toDate(getLocalTimeZone())) : "End Date" }}
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent class="w-auto p-0">
-                        <Calendar v-model="scheduleUtils.endDate.value" initial-focus />
+                        <Calendar v-model="endDate" initial-focus />
                     </PopoverContent>
                 </Popover>
                 <Table class="border border-gray-200 w-max mt-4">
                     <TableHeader class="bg-gray-100">
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(0) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(1) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(2) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(3) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(4) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(5) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.headerDateString(6) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(0) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(1) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(2) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(3) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(4) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(5) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(6) }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center"></TableHead>
                         </TableRow>
                         <TableRow>
                             <TableHead class="text-left px-4 py-2 text-center">Employee</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(0) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(1) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(2) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(3) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(4) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(5) }}</TableHead>
-                            <TableHead class="text-left px-4 py-2 text-center">{{ scheduleUtils.weekDayShort(6) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(0) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(1) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(2) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(3) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(4) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(5) }}</TableHead>
+                            <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(6) }}</TableHead>
                             <TableHead class="text-left px-4 py-2 text-center">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -80,100 +80,100 @@
                             <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 0)"
-                                    :shift="scheduleUtils.getShift(work_week, 0)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 0, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 0)"
+                                    v-if="getShift(work_week, 0)"
+                                    :shift="getShift(work_week, 0)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 0, shift)"
+                                    @remove-shift="() => removeShift(work_week, 0)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 0, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 0, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 1)"
-                                    :shift="scheduleUtils.getShift(work_week, 1)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 1, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 1)"
+                                    v-if="getShift(work_week, 1)"
+                                    :shift="getShift(work_week, 1)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 1, shift)"
+                                    @remove-shift="() => removeShift(work_week, 1)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 1, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 1, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 2)"
-                                    :shift="scheduleUtils.getShift(work_week, 2)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 2, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 2)"
+                                    v-if="getShift(work_week, 2)"
+                                    :shift="getShift(work_week, 2)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 2, shift)"
+                                    @remove-shift="() => removeShift(work_week, 2)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 2, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 2, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 3)"
-                                    :shift="scheduleUtils.getShift(work_week, 3)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 3, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 3)"
+                                    v-if="getShift(work_week, 3)"
+                                    :shift="getShift(work_week, 3)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 3, shift)"
+                                    @remove-shift="() => removeShift(work_week, 3)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 3, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 3, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 4)"
-                                    :shift="scheduleUtils.getShift(work_week, 4)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 4, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 4)"
+                                    v-if="getShift(work_week, 4)"
+                                    :shift="getShift(work_week, 4)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 4, shift)"
+                                    @remove-shift="() => removeShift(work_week, 4)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 4, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 4, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 5)"
-                                    :shift="scheduleUtils.getShift(work_week, 5)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 5, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 5)"
+                                    v-if="getShift(work_week, 5)"
+                                    :shift="getShift(work_week, 5)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 5, shift)"
+                                    @remove-shift="() => removeShift(work_week, 5)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 5, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 5, shift)"
                                 />
                             </TableCell>
                             <TableCell class="p-0">
                                 <EditShiftComponent
-                                    v-if="scheduleUtils.getShift(work_week, 6)"
-                                    :shift="scheduleUtils.getShift(work_week, 6)"
-                                    :color="scheduleUtils.getColor(index)"
-                                    @update-shift="(shift) => scheduleUtils.updateShift(work_week, 6, shift)"
-                                    @remove-shift="() => scheduleUtils.removeShift(work_week, 6)"
+                                    v-if="getShift(work_week, 6)"
+                                    :shift="getShift(work_week, 6)"
+                                    :color="getColor(index)"
+                                    @update-shift="(shift) => updateShift(work_week, 6, shift)"
+                                    @remove-shift="() => removeShift(work_week, 6)"
                                 />
                                 <AddShiftComponent
                                     v-else
-                                    @add-shift="(shift) => scheduleUtils.addShift(work_week, 6, shift)"
+                                    @add-shift="(shift) => addShift(work_week, 6, shift)"
                                 />
                             </TableCell>
                             <TableCell class="border-2 p-0">
                                 <Button
                                     class="text-red-500 cursor-pointer hover:underline"
                                     variant="link"
-                                    @click="scheduleUtils.removeWorkWeek(work_week, schedule)"
+                                    @click="removeWorkWeek(work_week, schedule)"
                                 >
                                     Remove
                                 </Button>
@@ -223,7 +223,7 @@
                                                 </Select>
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="scheduleUtils.addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
+                                                        @click="addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!selectedEmployee"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -241,7 +241,7 @@
                                                 />
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="scheduleUtils.addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
+                                                        @click="addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!newEmployee.full_name"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -288,7 +288,20 @@ import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
 
-const scheduleUtils = useSchedule();
+const {
+    startDate,
+    endDate,
+    headerDateString,
+    weekDayShort,
+    getShift,
+    addShift,
+    updateShift,
+    removeShift,
+    updateShiftDates,
+    getColor,
+    addWorkWeek,
+    removeWorkWeek,
+} = useSchedule();
 
 const isLoading = ref(false);
 
@@ -325,8 +338,8 @@ const df = new DateFormatter('en-US', {
 function loadData() {
     isLoading.value = true;
 
-    scheduleUtils.startDate.value = today(getLocalTimeZone());
-    scheduleUtils.endDate.value = scheduleUtils.startDate.value.copy().add({ days: 6 });
+    startDate.value = today(getLocalTimeZone());
+    endDate.value = startDate.value.copy().add({ days: 6 });
 
     axios.get('/api/employees')
         .then(response => {
@@ -358,8 +371,8 @@ function initSchedule() {
 function saveSchedule() {
     isLoading.value = true;
 
-    schedule.value.start_date = scheduleUtils.startDate.value?.toString() || '';
-    schedule.value.end_date = scheduleUtils.endDate.value?.toString() || '';
+    schedule.value.start_date = startDate.value?.toString() || '';
+    schedule.value.end_date = endDate.value?.toString() || '';
 
     axios.post('/api/schedules', schedule.value)
         .then(response => {
@@ -374,14 +387,14 @@ function saveSchedule() {
 }
 
 watch(
-    () => [ scheduleUtils.startDate.value, scheduleUtils.endDate.value ],
+    () => [ startDate.value, endDate.value ],
     ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
         if (newStart?.day && newStart?.day !== oldStart?.day) {
-            scheduleUtils.endDate.value = newStart.copy().add({days: 6});
-            scheduleUtils.updateShiftDates(newStart, oldStart, schedule.value);
+            endDate.value = newStart.copy().add({days: 6});
+            updateShiftDates(newStart, oldStart, schedule.value);
         } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
-            scheduleUtils.startDate.value = newEnd.copy().subtract({days: 6});
-            scheduleUtils.updateShiftDates(newStart, oldStart, schedule.value);
+            startDate.value = newEnd.copy().subtract({days: 6});
+            updateShiftDates(newStart, oldStart, schedule.value);
         }
     },
     { flush: 'post' }
