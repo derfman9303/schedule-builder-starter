@@ -272,7 +272,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
-import { DateFormatter, type DateValue, getLocalTimeZone, today } from '@internationalized/date';
+import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
