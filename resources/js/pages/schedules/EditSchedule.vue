@@ -22,7 +22,7 @@
                             )"
                         >
                             <CalendarIcon class="mr-2 h-4 w-4" />
-                            {{ startDate ? df.format(startDate.toDate(getLocalTimeZone())) : "Start Date" }}
+                            {{ !!startDate ? df.format(startDate.toDate(getLocalTimeZone())) : "Start Date" }}
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent class="w-auto p-0">
@@ -39,7 +39,7 @@
                             )"
                         >
                             <CalendarIcon class="mr-2 h-4 w-4" />
-                            {{ endDate ? df.format(endDate.toDate(getLocalTimeZone())) : "End Date" }}
+                            {{ !!endDate ? df.format(endDate.toDate(getLocalTimeZone())) : "End Date" }}
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent class="w-auto p-0">
@@ -82,7 +82,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 0)"
                                     :shift="getShift(work_week, 0)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 0, shift)"
                                     @remove-shift="() => removeShift(work_week, 0)"
                                 />
@@ -95,7 +95,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 1)"
                                     :shift="getShift(work_week, 1)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 1, shift)"
                                     @remove-shift="() => removeShift(work_week, 1)"
                                 />
@@ -108,7 +108,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 2)"
                                     :shift="getShift(work_week, 2)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 2, shift)"
                                     @remove-shift="() => removeShift(work_week, 2)"
                                 />
@@ -121,7 +121,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 3)"
                                     :shift="getShift(work_week, 3)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 3, shift)"
                                     @remove-shift="() => removeShift(work_week, 3)"
                                 />
@@ -134,7 +134,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 4)"
                                     :shift="getShift(work_week, 4)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 4, shift)"
                                     @remove-shift="() => removeShift(work_week, 4)"
                                 />
@@ -147,7 +147,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 5)"
                                     :shift="getShift(work_week, 5)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 5, shift)"
                                     @remove-shift="() => removeShift(work_week, 5)"
                                 />
@@ -160,7 +160,7 @@
                                 <EditShiftComponent
                                     v-if="getShift(work_week, 6)"
                                     :shift="getShift(work_week, 6)"
-                                    :color="colors[index % colors.length]"
+                                    :color="getColor(index)"
                                     @update-shift="(shift) => updateShift(work_week, 6, shift)"
                                     @remove-shift="() => removeShift(work_week, 6)"
                                 />
@@ -173,7 +173,7 @@
                                 <Button
                                     class="text-red-500 cursor-pointer hover:underline"
                                     variant="link"
-                                    @click="scheduleUtils.removeWorkWeek(work_week, schedule)"
+                                    @click="removeWorkWeek(work_week, schedule)"
                                 >
                                     Remove
                                 </Button>
@@ -223,7 +223,7 @@
                                                 </Select>
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="scheduleUtils.addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
+                                                        @click="addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!selectedEmployee"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -241,7 +241,7 @@
                                                 />
                                                 <PopoverClose>
                                                     <Button
-                                                        @click="scheduleUtils.addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
+                                                        @click="addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
                                                         :disabled="!newEmployee.full_name"
                                                         class="mt-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                                                     >
@@ -271,9 +271,9 @@ import { cn } from '../../lib/utils';
 import { parseDate } from '@internationalized/date';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { useSchedule } from '@/composables/useSchedule';
 import { Head } from '@inertiajs/vue3';
-import { DateFormatter, type DateValue, getLocalTimeZone, getDayOfWeek } from '@internationalized/date';
+import { useSchedule } from '@/composables/useSchedule';
+import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
@@ -296,21 +296,26 @@ const page = usePage<{ schedule_id: number }>();
 
 const isLoading = ref(false);
 
-const scheduleUtils = useSchedule();
+const {
+    startDate,
+    endDate,
+    headerDateString,
+    weekDayShort,
+    getShift,
+    addShift,
+    updateShift,
+    removeShift,
+    updateShiftDates,
+    getColor,
+    addWorkWeek,
+    removeWorkWeek,
+} = useSchedule();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Create a Schedule',
         href: '/schedules/new',
     },
-];
-
-const colors = [
-    'bg-sky-600',
-    'bg-rose-700',
-    'bg-violet-600',
-    'bg-emerald-600',
-    'bg-orange-600',
 ];
 
 const employees = ref<Employee[]>([]);
@@ -335,16 +340,6 @@ const selectedEmployees = computed(() => {
 const df = new DateFormatter('en-US', {
     dateStyle: 'long',
 });
-
-const header_df = new DateFormatter('en-US', {
-    dateStyle: 'short',
-});
-
-const startDate = ref<DateValue>();
-const endDate = ref<DateValue>();
-
-const weekDaysLowerCase = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-const weekDaysShort = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
 
 async function loadData() {
     isLoading.value = true;
@@ -372,64 +367,6 @@ async function loadData() {
     });
 }
 
-function getShift(workWeek: WorkWeek, dayOffset: number): Shift | undefined {
-    return workWeek.shifts?.find(shift => shift.week_day === weekDay(dayOffset));
-}
-
-function addShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
-    const day = weekDay(dayOffset);
-
-    if (!workWeek.shifts) {
-        workWeek.shifts = [];
-    }
-
-    const newShift = {
-        week_day: day,
-        date: startDate.value?.add({ days: dayOffset }).toString() || '',
-        day_offset: dayOffset,
-        start_time: shift.start_time,
-        end_time: shift.end_time,
-    };
-
-    workWeek.shifts.push(newShift);
-}
-
-function updateShift(workWeek: WorkWeek, dayOffset: number, shift: Shift) {
-    const existingShift = getShift(workWeek, dayOffset);
-
-    if (existingShift) {
-        existingShift.start_time = shift.start_time;
-        existingShift.end_time = shift.end_time;
-    }
-}
-
-function updateShiftDates(newStart: DateValue|undefined, oldStart: DateValue|undefined) {
-    if (!newStart || !oldStart) {
-        return;
-    }
-
-    if (schedule.value.work_weeks) {
-        schedule.value.work_weeks.forEach(workWeek => {
-            workWeek.shifts?.forEach(shift => {
-                const shiftDate = newStart.add({ days: shift.day_offset });
-                const weekDay = weekDaysLowerCase[getDayOfWeek(shiftDate, 'us')];
-
-                shift.date = shiftDate.toString();
-                shift.week_day = weekDay;
-            });
-        });
-    }
-}
-
-function removeShift(workWeek: WorkWeek, dayOffset: number) {
-    if (workWeek.shifts) {
-        const index = workWeek.shifts.findIndex(shift => shift.week_day === weekDay(dayOffset));
-        if (index > -1) {
-            workWeek.shifts.splice(index, 1);
-        }
-    }
-}
-
 function updateSchedule() {
     isLoading.value = true;
 
@@ -448,27 +385,15 @@ function updateSchedule() {
         });
 }
 
-function weekDay(dayOffset: number): string {
-    return startDate.value ? weekDaysLowerCase[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : weekDaysLowerCase[dayOffset];
-}
-
-function weekDayShort(dayOffset: number): string {
-    return startDate.value ? weekDaysShort[getDayOfWeek(startDate.value.add({days: dayOffset}), 'us')] : '';
-}
-
-function headerDateString(dayOffset: number): string {
-    return startDate.value ? header_df.format(startDate.value.add({days: dayOffset}).toDate(getLocalTimeZone())) : '';
-}
-
 watch(
     () => [ startDate.value, endDate.value ],
     ([ newStart, newEnd ], [ oldStart, oldEnd ]) => {
         if (newStart?.day && newStart?.day !== oldStart?.day) {
             endDate.value = newStart.copy().add({days: 6});
-            updateShiftDates(newStart, oldStart);
+            updateShiftDates(newStart, oldStart, schedule.value);
         } else if (newEnd?.day && newEnd?.day !== oldEnd?.day) {
             startDate.value = newEnd.copy().subtract({days: 6});
-            updateShiftDates(newStart, oldStart);
+            updateShiftDates(newStart, oldStart, schedule.value);
         }
     },
     { flush: 'post' }
