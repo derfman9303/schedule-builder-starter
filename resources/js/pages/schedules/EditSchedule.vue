@@ -289,8 +289,6 @@ import axios from 'axios';
 import { usePage } from '@inertiajs/vue3';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
-import { type WorkWeek } from '@/types/WorkWeek';
-import { type Shift } from '@/types/Shift';
 
 const page = usePage<{ schedule_id: number }>();
 
