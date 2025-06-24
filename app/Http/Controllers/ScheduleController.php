@@ -31,6 +31,7 @@ class ScheduleController extends Controller
             'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
             'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i:s',
             'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i:s|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.day_offset' => 'required|integer|in:0,1,2,3,4,5,6',
         ]);
 
         $schedule = new Schedule();
@@ -52,6 +53,7 @@ class ScheduleController extends Controller
                     'date' => $shift['date'],
                     'start_time' => $shift['start_time'],
                     'end_time' => $shift['end_time'],
+                    'day_offset' => $shift['day_offset'],
                 ]);
             }
         }
@@ -81,6 +83,7 @@ class ScheduleController extends Controller
             'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
             'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i:s',
             'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i:s|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.day_offset' => 'required|integer|in:0,1,2,3,4,5,6',
         ]);
 
         $schedule->update($request->only(['name', 'start_date', 'end_date']));
@@ -100,6 +103,7 @@ class ScheduleController extends Controller
                     'date' => $shift['date'],
                     'start_time' => $shift['start_time'],
                     'end_time' => $shift['end_time'],
+                    'day_offset' => $shift['day_offset'],
                 ]);
             }
         }
