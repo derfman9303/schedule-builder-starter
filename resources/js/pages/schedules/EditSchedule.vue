@@ -263,7 +263,14 @@
                     </TableRow>
                 </TableBody>
             </Table>
-            <Button class="my-4 bg-blue-500 hover:bg-blue-600 cursor-pointer text-white" @click="updateSchedule">
+            <Button
+                class="my-4 bg-blue-500 hover:bg-blue-600 cursor-pointer text-white"
+                @click="updateSchedule"
+            >
+                <Loader2
+                    v-if="buttonLoading"
+                    class="w-4 h-4 mr-2 animate-spin"
+                />
                 Update
             </Button>
         </div>
@@ -276,7 +283,7 @@ import { cn } from '../../lib/utils';
 import { parseDate } from '@internationalized/date';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
 import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
@@ -289,7 +296,7 @@ import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
 import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
-import { Plus, X, LoaderCircle, CalendarIcon } from 'lucide-vue-next';
+import { Plus, X, LoaderCircle, CalendarIcon, Loader2 } from 'lucide-vue-next';
 import axios from 'axios';
 import { usePage } from '@inertiajs/vue3';
 import { type Employee } from '@/types/Employee';
@@ -298,6 +305,7 @@ import { type Schedule } from '@/types/Schedule';
 const page = usePage<{ schedule_id: number }>();
 
 const isLoading = ref(false);
+const buttonLoading = ref(false);
 
 const {
     startDate,
@@ -371,20 +379,20 @@ async function loadData() {
 }
 
 function updateSchedule() {
-    isLoading.value = true;
+    buttonLoading.value = true;
 
     schedule.value.start_date = startDate.value?.toString() || '';
     schedule.value.end_date = endDate.value?.toString() || '';
 
     axios.put('/api/schedules/' + page.props.schedule_id, schedule.value)
-        .then(response => {
-            console.log('Schedule updated successfully:', response.data);
+        .then(res => {
+            router.visit('/schedules');
         })
         .catch(error => {
             console.error('Error updating schedule:', error);
         })
         .finally(() => {
-            isLoading.value = false;
+            buttonLoading.value = false;
         });
 }
 

@@ -263,7 +263,15 @@
                     </TableRow>
                 </TableBody>
             </Table>
-            <Button class="my-4 bg-blue-500 hover:bg-blue-600 text-white" @click="saveSchedule">
+            <Button
+                class="my-4 bg-blue-500 hover:bg-blue-600 text-white"
+                :loading="buttonLoading"
+                @click="saveSchedule"
+            >
+                <Loader2
+                    v-if="buttonLoading"
+                    class="w-4 h-4 mr-2 animate-spin"
+                />
                 Save Schedule
             </Button>
         </div>
@@ -275,7 +283,7 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { cn } from '../../lib/utils';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
 import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
@@ -288,7 +296,7 @@ import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
 import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
-import { Plus, X, LoaderCircle, CalendarIcon } from 'lucide-vue-next';
+import { Plus, X, LoaderCircle, CalendarIcon, Loader2 } from 'lucide-vue-next';
 import axios from 'axios';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
@@ -309,6 +317,7 @@ const {
 } = useSchedule();
 
 const isLoading = ref(false);
+const buttonLoading = ref(false);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -374,20 +383,20 @@ function initSchedule() {
 }
 
 function saveSchedule() {
-    isLoading.value = true;
+    buttonLoading.value = true;
 
     schedule.value.start_date = startDate.value?.toString() || '';
     schedule.value.end_date = endDate.value?.toString() || '';
 
     axios.post('/api/schedules', schedule.value)
-        .then(response => {
-            console.log('Schedule saved successfully:', response.data);
+        .then(res => {
+            router.visit('/schedules');
         })
         .catch(error => {
             console.error('Error saving schedule:', error);
         })
         .finally(() => {
-            isLoading.value = false;
+            buttonLoading.value = false;
         });
 }
 
