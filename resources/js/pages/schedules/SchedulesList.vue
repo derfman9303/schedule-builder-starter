@@ -7,9 +7,13 @@
                 <h1 class="text-2xl font-semibold">Your Schedules</h1>
                 <Link
                     href="/schedules/create"
-                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    class="inline-flex items-center px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
                 >
-                    + New Schedule
+                    <Plus
+                        :size="18"
+                        class="mr-2"
+                    />
+                    New Schedule
                 </Link>
             </div>
 
@@ -50,6 +54,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { type BreadcrumbItem } from '@/types'
 import { type Schedule } from '@/types/Schedule';
+import { Plus } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Schedules', href: '/schedules' },
