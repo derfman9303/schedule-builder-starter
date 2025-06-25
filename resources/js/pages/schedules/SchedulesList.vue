@@ -2,7 +2,18 @@
   <Head title="Schedules" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="px-6 py-4">
+        <div
+            v-if="isLoading"
+            class="flex justify-center items-center h-64">
+            <LoaderCircle
+                :size="40"
+                class="animate-spin text-blue-500"
+            />
+        </div>
+        <div
+            v-else
+            class="px-6 py-4"
+        >
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold">Your Schedules</h1>
                 <Link
@@ -54,7 +65,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { type BreadcrumbItem } from '@/types'
 import { type Schedule } from '@/types/Schedule';
-import { Plus } from 'lucide-vue-next';
+import { Plus, LoaderCircle } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Schedules', href: '/schedules' },

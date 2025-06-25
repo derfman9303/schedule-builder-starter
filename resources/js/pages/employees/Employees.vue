@@ -13,7 +13,10 @@
             </Link>
         </div>
         <div v-if="isLoading" class="flex justify-center items-center h-64">
-            <LoaderCircle class="h-8 w-8 animate-spin text-blue-500" />
+            <LoaderCircle
+                :size="40"
+                class="animate-spin text-blue-500"
+            />
         </div>
         <div v-else>
             <div class="overflow-x-auto px-5">
