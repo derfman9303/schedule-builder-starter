@@ -11,40 +11,47 @@
             v-else    
             class="overflow-x-auto m-auto w-max mt-4"
         >
-            <Popover>
-                <PopoverTrigger as-child>
-                    <Button
-                        variant="outline"
-                        :class="cn(
-                        'w-[200px] justify-start text-left font-normal mr-4',
-                        !startDate && 'text-muted-foreground',
-                        )"
-                    >
-                        <CalendarIcon class="mr-2 h-4 w-4" />
-                        {{ !!startDate ? df.format(startDate.toDate(getLocalTimeZone())) : "Start Date" }}
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent class="w-auto p-0">
-                    <Calendar v-model="startDate" initial-focus />
-                </PopoverContent>
-            </Popover>
-            <Popover>
-                <PopoverTrigger as-child>
-                    <Button
-                        variant="outline"
-                        :class="cn(
-                        'w-[200px] justify-start text-left font-normal',
-                        !endDate && 'text-muted-foreground',
-                        )"
-                    >
-                        <CalendarIcon class="mr-2 h-4 w-4" />
-                        {{ !!endDate ? df.format(endDate.toDate(getLocalTimeZone())) : "End Date" }}
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent class="w-auto p-0">
-                    <Calendar v-model="endDate" initial-focus />
-                </PopoverContent>
-            </Popover>
+             <div class="flex items-center">
+                <Popover>
+                    <PopoverTrigger as-child>
+                        <Button
+                            variant="outline"
+                            :class="cn(
+                            'w-[200px] justify-start text-left font-normal',
+                            !startDate && 'text-muted-foreground',
+                            )"
+                        >
+                            <CalendarIcon class="mr-2 h-4 w-4" />
+                            {{ !!startDate ? df.format(startDate.toDate(getLocalTimeZone())) : "Start Date" }}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent class="w-auto p-0">
+                        <Calendar v-model="startDate" initial-focus />
+                    </PopoverContent>
+                </Popover>
+                <Popover>
+                    <PopoverTrigger as-child>
+                        <Button
+                            variant="outline"
+                            :class="cn(
+                            'w-[200px] justify-start text-left font-normal mx-4',
+                            !endDate && 'text-muted-foreground',
+                            )"
+                        >
+                            <CalendarIcon class="mr-2 h-4 w-4" />
+                            {{ !!endDate ? df.format(endDate.toDate(getLocalTimeZone())) : "End Date" }}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent class="w-auto p-0">
+                        <Calendar v-model="endDate" initial-focus />
+                    </PopoverContent>
+                </Popover>
+                <Input
+                    v-model="schedule.name"
+                    class="w-full"
+                    placeholder="Schedule Name (Optional)"
+                />
+            </div>
             <Table class="border border-gray-200 w-max mt-4">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
