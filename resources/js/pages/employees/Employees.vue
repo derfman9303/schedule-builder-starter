@@ -6,10 +6,10 @@
             <h2 class="text-2xl font-bold">Employees</h2>
             <Link
                 href="/employees/add"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
             >
-                <Plus />
-                Add
+                <Plus :size="18"/>
+                New Employee
             </Link>
         </div>
         <div v-if="isLoading" class="flex justify-center items-center h-64">
@@ -57,7 +57,7 @@
             </div>
             <div class="flex justify-between items-center mt-4 mb-4 px-5">
                 <Button
-                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
+                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer"
                     :disabled="currentPage === 1"
                     @click="currentPage--"
                 >
@@ -65,7 +65,7 @@
                 </Button>
                 <span>Page {{ currentPage }} of {{ totalPages }}</span>
                 <Button
-                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
+                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer"
                     :disabled="currentPage === totalPages"
                     @click="currentPage++"
                 >
