@@ -56,14 +56,14 @@
                 </div>
                 <Button
                     type="submit"
-                    class="w-fit bg-blue-500 hover:bg-blue-600"
+                    class="w-fit bg-blue-500 hover:bg-blue-600 cursor-pointer"
                     :disabled="form.processing"
                 >
                     <LoaderCircle
                         v-if="form.processing"
                         class="h-4 w-4 animate-spin"
                     />
-                    Add Employee
+                    Save
                 </Button>
             </div>
         </form>
