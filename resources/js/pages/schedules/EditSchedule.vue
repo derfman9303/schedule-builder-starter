@@ -305,13 +305,13 @@ const handleDragOver = (event: DragEvent) => {
     }
     // Add visual feedback
     const target = event.currentTarget as HTMLElement;
-    target.classList.add('bg-blue-100', 'border-2', 'border-blue-300', 'border-dashed');
+    target.classList.add('bg-blue-100', 'outline-2', 'outline-blue-300', 'outline-dashed');
 };
 
 const handleDragLeave = (event: DragEvent) => {
     // Remove visual feedback
     const target = event.currentTarget as HTMLElement;
-    target.classList.remove('bg-blue-100', 'border-2', 'border-blue-300', 'border-dashed');
+    target.classList.remove('bg-blue-100', 'outline-2', 'outline-blue-300', 'outline-dashed');
 };
 
 const handleDrop = (event: DragEvent, targetWorkWeekIndex: number, targetDayOffset: number) => {
@@ -319,7 +319,7 @@ const handleDrop = (event: DragEvent, targetWorkWeekIndex: number, targetDayOffs
     
     // Remove visual feedback
     const target = event.currentTarget as HTMLElement;
-    target.classList.remove('bg-blue-100', 'border-2', 'border-blue-300', 'border-dashed');
+    target.classList.remove('bg-blue-100', 'outline-2', 'outline-blue-300', 'outline-dashed');
     
     if (!event.dataTransfer) return;
     
