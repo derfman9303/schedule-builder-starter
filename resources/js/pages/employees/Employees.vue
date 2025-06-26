@@ -39,7 +39,7 @@
                             <TableCell class="border-t px-4 py-2">
                                 <Link
                                     :href="`/employees/edit/${employee.id}`"
-                                    class="text-blue-500 hover:underline"
+                                    class="text-blue-500 hover:text-blue-700 hover:underline"
                                 >
                                     Edit
                                 </Link>

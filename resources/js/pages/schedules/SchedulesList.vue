@@ -50,14 +50,14 @@
                         <TableCell class="text-center">
                             <Link
                                 :href="`/schedules/edit/${schedule.id}`"
-                                class="text-blue-600 hover:text-blue-800"
+                                class="text-blue-500 hover:text-blue-700 hover:underline "
                             >
                                 Edit
                             </Link>
                             <Button
                                 @click="openDialog(schedule)"
                                 variant="link"
-                                class="text-red-500 cursor-pointer hover:underline"
+                                class="text-red-500 cursor-pointer hover:underline ml-3"
                             >
                                 Delete
                             </Button>
