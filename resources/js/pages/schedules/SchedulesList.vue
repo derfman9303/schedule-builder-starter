@@ -38,7 +38,12 @@
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="schedule in schedules" :key="schedule.id" class="hover:bg-gray-50">
+                    <TableRow
+                        v-if="schedules.length"
+                        v-for="schedule in schedules"
+                        :key="schedule.id"
+                        class="hover:bg-gray-50"
+                    >
                         <TableCell>{{ schedule.name }}</TableCell>
                         <TableCell>{{ formatDate(schedule.start_date) }}</TableCell>
                         <TableCell>{{ formatDate(schedule.end_date) }}</TableCell>
@@ -56,6 +61,11 @@
                             >
                                 Delete
                             </Button>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow v-else>
+                        <TableCell colspan="4" class="text-center text-gray-500 py-4">
+                            No schedules found.
                         </TableCell>
                     </TableRow>
                 </TableBody>
