@@ -173,6 +173,70 @@ export function useSchedule() {
         return true;
     }
 
+    // Drag and drop handlers
+    const handleDragStart = (event: DragEvent, workWeekIndex: number, dayOffset: number) => {
+        if (event.dataTransfer) {
+            event.dataTransfer.setData('text/plain', JSON.stringify({
+                sourceWorkWeekIndex: workWeekIndex,
+                sourceDayOffset: dayOffset
+            }));
+            event.dataTransfer.effectAllowed = 'move';
+        }
+    };
+
+    const handleDragOver = (event: DragEvent) => {
+        event.preventDefault();
+        if (event.dataTransfer) {
+            event.dataTransfer.dropEffect = 'move';
+        }
+        // Add visual feedback using outline to avoid layout shift
+        const target = event.currentTarget as HTMLElement;
+        target.classList.add('bg-blue-100', 'outline-2', 'outline-blue-300', 'outline-dashed');
+    };
+
+    const handleDragLeave = (event: DragEvent) => {
+        // Remove visual feedback
+        const target = event.currentTarget as HTMLElement;
+        target.classList.remove('bg-blue-100', 'outline-2', 'outline-blue-300', 'outline-dashed');
+    };
+
+    const handleDrop = (event: DragEvent, targetWorkWeekIndex: number, targetDayOffset: number, schedule: Schedule) => {
+        event.preventDefault();
+        
+        // Remove visual feedback
+        const target = event.currentTarget as HTMLElement;
+        target.classList.remove('bg-blue-100', 'outline-2', 'outline-blue-300', 'outline-dashed');
+        
+        if (!event.dataTransfer) return;
+        
+        try {
+            const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+            const { sourceWorkWeekIndex, sourceDayOffset } = data;
+            
+            // Don't do anything if dropping on the same cell
+            if (sourceWorkWeekIndex === targetWorkWeekIndex && sourceDayOffset === targetDayOffset) {
+                return;
+            }
+            
+            // Check if target cell is occupied
+            const targetWorkWeek = schedule.work_weeks?.[targetWorkWeekIndex];
+            const targetShift = targetWorkWeek ? getShift(targetWorkWeek, targetDayOffset) : null;
+            
+            if (targetShift) {
+                // Target cell is occupied, can't drop here
+                return;
+            }
+            
+            // Perform the move
+            const sourceWorkWeek = schedule.work_weeks?.[sourceWorkWeekIndex];
+            if (sourceWorkWeek && targetWorkWeek) {
+                moveShift(sourceWorkWeek, sourceDayOffset, targetWorkWeek, targetDayOffset);
+            }
+        } catch (error) {
+            console.error('Error handling drop:', error);
+        }
+    };
+
     return {
         weekDaysLowerCase,
         weekDaysShort,
@@ -191,5 +255,9 @@ export function useSchedule() {
         getColor,
         headerDateString,
         moveShift,
+        handleDragStart,
+        handleDragOver,
+        handleDragLeave,
+        handleDrop,
     };
 }
