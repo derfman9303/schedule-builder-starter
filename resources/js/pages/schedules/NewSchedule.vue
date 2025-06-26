@@ -264,6 +264,10 @@ const buttonLoading = ref(false);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
+        title: 'Schedules',
+        href: '/schedules',
+    },
+    {
         title: 'Create a Schedule',
         href: '/schedules/new',
     },

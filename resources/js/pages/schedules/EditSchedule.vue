@@ -1,5 +1,5 @@
 <template>
-    <Head title="Create a Schedule" />
+    <Head title="Edit Schedule" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div
@@ -267,8 +267,12 @@ const {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create a Schedule',
-        href: '/schedules/new',
+        title: 'Schedules',
+        href: '/schedules',
+    },
+    {
+        title: 'Edit Schedule',
+        href: '/schedules/edit/' + page.props.schedule_id,
     },
 ];
 
