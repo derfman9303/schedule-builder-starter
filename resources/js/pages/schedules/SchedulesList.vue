@@ -138,6 +138,14 @@ function fetchData() {
 }
 
 function deleteSchedule(): void {
+    isLoading.value = true;
+
+    if (!deleteScheduleId.value) {
+        console.error('No schedule ID to delete');
+        dialogOpen.value = false;
+        return;
+    }
+
     axios.delete(`/api/schedules/${deleteScheduleId.value}`)
         .then(() => {
             // Remove the schedule from the list
@@ -148,6 +156,9 @@ function deleteSchedule(): void {
         })
         .catch((error) => {
             console.error('Error deleting schedule:', error);
+        })
+        .finally(() => {
+            isLoading.value = false;
         });
 }
 
