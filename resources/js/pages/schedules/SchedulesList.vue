@@ -1,19 +1,8 @@
 <template>
-  <Head title="Schedules" />
+    <Head title="Schedules" />
 
-  <AppLayout :breadcrumbs="breadcrumbs">
-        <div
-            v-if="isLoading"
-            class="flex justify-center items-center h-64">
-            <LoaderCircle
-                :size="40"
-                class="animate-spin text-blue-500"
-            />
-        </div>
-        <div
-            v-else
-            class="px-6 py-4"
-        >
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="px-6 py-4">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold">Your Schedules</h1>
                 <Link
@@ -27,8 +16,18 @@
                     New Schedule
                 </Link>
             </div>
-
-            <Table class="min-w-full border border-gray-200">
+            <div
+                v-if="isLoading"
+                class="flex justify-center items-center h-64">
+                <LoaderCircle
+                    :size="40"
+                    class="animate-spin text-blue-500"
+                />
+            </div>
+            <Table
+                v-else
+                class="min-w-full border border-gray-200"
+            >
                 <TableHeader class="bg-gray-100">
                     <TableRow>
                         <TableHead class="text-left px-4 py-2">Name</TableHead>
