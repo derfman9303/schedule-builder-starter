@@ -88,95 +88,186 @@
                     >
                         <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 0)"
-                                :shift="getShift(work_week, 0)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 0, shift)"
-                                @remove-shift="() => removeShift(work_week, 0)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 0, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 0)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 0)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 0)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 0)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 0, shift)"
+                                        @remove-shift="() => removeShift(work_week, 0)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 0, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 1)"
-                                :shift="getShift(work_week, 1)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 1, shift)"
-                                @remove-shift="() => removeShift(work_week, 1)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 1, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 1)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 1)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 1)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 1)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 1, shift)"
+                                        @remove-shift="() => removeShift(work_week, 1)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 1, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 2)"
-                                :shift="getShift(work_week, 2)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 2, shift)"
-                                @remove-shift="() => removeShift(work_week, 2)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 2, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 2)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 2)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 2)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 2)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 2, shift)"
+                                        @remove-shift="() => removeShift(work_week, 2)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 2, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 3)"
-                                :shift="getShift(work_week, 3)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 3, shift)"
-                                @remove-shift="() => removeShift(work_week, 3)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 3, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 3)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 3)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 3)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 3)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 3, shift)"
+                                        @remove-shift="() => removeShift(work_week, 3)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 3, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 4)"
-                                :shift="getShift(work_week, 4)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 4, shift)"
-                                @remove-shift="() => removeShift(work_week, 4)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 4, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 4)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 4)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 4)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 4)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 4, shift)"
+                                        @remove-shift="() => removeShift(work_week, 4)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 4, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 5)"
-                                :shift="getShift(work_week, 5)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 5, shift)"
-                                @remove-shift="() => removeShift(work_week, 5)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 5, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 5)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 5)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 5)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 5)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 5, shift)"
+                                        @remove-shift="() => removeShift(work_week, 5)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 5, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="p-0">
-                            <EditShiftComponent
-                                v-if="getShift(work_week, 6)"
-                                :shift="getShift(work_week, 6)"
-                                :color="getColor(index)"
-                                @update-shift="(shift) => updateShift(work_week, 6, shift)"
-                                @remove-shift="() => removeShift(work_week, 6)"
-                            />
-                            <AddShiftComponent
-                                v-else
-                                @add-shift="(shift) => addShift(work_week, 6, shift)"
-                            />
+                            <div
+                                @dragover="handleDragOver"
+                                @dragleave="handleDragLeave"
+                                @drop="(event) => handleDrop(event, index, 6)"
+                                class="min-h-[45px] flex items-center justify-center transition-colors"
+                            >
+                                <div
+                                    v-if="getShift(work_week, 6)"
+                                    draggable="true"
+                                    @dragstart="(event) => handleDragStart(event, index, 6)"
+                                    class="cursor-move"
+                                >
+                                    <EditShiftComponent
+                                        :shift="getShift(work_week, 6)"
+                                        :color="getColor(index)"
+                                        @update-shift="(shift) => updateShift(work_week, 6, shift)"
+                                        @remove-shift="() => removeShift(work_week, 6)"
+                                    />
+                                </div>
+                                <AddShiftComponent
+                                    v-else
+                                    @add-shift="(shift) => addShift(work_week, 6, shift)"
+                                />
+                            </div>
                         </TableCell>
                         <TableCell class="border-2 p-0">
                             <Button
@@ -317,6 +408,7 @@ const {
     getColor,
     addWorkWeek,
     removeWorkWeek,
+    moveShift,
 } = useSchedule();
 
 const isLoading = ref(false);
@@ -347,6 +439,70 @@ const selectedEmployee = ref<Employee | null>(null);
 const selectedEmployees = computed(() => {
     return employees.value.filter(emp => !schedule.value.work_weeks?.some(ww => ww.employee_id === emp.id));
 });
+
+// Drag and drop handlers
+const handleDragStart = (event: DragEvent, workWeekIndex: number, dayOffset: number) => {
+    if (event.dataTransfer) {
+        event.dataTransfer.setData('text/plain', JSON.stringify({
+            sourceWorkWeekIndex: workWeekIndex,
+            sourceDayOffset: dayOffset
+        }));
+        event.dataTransfer.effectAllowed = 'move';
+    }
+};
+
+const handleDragOver = (event: DragEvent) => {
+    event.preventDefault();
+    if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = 'move';
+    }
+    // Add visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.classList.add('bg-blue-100', 'border-2', 'border-blue-300', 'border-dashed');
+};
+
+const handleDragLeave = (event: DragEvent) => {
+    // Remove visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.classList.remove('bg-blue-100', 'border-2', 'border-blue-300', 'border-dashed');
+};
+
+const handleDrop = (event: DragEvent, targetWorkWeekIndex: number, targetDayOffset: number) => {
+    event.preventDefault();
+    
+    // Remove visual feedback
+    const target = event.currentTarget as HTMLElement;
+    target.classList.remove('bg-blue-100', 'border-2', 'border-blue-300', 'border-dashed');
+    
+    if (!event.dataTransfer) return;
+    
+    try {
+        const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+        const { sourceWorkWeekIndex, sourceDayOffset } = data;
+        
+        // Don't do anything if dropping on the same cell
+        if (sourceWorkWeekIndex === targetWorkWeekIndex && sourceDayOffset === targetDayOffset) {
+            return;
+        }
+        
+        // Check if target cell is occupied
+        const targetWorkWeek = schedule.value.work_weeks?.[targetWorkWeekIndex];
+        const targetShift = targetWorkWeek ? getShift(targetWorkWeek, targetDayOffset) : null;
+        
+        if (targetShift) {
+            // Target cell is occupied, can't drop here
+            return;
+        }
+        
+        // Perform the move
+        const sourceWorkWeek = schedule.value.work_weeks?.[sourceWorkWeekIndex];
+        if (sourceWorkWeek && targetWorkWeek) {
+            moveShift(sourceWorkWeek, sourceDayOffset, targetWorkWeek, targetDayOffset);
+        }
+    } catch (error) {
+        console.error('Error handling drop:', error);
+    }
+};
 
 const df = new DateFormatter('en-US', {
     dateStyle: 'long',

@@ -135,6 +135,44 @@ export function useSchedule() {
         return startDate.value ? header_df.format(startDate.value.add({days: dayOffset}).toDate(getLocalTimeZone())) : '';
     }
 
+    const moveShift = (
+        sourceWorkWeek: WorkWeek, 
+        sourceDayOffset: number, 
+        targetWorkWeek: WorkWeek, 
+        targetDayOffset: number
+    ): boolean => {
+        const sourceShift = getShift(sourceWorkWeek, sourceDayOffset);
+        
+        if (!sourceShift) {
+            return false;
+        }
+
+        // Check if target already has a shift
+        const targetShift = getShift(targetWorkWeek, targetDayOffset);
+        if (targetShift) {
+            return false; // Can't move to occupied slot
+        }
+
+        // Remove from source
+        removeShift(sourceWorkWeek, sourceDayOffset);
+
+        // Add to target with updated day information
+        const day = weekDay(targetDayOffset);
+        const newShift = {
+            ...sourceShift,
+            week_day: day,
+            date: startDate.value?.add({ days: targetDayOffset }).toString() || '',
+            day_offset: targetDayOffset,
+        };
+
+        if (!targetWorkWeek.shifts) {
+            targetWorkWeek.shifts = [];
+        }
+
+        targetWorkWeek.shifts.push(newShift);
+        return true;
+    }
+
     return {
         weekDaysLowerCase,
         weekDaysShort,
@@ -152,5 +190,6 @@ export function useSchedule() {
         updateShiftDates,
         getColor,
         headerDateString,
+        moveShift,
     };
 }
