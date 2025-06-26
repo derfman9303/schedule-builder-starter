@@ -73,7 +73,6 @@
                 </Button>
             </div>
         </div>
-
         <AlertDialog v-model:open="dialogOpen">
             <AlertDialogContent>
                 <AlertDialogHeader>
@@ -164,6 +163,8 @@ const deleteEmployee = (employeeId: number|null) => {
             .then(() => {
                 employees.value = employees.value.filter(employee => employee.id !== employeeId);
                 dialogOpen.value = false;
+                selectedEmployeeId.value = null;
+                deleteMessage.value = '';
             })
             .catch((error) => {
                 console.error('Error deleting employee:', error);

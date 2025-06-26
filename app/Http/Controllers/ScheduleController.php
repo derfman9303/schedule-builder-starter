@@ -110,4 +110,9 @@ class ScheduleController extends Controller
 
         return $schedule;
     }
+
+    public function delete(Schedule $schedule): void
+    {
+        $schedule->delete();
+    }
 }

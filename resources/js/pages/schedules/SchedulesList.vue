@@ -49,11 +49,43 @@
                             >
                                 Edit
                             </Link>
+                            <Button
+                                @click="openDialog(schedule)"
+                                variant="link"
+                                class="text-red-500 cursor-pointer hover:underline"
+                            >
+                                Delete
+                            </Button>
                         </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
         </div>
+        <AlertDialog v-model:open="dialogOpen">
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle class="text-lg font-bold">Confirm Deletion</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        <span v-html="deleteMessage">
+                        </span>
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel
+                        @click="dialogOpen = false"
+                        class="cursor-pointer"
+                    >
+                        Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                        @click="deleteSchedule"
+                        class="bg-red-500 hover:bg-red-600 cursor-pointer text-white"
+                    >
+                        Delete
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     </AppLayout>
 </template>
 
@@ -63,6 +95,7 @@ import axios from 'axios';
 import { Head, Link } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogCancel, AlertDialogAction, AlertDialogTitle, AlertDialogDescription } from '@/components/ui/alert-dialog';
 import { type BreadcrumbItem } from '@/types'
 import { type Schedule } from '@/types/Schedule';
 import { Plus, LoaderCircle } from 'lucide-vue-next';
@@ -73,7 +106,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const schedules = ref<Schedule[]>([]);
 
-const isLoading = ref(true);
+const isLoading = ref(true as boolean);
+
+const dialogOpen = ref(false as boolean);
+const deleteMessage = ref('' as string);
+const deleteScheduleId = ref(undefined as number | undefined);
 
 function fetchData() {
     isLoading.value = true;
@@ -90,10 +127,34 @@ function fetchData() {
         });
 }
 
+function deleteSchedule(): void {
+    axios.delete(`/api/schedules/${deleteScheduleId.value}`)
+        .then(() => {
+            // Remove the schedule from the list
+            schedules.value = schedules.value.filter(s => s.id !== deleteScheduleId.value);
+            dialogOpen.value = false;
+            deleteScheduleId.value = undefined;
+            deleteMessage.value = '';
+        })
+        .catch((error) => {
+            console.error('Error deleting schedule:', error);
+        });
+}
+
+function openDialog(schedule: Schedule): void {
+    deleteScheduleId.value = schedule.id;
+    deleteMessage.value = 'Are you sure you want to delete this schedule?' +
+        `<br><br><strong>Schedule Name: ${schedule.name ?? 'not set'}</strong>` +
+        `<br><strong>Start Date: ${formatDate(schedule.start_date)}</strong>` +
+        `<br><strong>End Date: ${formatDate(schedule.end_date)}</strong>`;
+
+    dialogOpen.value = true;
+};
+
 /**
  * Simple date formatter: YYYY-MM-DD → M/D/YYYY
  */
-function formatDate(d: string) {
+function formatDate(d: string): string {
     const dt = new Date(d)
     return `${dt.getMonth() + 1}/${dt.getDate()}/${dt.getFullYear()}`
 }
