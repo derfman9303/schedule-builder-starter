@@ -31,7 +31,12 @@
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow v-for="employee in paginatedEmployees" :key="employee.id" class="hover:bg-gray-50">
+                        <TableRow
+                        v-if="employees.length"
+                            v-for="employee in paginatedEmployees"
+                            :key="employee.id"
+                            class="hover:bg-gray-50"
+                        >
                             <TableCell class="border-t px-4 py-2">{{ employee.first_name }}</TableCell>
                             <TableCell class="border-t px-4 py-2">{{ employee.last_name }}</TableCell>
                             <TableCell class="border-t px-4 py-2">{{ employee.email }}</TableCell>
@@ -52,10 +57,18 @@
                                 </Button>
                             </TableCell>
                         </TableRow>
+                            <TableRow v-else>
+                            <TableCell colspan="5" class="text-center text-gray-500 py-4">
+                                No employees found.
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </div>
-            <div class="flex justify-between items-center mt-4 mb-4 px-5">
+            <div
+                v-if="employees.length"
+                class="flex justify-between items-center mt-4 mb-4 px-5"
+            >
                 <Button
                     class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer"
                     :disabled="currentPage === 1"
