@@ -83,12 +83,12 @@ const props = defineProps<{
     onUpdateShift: (shift: Shift) => void;
     onRemoveShift: (shift: Shift) => void;
 }>();
-
+const emit = defineEmits(['update-shift', 'remove-shift']);
 const startTime = ref(props.shift?.start_time);
 const endTime = ref(props.shift?.end_time);
 
 function updateShift() {
-    props.onUpdateShift({
+    emit('update-shift', {
         ...props.shift,
         start_time: startTime.value,
         end_time: endTime.value,

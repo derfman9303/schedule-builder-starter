@@ -87,7 +87,7 @@
                         class="hover:bg-gray-50 border-none"
                     >
                         <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
-                        <TableCell v-for="day_offset in [0,1,2,3,4,5,6]" class="p-0">
+                        <TableCell v-for="day_offset in [0,1,2,3,4,5,6]" :key="day_offset" class="p-0">
                             <div
                                 @dragover="handleDragOver"
                                 @dragleave="handleDragLeave"
