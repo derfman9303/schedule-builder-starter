@@ -33,7 +33,6 @@
                     class="p-[5px] cursor-pointer"
                     name="start time"
                     type="time"
-                    step="1"
                 />
             </div>
             <div class="flex flex-row justify-between">
@@ -44,7 +43,6 @@
                     class="p-[5px] cursor-pointer"
                     name="end time"
                     type="time"
-                    step="1"
                 />
             </div>
             <div class="flex justify-between w-full mt-4">
