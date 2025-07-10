@@ -202,7 +202,7 @@
                 </TableBody>
             </Table>
             <Button
-                class="my-4 bg-blue-500 hover:bg-blue-600 text-white"
+                class="my-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
                 :loading="buttonLoading"
                 @click="saveSchedule"
             >
