@@ -30,7 +30,7 @@
                 <input
                     v-model="startTime"
                     id="start-time"
-                    class="p-[5px]"
+                    class="p-[5px] cursor-pointer"
                     name="start time"
                     type="time"
                     step="1"
@@ -41,7 +41,7 @@
                 <input
                     v-model="endTime"
                     id="end-time"
-                    class="p-[5px]"
+                    class="p-[5px] cursor-pointer"
                     name="end time"
                     type="time"
                     step="1"
