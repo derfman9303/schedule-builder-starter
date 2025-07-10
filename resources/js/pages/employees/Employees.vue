@@ -6,14 +6,17 @@
             <h2 class="text-2xl font-bold">Employees</h2>
             <Link
                 href="/employees/add"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
             >
-                <Plus />
-                Add
+                <Plus :size="18"/>
+                New Employee
             </Link>
         </div>
         <div v-if="isLoading" class="flex justify-center items-center h-64">
-            <LoaderCircle class="h-8 w-8 animate-spin text-blue-500" />
+            <LoaderCircle
+                :size="40"
+                class="animate-spin text-blue-500"
+            />
         </div>
         <div v-else>
             <div class="overflow-x-auto px-5">
@@ -28,7 +31,12 @@
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow v-for="employee in paginatedEmployees" :key="employee.id" class="hover:bg-gray-50">
+                        <TableRow
+                        v-if="employees.length"
+                            v-for="employee in paginatedEmployees"
+                            :key="employee.id"
+                            class="hover:bg-gray-50"
+                        >
                             <TableCell class="border-t px-4 py-2">{{ employee.first_name }}</TableCell>
                             <TableCell class="border-t px-4 py-2">{{ employee.last_name }}</TableCell>
                             <TableCell class="border-t px-4 py-2">{{ employee.email }}</TableCell>
@@ -36,7 +44,7 @@
                             <TableCell class="border-t px-4 py-2">
                                 <Link
                                     :href="`/employees/edit/${employee.id}`"
-                                    class="text-blue-500 hover:underline"
+                                    class="text-blue-500 hover:text-blue-700 hover:underline"
                                 >
                                     Edit
                                 </Link>
@@ -49,12 +57,20 @@
                                 </Button>
                             </TableCell>
                         </TableRow>
+                            <TableRow v-else>
+                            <TableCell colspan="5" class="text-center text-gray-500 py-4">
+                                No employees found.
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </div>
-            <div class="flex justify-between items-center mt-4 mb-4 px-5">
+            <div
+                v-if="employees.length"
+                class="flex justify-between items-center mt-4 mb-4 px-5"
+            >
                 <Button
-                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
+                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer"
                     :disabled="currentPage === 1"
                     @click="currentPage--"
                 >
@@ -62,7 +78,7 @@
                 </Button>
                 <span>Page {{ currentPage }} of {{ totalPages }}</span>
                 <Button
-                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
+                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer"
                     :disabled="currentPage === totalPages"
                     @click="currentPage++"
                 >
@@ -70,7 +86,6 @@
                 </Button>
             </div>
         </div>
-
         <AlertDialog v-model:open="dialogOpen">
             <AlertDialogContent>
                 <AlertDialogHeader>
@@ -135,7 +150,7 @@ const totalPages = computed(() => {
     return Math.ceil(employees.value.length / itemsPerPage);
 });
 
-const fetchEmployees = () => {
+function fetchEmployees() {
     isLoading.value = true;
     axios.get('/api/employees')
         .then((response) => {
@@ -161,6 +176,8 @@ const deleteEmployee = (employeeId: number|null) => {
             .then(() => {
                 employees.value = employees.value.filter(employee => employee.id !== employeeId);
                 dialogOpen.value = false;
+                selectedEmployeeId.value = null;
+                deleteMessage.value = '';
             })
             .catch((error) => {
                 console.error('Error deleting employee:', error);

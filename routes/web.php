@@ -14,9 +14,17 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     })->name('dashboard');
 
     Route::group(['prefix' => 'schedules'], function () {
+        Route::get('', function () {
+            return Inertia::render('schedules/SchedulesList');
+        })->name('schedules.index');
+
         Route::get('/new', function () {
             return Inertia::render('schedules/NewSchedule');
         })->name('schedules.new');
+
+        Route::get('/edit/{schedule_id}', function ($schedule_id) {
+            return Inertia::render('schedules/EditSchedule', ['schedule_id' => $schedule_id]);
+        })->name('schedules.edit');
     });
 
     Route::group(['prefix' => 'employees'], function () {

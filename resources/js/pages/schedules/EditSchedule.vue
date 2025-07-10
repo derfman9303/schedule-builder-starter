@@ -1,5 +1,5 @@
 <template>
-    <Head title="Create a Schedule" />
+    <Head title="Edit Schedule" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div
@@ -11,10 +11,10 @@
             />
         </div>
         <div
-            v-else
+            v-else    
             class="overflow-x-auto m-auto w-max mt-4"
         >
-            <div class="flex items-center">
+             <div class="flex items-center">
                 <Popover>
                     <PopoverTrigger as-child>
                         <Button
@@ -87,7 +87,7 @@
                         class="hover:bg-gray-50 border-none"
                     >
                         <TableCell class="border-2 px-4 py-2">{{ work_week.employee_name }}</TableCell>
-                        <TableCell v-for="day_offset in [0,1,2,3,4,5,6]" :key="day_offset" class="p-0">
+                        <TableCell v-for="day_offset in [0,1,2,3,4,5,6]" class="p-0">
                             <div
                                 @dragover="handleDragOver"
                                 @dragleave="handleDragLeave"
@@ -202,15 +202,14 @@
                 </TableBody>
             </Table>
             <Button
-                class="my-4 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
-                :loading="buttonLoading"
-                @click="saveSchedule"
+                class="my-4 bg-blue-500 hover:bg-blue-600 cursor-pointer text-white"
+                @click="updateSchedule"
             >
                 <Loader2
                     v-if="buttonLoading"
                     class="w-4 h-4 mr-2 animate-spin"
                 />
-                Save Schedule
+                Update
             </Button>
         </div>
     </AppLayout>
@@ -219,11 +218,12 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
 import { cn } from '../../lib/utils';
+import { parseDate } from '@internationalized/date';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
-import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date';
+import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
@@ -236,8 +236,14 @@ import AddShiftComponent from './AddShiftComponent.vue';
 import EditShiftComponent from './EditShiftComponent.vue';
 import { Plus, X, LoaderCircle, CalendarIcon, Loader2 } from 'lucide-vue-next';
 import axios from 'axios';
+import { usePage } from '@inertiajs/vue3';
 import { type Employee } from '@/types/Employee';
 import { type Schedule } from '@/types/Schedule';
+
+const page = usePage<{ schedule_id: number }>();
+
+const isLoading = ref(false);
+const buttonLoading = ref(false);
 
 const {
     startDate,
@@ -248,19 +254,16 @@ const {
     addShift,
     updateShift,
     removeShift,
+    moveShift,
     updateShiftDates,
     getColor,
     addWorkWeek,
     removeWorkWeek,
-    moveShift,
     handleDragStart,
     handleDragOver,
     handleDragLeave,
     handleDrop,
 } = useSchedule();
-
-const isLoading = ref(false);
-const buttonLoading = ref(false);
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -268,8 +271,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/schedules',
     },
     {
-        title: 'Create a Schedule',
-        href: '/schedules/new',
+        title: 'Edit Schedule',
+        href: '/schedules/edit/' + page.props.schedule_id,
     },
 ];
 
@@ -296,51 +299,44 @@ const df = new DateFormatter('en-US', {
     dateStyle: 'long',
 });
 
-function loadData() {
+async function loadData() {
     isLoading.value = true;
 
-    startDate.value = today(getLocalTimeZone());
-    endDate.value = startDate.value.copy().add({ days: 6 });
-
-    axios.get('/api/employees')
+    const employeeRequest = axios.get('/api/employees')
         .then(response => {
             employees.value = response.data;
-            initSchedule();
         })
         .catch(error => {
             console.error('Error loading employees:', error);
+        });
+
+    const scheduleRequest = axios.get('/api/schedules/' + page.props.schedule_id)
+        .then(response => {
+            schedule.value = response.data;
+            startDate.value = parseDate(schedule.value.start_date);
+            endDate.value = parseDate(schedule.value.end_date);
         })
-        .finally(() => {
-            isLoading.value = false;
+        .catch(error => {
+            console.error('Error loading schedule:', error);
         });
-}
 
-function initSchedule() {
-    employees.value.forEach(employee => {
-        if (!schedule.value.work_weeks) {
-            schedule.value.work_weeks = [];
-        }
-
-        schedule.value.work_weeks.push({
-            employee_id: employee.id,
-            employee_name: employee.first_name + ' ' + employee.last_name,
-            shifts: [],
-        });
+    await Promise.all([employeeRequest, scheduleRequest]).then(() => {
+        isLoading.value = false;
     });
 }
 
-function saveSchedule() {
+function updateSchedule() {
     buttonLoading.value = true;
 
     schedule.value.start_date = startDate.value?.toString() || '';
     schedule.value.end_date = endDate.value?.toString() || '';
 
-    axios.post('/api/schedules', schedule.value)
+    axios.put('/api/schedules/' + page.props.schedule_id, schedule.value)
         .then(res => {
             router.visit('/schedules');
         })
         .catch(error => {
-            console.error('Error saving schedule:', error);
+            console.error('Error updating schedule:', error);
         })
         .finally(() => {
             buttonLoading.value = false;

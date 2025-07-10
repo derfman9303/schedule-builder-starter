@@ -56,7 +56,7 @@
                 </div>
                 <Button
                     type="submit"
-                    class="w-fit bg-blue-500 hover:bg-blue-600"
+                    class="w-fit bg-blue-500 hover:bg-blue-600 cursor-pointer"
                     :disabled="form.processing || loading"
                 >
                     <LoaderCircle
@@ -133,7 +133,7 @@ function save() {
     form.errors.phone = '';
     form.processing = true;
 
-    axios.post('/api/employees/' + employee.value.id, {
+    axios.put('/api/employees/' + employee.value.id, {
         first_name: form.first_name,
         last_name: form.last_name,
         email: form.email,
