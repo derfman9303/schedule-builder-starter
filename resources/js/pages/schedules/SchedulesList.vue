@@ -2,12 +2,12 @@
     <Head title="Schedules" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="px-6 py-4">
+        <div class="px-5 pt-5">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold">Your Schedules</h1>
                 <Link
                     href="/schedules/new"
-                    class="inline-flex items-center px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
+                    class="inline-flex items-center px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg"
                 >
                     <Plus
                         :size="18"
