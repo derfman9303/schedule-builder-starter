@@ -17,7 +17,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     });
 
     Route::group(['prefix' => 'schedules'], function () {
-        route::get('', [ScheduleController::class, 'index'])->name('schedules.index');
+        Route::get('', [ScheduleController::class, 'index'])->name('schedules.index');
         Route::post('', [ScheduleController::class, 'store'])->name('schedules.store');
 
         Route::group(['prefix' => '{schedule}'], function () {
