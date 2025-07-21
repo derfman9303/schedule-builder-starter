@@ -54,6 +54,13 @@
                                 Edit
                             </Link>
                             <Button
+                                @click="exportSchedule(schedule)"
+                                variant="link"
+                                class="text-green-500 cursor-pointer hover:underline ml-3"
+                            >
+                                Export
+                            </Button>
+                            <Button
                                 @click="openDialog(schedule)"
                                 variant="link"
                                 class="text-red-500 cursor-pointer hover:underline ml-3"
@@ -136,6 +143,11 @@ function fetchData() {
         });
 }
 
+function exportSchedule(schedule: Schedule): void {
+    const url = `/api/schedules/${schedule.id}/export`;
+    window.open(url, '_blank');
+}
+
 function deleteSchedule(): void {
     isLoading.value = true;
 
@@ -175,8 +187,8 @@ function openDialog(schedule: Schedule): void {
  * Simple date formatter: YYYY-MM-DD → M/D/YYYY
  */
 function formatDate(d: string): string {
-    const dt = new Date(d)
-    return `${dt.getMonth() + 1}/${dt.getDate()}/${dt.getFullYear()}`
+    const parts = d.split('-');
+    return `${parseInt(parts[1])}/${parseInt(parts[2])}/${parts[0]}`;
 }
 
 onMounted(() => {
