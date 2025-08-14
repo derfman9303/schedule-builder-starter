@@ -58,25 +58,14 @@
             <Table class="border border-gray-200 w-max mt-4">
                 <TableHeader class="bg-gray-100">
                     <TableRow>
-                        <TableHead class="text-left px-4 py-2 text-center"></TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(0) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(1) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(2) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(3) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(4) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(5) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ headerDateString(6) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center"></TableHead>
-                    </TableRow>
-                    <TableRow>
                         <TableHead class="text-left px-4 py-2 text-center">Employee</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(0) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(1) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(2) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(3) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(4) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(5) }}</TableHead>
-                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(6) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(0) }}<br>{{ headerDateString(0) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(1) }}<br>{{ headerDateString(1) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(2) }}<br>{{ headerDateString(2) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(3) }}<br>{{ headerDateString(3) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(4) }}<br>{{ headerDateString(4) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(5) }}<br>{{ headerDateString(5) }}</TableHead>
+                        <TableHead class="text-left px-4 py-2 text-center">{{ weekDayShort(6) }}<br>{{ headerDateString(6) }}</TableHead>
                         <TableHead class="text-left px-4 py-2 text-center">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
