@@ -31,8 +31,7 @@
                 <TableHeader class="bg-gray-100">
                     <TableRow>
                         <TableHead class="text-left px-4 py-2">Name</TableHead>
-                        <TableHead class="text-left px-4 py-2">Start Date</TableHead>
-                        <TableHead class="text-left px-4 py-2">End Date</TableHead>
+                        <TableHead class="text-left px-4 py-2">Date range</TableHead>
                         <TableHead class="text-center px-4 py-2">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -44,8 +43,7 @@
                         class="hover:bg-gray-50"
                     >
                         <TableCell>{{ schedule.name }}</TableCell>
-                        <TableCell>{{ formatDate(schedule.start_date) }}</TableCell>
-                        <TableCell>{{ formatDate(schedule.end_date) }}</TableCell>
+                        <TableCell>{{ formatDate(schedule.start_date) }} &nbsp; - &nbsp; {{ formatDate(schedule.end_date) }}</TableCell>
                         <TableCell class="text-center">
                             <Link
                                 :href="`/schedules/edit/${schedule.id}`"
