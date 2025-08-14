@@ -2,7 +2,18 @@
     <Head title="Schedules" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="px-5 pt-5">
+        <div
+            v-if="isLoading"
+            class="flex justify-center items-center h-64">
+            <LoaderCircle
+                :size="40"
+                class="animate-spin text-blue-500"
+            />
+        </div>
+        <div
+            v-else
+            class="px-5 pt-5 overflow-x-auto w-max mx-auto"
+        >
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold">Your Schedules</h1>
                 <Link
@@ -16,23 +27,14 @@
                     New Schedule
                 </Link>
             </div>
-            <div
-                v-if="isLoading"
-                class="flex justify-center items-center h-64">
-                <LoaderCircle
-                    :size="40"
-                    class="animate-spin text-blue-500"
-                />
-            </div>
             <Table
-                v-else
                 class="min-w-full border border-gray-200"
             >
                 <TableHeader class="bg-gray-100">
                     <TableRow>
-                        <TableHead class="text-left px-4 py-2">Name</TableHead>
-                        <TableHead class="text-left px-4 py-2">Date range</TableHead>
-                        <TableHead class="text-center px-4 py-2">Actions</TableHead>
+                        <TableHead class="text-center px-4 py-2 border-2">Date range</TableHead>
+                        <TableHead class="text-center px-4 py-2 border-2">Name</TableHead>
+                        <TableHead class="text-center px-4 py-2 border-2">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -42,9 +44,9 @@
                         :key="schedule.id"
                         class="hover:bg-gray-50"
                     >
-                        <TableCell>{{ schedule.name }}</TableCell>
-                        <TableCell>{{ formatDate(schedule.start_date) }} &nbsp; - &nbsp; {{ formatDate(schedule.end_date) }}</TableCell>
-                        <TableCell class="text-center">
+                        <TableCell class="text-center border-2 min-w-[200px]">{{ formatDate(schedule.start_date) }} &nbsp; - &nbsp; {{ formatDate(schedule.end_date) }}</TableCell>
+                        <TableCell class="text-center border-2 min-w-[300px]">{{ schedule.name }}</TableCell>
+                        <TableCell class="text-center border-2 min-w-[200px]">
                             <Link
                                 :href="`/schedules/edit/${schedule.id}`"
                                 class="text-blue-500 hover:text-blue-700 hover:underline "
