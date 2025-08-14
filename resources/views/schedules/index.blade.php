@@ -41,7 +41,7 @@
         .schedule-table th,
         .schedule-table td {
             border: 1px solid #333;
-            padding: 8px;
+            padding: 3px;
             text-align: center;
             vertical-align: top;
         }
@@ -65,23 +65,15 @@
         }
         
         .shift-cell {
-            height: 60px;
-            width: 100px;
             position: relative;
         }
         
         .shift-info {
-            background-color: #e8f4f8;
-            border: 1px solid #4a90c2;
-            border-radius: 3px;
-            padding: 4px;
-            margin: 2px;
             font-size: 10px;
         }
         
         .shift-time {
             font-weight: bold;
-            color: #2c5aa0;
         }
         
         .empty-shift {
@@ -127,7 +119,7 @@
                     @endphp
                     <th class="day-header">
                         {{ $dayName }}<br>
-                        <small>{{ $dayDate }}</small>
+                        {{ $dayDate }}
                     </th>
                 @endfor
             </tr>
@@ -166,7 +158,7 @@
     </table>
 
     <div class="footer">
-        <p>Generated on {{ now()->format('M j, Y \a\t g:i A') }}</p>
+        <p>Created with Timelio®</p>
     </div>
 </body>
 </html>
