@@ -44,9 +44,9 @@
                         :key="schedule.id"
                         class="hover:bg-gray-50"
                     >
-                        <TableCell class="text-center border-2 min-w-[200px]">{{ formatDate(schedule.start_date) }} &nbsp; - &nbsp; {{ formatDate(schedule.end_date) }}</TableCell>
-                        <TableCell class="text-center border-2 min-w-[300px]">{{ schedule.name }}</TableCell>
-                        <TableCell class="text-center border-2 min-w-[200px]">
+                        <TableCell class="text-center text-gray-600 border-2 w-[200px]">{{ formatDate(schedule.start_date) }} &nbsp; - &nbsp; {{ formatDate(schedule.end_date) }}</TableCell>
+                        <TableCell class="text-center text-gray-600 border-2 w-[400px]">{{ schedule.name ?? 'Weekly Schedule' }}</TableCell>
+                        <TableCell class="text-center border-2 w-[200px]">
                             <Link
                                 :href="`/schedules/edit/${schedule.id}`"
                                 class="text-blue-500 hover:text-blue-700 hover:underline "
