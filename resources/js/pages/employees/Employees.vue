@@ -23,11 +23,10 @@
                 <Table class="min-w-full border border-gray-200">
                     <TableHeader class="bg-gray-100">
                         <TableRow>
-                            <TableHead class="text-left px-4 py-2">First Name</TableHead>
-                            <TableHead class="text-left px-4 py-2">Last Name</TableHead>
-                            <TableHead class="text-left px-4 py-2">Email</TableHead>
-                            <TableHead class="text-left px-4 py-2">Phone</TableHead>
-                            <TableHead class="text-left px-4 py-2">Actions</TableHead>
+                            <TableHead class="text-left px-4 py-2 border-2 text-center text-gray-600">Name</TableHead>
+                            <TableHead class="text-left px-4 py-2 border-2 text-center text-gray-600">Email</TableHead>
+                            <TableHead class="text-left px-4 py-2 border-2 text-center text-gray-600">Phone</TableHead>
+                            <TableHead class="text-left px-4 py-2 border-2 text-center text-gray-600">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -37,11 +36,10 @@
                             :key="employee.id"
                             class="hover:bg-gray-50"
                         >
-                            <TableCell class="border-t px-4 py-2">{{ employee.first_name }}</TableCell>
-                            <TableCell class="border-t px-4 py-2">{{ employee.last_name }}</TableCell>
-                            <TableCell class="border-t px-4 py-2">{{ employee.email }}</TableCell>
-                            <TableCell class="border-t px-4 py-2">{{ employee.phone }}</TableCell>
-                            <TableCell class="border-t px-4 py-2">
+                            <TableCell class="border-t px-4 py-2 border-2 text-center text-gray-600">{{ employee.last_name }} {{ employee.first_name }}</TableCell>
+                            <TableCell class="border-t px-4 py-2 border-2 text-center text-gray-600">{{ employee.email }}</TableCell>
+                            <TableCell class="border-t px-4 py-2 border-2 text-center text-gray-600">{{ employee.phone }}</TableCell>
+                            <TableCell class="border-t px-4 py-2 border-2 text-center w-[200px]">
                                 <Link
                                     :href="`/employees/edit/${employee.id}`"
                                     class="text-blue-500 hover:text-blue-700 hover:underline"
