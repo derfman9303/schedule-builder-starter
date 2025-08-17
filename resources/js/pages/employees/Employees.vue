@@ -74,7 +74,7 @@
                 >
                     Previous
                 </Button>
-                <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                <span class="text-gray-600">Page {{ currentPage }} of {{ totalPages }}</span>
                 <Button
                     class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 cursor-pointer"
                     :disabled="currentPage === totalPages"
