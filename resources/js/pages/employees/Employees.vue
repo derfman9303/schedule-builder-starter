@@ -2,16 +2,6 @@
     <Head title="Employees" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex justify-between items-center mb-6 px-5 pt-5">
-            <h2 class="text-2xl font-bold">Employees</h2>
-            <Link
-                href="/employees/add"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-            >
-                <Plus :size="18"/>
-                New Employee
-            </Link>
-        </div>
         <div v-if="isLoading" class="flex justify-center items-center h-64">
             <LoaderCircle
                 :size="40"
@@ -19,6 +9,16 @@
             />
         </div>
         <div v-else>
+            <div class="flex justify-between items-center mb-6 px-5 pt-5">
+                <h2 class="text-2xl font-bold">Employees</h2>
+                <Link
+                    href="/employees/add"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                >
+                    <Plus :size="18"/>
+                    New Employee
+                </Link>
+            </div>
             <div class="overflow-x-auto px-5">
                 <Table class="min-w-full border border-gray-200">
                     <TableHeader class="bg-gray-100">
