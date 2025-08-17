@@ -46,13 +46,14 @@
         
         .employee-name {
             background-color: #f9f9f9;
+            font-size: 11px;
             font-weight: bold;
             text-align: left;
             width: 120px;
         }
 
         .employee-phone {
-            font-size: 11px;
+            font-size: 10px;
         }
         
         .day-header {
@@ -65,7 +66,7 @@
         }
         
         .shift-info {
-            font-size: 10px;
+            font-size: 11px;
         }
         
         .shift-time {
