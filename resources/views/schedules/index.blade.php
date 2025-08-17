@@ -15,21 +15,13 @@
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 15px;
+            margin-bottom: 8px;
         }
         
         .header h1 {
             margin: 0;
             font-size: 24px;
             color: #333;
-        }
-        
-        .schedule-info {
-            margin: 10px 0;
-            font-size: 14px;
-            color: #666;
         }
         
         .schedule-table {
@@ -57,6 +49,10 @@
             font-weight: bold;
             text-align: left;
             width: 120px;
+        }
+
+        .employee-phone {
+            font-size: 11px;
         }
         
         .day-header {
@@ -127,7 +123,13 @@
         <tbody>
             @forelse ($schedule->workWeeks as $workWeek)
                 <tr>
-                    <td class="employee-name">{{ $workWeek->employee_name }}</td>
+                    <td class="employee-name">
+                        {{ $workWeek->employee_name }}
+                        <br>
+                        <span class="employee-phone">
+                            {{ $workWeek->employee?->phone }}
+                        </span>
+                    </td>
                     @for ($day = 0; $day < 7; $day++)
                         @php
                             // Find shift for this day
