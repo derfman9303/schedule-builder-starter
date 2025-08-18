@@ -139,12 +139,12 @@
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>
+                    <AlertDialogCancel class="cursor-pointer">
                         Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
                         @click="deleteSchedule"
-                        class="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        class="bg-destructive text-white hover:bg-destructive/90 cursor-pointer"
                     >
                         Delete Schedule
                     </AlertDialogAction>
@@ -225,7 +225,7 @@ function deleteSchedule(): void {
 function openDialog(schedule: Schedule): void {
     deleteScheduleId.value = schedule.id;
     deleteMessage.value = `
-        <div class="space-y-2">
+        <div class="space-y-2 text-black">
             <p>Are you sure you want to delete this schedule? This action cannot be undone.</p>
             <div class="bg-muted/50 p-3 rounded-md space-y-1">
                 <p><strong>Schedule:</strong> ${schedule.name || 'Weekly Schedule'}</p>
