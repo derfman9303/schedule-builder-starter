@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\LaravelPdf\PdfBuilder;
+use function Spatie\LaravelPdf\Support\pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Models\Schedule;
@@ -15,6 +17,21 @@ class ScheduleController extends Controller
             ->where('user_id', auth()->id())
             ->orderBy('start_date', 'desc')
             ->get();
+    }
+
+    public function export(Schedule $schedule): PdfBuilder
+    {
+        if ($schedule->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $fileName = 'schedule_' . $schedule->id . '.pdf';
+        $data = $schedule->load(['workWeeks.employee', 'workWeeks.shifts']);
+
+        return pdf()
+            ->view('schedules.index', ['schedule' => $data])
+            ->format('a4')
+            ->name($fileName);
     }
 
     public function store(Request $request): Schedule
@@ -63,6 +80,10 @@ class ScheduleController extends Controller
 
     public function show(Schedule $schedule): Schedule
     {
+        if ($schedule->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         return $schedule->load([
             'workWeeks.employee',
             'workWeeks.shifts',
@@ -71,6 +92,10 @@ class ScheduleController extends Controller
 
     public function update(Request $request, Schedule $schedule): Schedule
     {
+        if ($schedule->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $request->validate([
             'name'                  => 'nullable|string|max:255',
             'start_date'            => 'required|date',
@@ -113,6 +138,10 @@ class ScheduleController extends Controller
 
     public function delete(Schedule $schedule): void
     {
+        if ($schedule->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $schedule->delete();
     }
 }
