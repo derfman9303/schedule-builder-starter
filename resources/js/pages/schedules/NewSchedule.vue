@@ -125,7 +125,7 @@
                                             @dragover="handleDragOver"
                                             @dragleave="handleDragLeave"
                                             @drop="(event) => handleDrop(event, index, day_offset, schedule)"
-                                            class="min-h-[45px] flex items-center justify-center transition-colors rounded-md border-2 border-dashed border-transparent hover:border-muted-foreground/25"
+                                            class="min-h-[45px] w-[100px] flex items-center justify-center transition-colors rounded-md border-2 border-dashed border-transparent hover:border-muted-foreground/25 m-auto"
                                         >
                                             <div
                                                 v-if="getShift(work_week, day_offset)"
