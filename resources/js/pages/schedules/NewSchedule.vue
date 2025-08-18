@@ -43,7 +43,7 @@
                                         <Button
                                             variant="outline"
                                             :class="cn(
-                                                'w-full justify-start text-left font-normal',
+                                                'w-full justify-start text-left font-normal cursor-pointer',
                                                 !startDate && 'text-muted-foreground',
                                             )"
                                         >
@@ -63,7 +63,7 @@
                                         <Button
                                             variant="outline"
                                             :class="cn(
-                                                'w-full justify-start text-left font-normal',
+                                                'w-full justify-start text-left font-normal cursor-pointer',
                                                 !endDate && 'text-muted-foreground',
                                             )"
                                         >
@@ -150,7 +150,7 @@
                                         <Button
                                             variant="outline"
                                             size="sm"
-                                            class="text-destructive hover:text-destructive"
+                                            class="text-destructive hover:text-destructive cursor-pointer"
                                             @click="removeWorkWeek(work_week, schedule)"
                                         >
                                             Remove
@@ -162,7 +162,10 @@
                                     <TableCell>
                                         <Popover>
                                             <PopoverTrigger as-child>
-                                                <Button variant="outline" class="w-full h-[45px] border-dashed">
+                                                <Button
+                                                    variant="outline"
+                                                    class="w-full h-[45px] border-dashed cursor-pointer"
+                                                >
                                                     <Plus class="h-4 w-4 mr-2" />
                                                     Add Employee
                                                 </Button>
@@ -177,15 +180,25 @@
                                                     </div>
                                                     <Tabs default-value="existing">
                                                         <TabsList class="grid w-full grid-cols-2">
-                                                            <TabsTrigger value="existing">Existing</TabsTrigger>
-                                                            <TabsTrigger value="new">New</TabsTrigger>
+                                                            <TabsTrigger
+                                                                value="existing"
+                                                                class="cursor-pointer"
+                                                            >
+                                                                Existing
+                                                            </TabsTrigger>
+                                                            <TabsTrigger
+                                                                value="new"
+                                                                class="cursor-pointer"
+                                                            >
+                                                                New
+                                                            </TabsTrigger>
                                                         </TabsList>
                                                         <TabsContent value="existing" class="space-y-2">
                                                             <Select
                                                                 v-model="selectedEmployee"
                                                                 :disabled="selectedEmployees.length === 0"
                                                             >
-                                                                <SelectTrigger>
+                                                                <SelectTrigger class="cursor-pointer">
                                                                     <SelectValue :placeholder="selectedEmployees.length === 0 ? 'No employees available' : 'Select an employee'" />
                                                                 </SelectTrigger>
                                                                 <SelectContent>
@@ -193,6 +206,7 @@
                                                                         v-for="employee in selectedEmployees"
                                                                         :key="employee.id"
                                                                         :value="employee"
+                                                                        class="cursor-pointer"
                                                                     >
                                                                         {{ employee.first_name }} {{ employee.last_name }}
                                                                     </SelectItem>
@@ -202,7 +216,7 @@
                                                                 <Button
                                                                     @click="addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
                                                                     :disabled="!selectedEmployee"
-                                                                    class="w-full"
+                                                                    class="w-full cursor-pointer"
                                                                 >
                                                                     Add Employee
                                                                 </Button>
@@ -217,7 +231,7 @@
                                                                 <Button
                                                                     @click="addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
                                                                     :disabled="!newEmployee.full_name"
-                                                                    class="w-full"
+                                                                    class="w-full cursor-pointer"
                                                                 >
                                                                     Add New Employee
                                                                 </Button>
@@ -237,19 +251,26 @@
 
                 <!-- Save Actions -->
                 <div class="flex justify-end space-x-4">
-                    <Button variant="outline" @click="router.visit('/schedules')">
+                    <Button
+                        variant="outline"
+                        @click="router.visit('/schedules')"
+                        class="cursor-pointer"
+                    >
                         Cancel
                     </Button>
                     <Button
                         @click="saveSchedule"
                         :disabled="buttonLoading"
-                        class="min-w-[120px]"
+                        class="min-w-[120px] cursor-pointer"
                     >
                         <Loader2
                             v-if="buttonLoading"
                             class="w-4 h-4 mr-2 animate-spin"
                         />
-                        <Save v-else class="w-4 h-4 mr-2" />
+                        <Save
+                            v-else
+                            class="w-4 h-4 mr-2"
+                        />
                         Save Schedule
                     </Button>
                 </div>
