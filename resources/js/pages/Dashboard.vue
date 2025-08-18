@@ -7,6 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Users, Clock, FileText, Plus, TrendingUp } from 'lucide-vue-next';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import type { Schedule } from '@/types/Schedule';
+
+// Extend Schedule interface to include created_at field
+interface ScheduleWithTimestamps extends Schedule {
+    created_at?: string;
+    updated_at?: string;
+}
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -16,11 +23,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 // Dashboard data
-const recentSchedules = ref([]);
-const totalEmployees = ref(0);
-const totalSchedules = ref(0);
-const upcomingShifts = ref(0);
-const loading = ref(true);
+const recentSchedules = ref<ScheduleWithTimestamps[]>([]);
+const totalEmployees = ref<number>(0);
+const totalSchedules = ref<number>(0);
+const upcomingShifts = ref<number>(0);
+const loading = ref<boolean>(true);
 
 // Fetch dashboard data
 const fetchDashboardData = async () => {
@@ -38,12 +45,12 @@ const fetchDashboardData = async () => {
         const now = new Date();
         const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
         
-        upcomingShifts.value = schedulesResponse.data.reduce((count, schedule) => {
+        upcomingShifts.value = schedulesResponse.data.reduce((count: number, schedule: ScheduleWithTimestamps) => {
             const scheduleStart = new Date(schedule.start_date);
             const scheduleEnd = new Date(schedule.end_date);
             
             if (scheduleStart <= nextWeek && scheduleEnd >= now) {
-                return count + (schedule.work_weeks?.reduce((shiftCount, week) => {
+                return count + (schedule.work_weeks?.reduce((shiftCount: number, week: any) => {
                     return shiftCount + (week.shifts?.length || 0);
                 }, 0) || 0);
             }
@@ -230,7 +237,7 @@ onMounted(() => {
                                     </p>
                                 </div>
                                 <div class="text-xs text-muted-foreground">
-                                    {{ new Date(schedule.created_at).toLocaleDateString() }}
+                                    {{ schedule.created_at ? new Date(schedule.created_at).toLocaleDateString() : 'N/A' }}
                                 </div>
                             </div>
                             <Button @click="navigateToSchedules" variant="ghost" size="sm" class="w-full mt-3">
