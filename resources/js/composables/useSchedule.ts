@@ -17,13 +17,13 @@ export function useSchedule() {
     ];
 
     const weekDaysShort = [
-        'Sun.',
-        'Mon.',
-        'Tue.',
-        'Wed.',
-        'Thu.',
-        'Fri.',
-        'Sat.'
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat'
     ];
 
     const colors = [
@@ -38,7 +38,8 @@ export function useSchedule() {
     const endDate = ref<DateValue>();
 
     const header_df = new DateFormatter('en-US', {
-        dateStyle: 'short',
+        month: 'numeric',
+        day: 'numeric',
     });
 
     const removeWorkWeek = (workWeek: WorkWeek, schedule: Schedule): void => {

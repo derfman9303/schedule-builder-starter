@@ -2,7 +2,18 @@
     <Head title="Schedules" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="px-5 pt-5">
+        <div
+            v-if="isLoading"
+            class="flex justify-center items-center h-64">
+            <LoaderCircle
+                :size="40"
+                class="animate-spin text-blue-500"
+            />
+        </div>
+        <div
+            v-else
+            class="px-5 pt-5 overflow-x-auto w-max mx-auto"
+        >
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold">Your Schedules</h1>
                 <Link
@@ -16,24 +27,14 @@
                     New Schedule
                 </Link>
             </div>
-            <div
-                v-if="isLoading"
-                class="flex justify-center items-center h-64">
-                <LoaderCircle
-                    :size="40"
-                    class="animate-spin text-blue-500"
-                />
-            </div>
             <Table
-                v-else
                 class="min-w-full border border-gray-200"
             >
                 <TableHeader class="bg-gray-100">
                     <TableRow>
-                        <TableHead class="text-left px-4 py-2">Name</TableHead>
-                        <TableHead class="text-left px-4 py-2">Start Date</TableHead>
-                        <TableHead class="text-left px-4 py-2">End Date</TableHead>
-                        <TableHead class="text-center px-4 py-2">Actions</TableHead>
+                        <TableHead class="text-center px-4 py-2 border-2">Date range</TableHead>
+                        <TableHead class="text-center px-4 py-2 border-2">Name</TableHead>
+                        <TableHead class="text-center px-4 py-2 border-2">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -43,16 +44,22 @@
                         :key="schedule.id"
                         class="hover:bg-gray-50"
                     >
-                        <TableCell>{{ schedule.name }}</TableCell>
-                        <TableCell>{{ formatDate(schedule.start_date) }}</TableCell>
-                        <TableCell>{{ formatDate(schedule.end_date) }}</TableCell>
-                        <TableCell class="text-center">
+                        <TableCell class="text-center text-gray-600 border-2 w-[200px]">{{ formatDate(schedule.start_date) }} &nbsp; - &nbsp; {{ formatDate(schedule.end_date) }}</TableCell>
+                        <TableCell class="text-center text-gray-600 border-2 w-[400px]">{{ schedule.name ?? 'Weekly Schedule' }}</TableCell>
+                        <TableCell class="text-center border-2 w-[200px]">
                             <Link
                                 :href="`/schedules/edit/${schedule.id}`"
                                 class="text-blue-500 hover:text-blue-700 hover:underline "
                             >
                                 Edit
                             </Link>
+                            <Button
+                                @click="exportSchedule(schedule)"
+                                variant="link"
+                                class="text-green-500 cursor-pointer hover:underline ml-3"
+                            >
+                                Export
+                            </Button>
                             <Button
                                 @click="openDialog(schedule)"
                                 variant="link"
@@ -136,6 +143,11 @@ function fetchData() {
         });
 }
 
+function exportSchedule(schedule: Schedule): void {
+    const url = `/api/schedules/${schedule.id}/export`;
+    window.open(url, '_blank');
+}
+
 function deleteSchedule(): void {
     isLoading.value = true;
 
@@ -175,8 +187,8 @@ function openDialog(schedule: Schedule): void {
  * Simple date formatter: YYYY-MM-DD → M/D/YYYY
  */
 function formatDate(d: string): string {
-    const dt = new Date(d)
-    return `${dt.getMonth() + 1}/${dt.getDate()}/${dt.getFullYear()}`
+    const parts = d.split('-');
+    return `${parseInt(parts[1])}/${parseInt(parts[2])}/${parts[0]}`;
 }
 
 onMounted(() => {
