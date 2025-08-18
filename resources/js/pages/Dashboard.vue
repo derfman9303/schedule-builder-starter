@@ -175,19 +175,19 @@ onMounted(() => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent class="grid gap-3">
-                        <Button @click="navigateToNewSchedule" class="w-full justify-start" variant="outline">
+                        <Button @click="navigateToNewSchedule" class="w-full justify-start cursor-pointer" variant="outline">
                             <Calendar class="h-4 w-4 mr-2" />
                             Create New Schedule
                         </Button>
-                        <Button @click="navigateToAddEmployee" class="w-full justify-start" variant="outline">
+                        <Button @click="navigateToAddEmployee" class="w-full justify-start cursor-pointer" variant="outline">
                             <Users class="h-4 w-4 mr-2" />
                             Add New Employee
                         </Button>
-                        <Button @click="navigateToSchedules" class="w-full justify-start" variant="outline">
+                        <Button @click="navigateToSchedules" class="w-full justify-start cursor-pointer" variant="outline">
                             <FileText class="h-4 w-4 mr-2" />
                             View All Schedules
                         </Button>
-                        <Button @click="navigateToEmployees" class="w-full justify-start" variant="outline">
+                        <Button @click="navigateToEmployees" class="w-full justify-start cursor-pointer" variant="outline">
                             <Users class="h-4 w-4 mr-2" />
                             Manage Employees
                         </Button>
@@ -217,7 +217,7 @@ onMounted(() => {
                         </div>
                         <div v-else-if="recentSchedules.length === 0" class="text-center py-8 text-muted-foreground">
                             No schedules created yet
-                            <Button @click="navigateToNewSchedule" class="mt-3 w-full" variant="outline" size="sm">
+                            <Button @click="navigateToNewSchedule" class="mt-3 w-full cursor-pointer" variant="outline" size="sm">
                                 Create Your First Schedule
                             </Button>
                         </div>
@@ -240,7 +240,7 @@ onMounted(() => {
                                     {{ schedule.created_at ? new Date(schedule.created_at).toLocaleDateString() : 'N/A' }}
                                 </div>
                             </div>
-                            <Button @click="navigateToSchedules" variant="ghost" size="sm" class="w-full mt-3">
+                            <Button @click="navigateToSchedules" variant="ghost" size="sm" class="w-full mt-3 cursor-pointer">
                                 View All Schedules
                             </Button>
                         </div>
