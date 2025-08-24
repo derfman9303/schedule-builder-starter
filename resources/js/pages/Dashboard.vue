@@ -108,7 +108,7 @@ onMounted(() => {
             </div>
 
             <!-- Quick Stats Cards -->
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle class="text-sm font-medium">Total Employees</CardTitle>
@@ -144,19 +144,6 @@ onMounted(() => {
                         <div class="text-2xl font-bold">{{ loading ? '-' : upcomingShifts }}</div>
                         <p class="text-xs text-muted-foreground">
                             Next 7 days
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Productivity</CardTitle>
-                        <TrendingUp class="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div class="text-2xl font-bold">{{ loading ? '-' : Math.round((totalSchedules / Math.max(totalEmployees, 1)) * 100) }}%</div>
-                        <p class="text-xs text-muted-foreground">
-                            Schedule efficiency
                         </p>
                     </CardContent>
                 </Card>
