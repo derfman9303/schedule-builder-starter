@@ -26,7 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const recentSchedules = ref<ScheduleWithTimestamps[]>([]);
 const totalEmployees = ref<number>(0);
 const totalSchedules = ref<number>(0);
-const upcomingShifts = ref<number>(0);
+const upcomingSchedules = ref<number>(0);
 const loading = ref<boolean>(true);
 
 // Fetch dashboard data
@@ -41,21 +41,17 @@ const fetchDashboardData = async () => {
         totalSchedules.value = schedulesResponse.data.length;
         totalEmployees.value = employeesResponse.data.length;
         
-        // Calculate upcoming shifts in the next 7 days
+        // Calculate upcoming schedules in the next 7 days
         const now = new Date();
         const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
         
-        upcomingShifts.value = schedulesResponse.data.reduce((count: number, schedule: ScheduleWithTimestamps) => {
+        upcomingSchedules.value = (schedulesResponse.data.filter((schedule: ScheduleWithTimestamps) => {
             const scheduleStart = new Date(schedule.start_date);
             const scheduleEnd = new Date(schedule.end_date);
             
-            if (scheduleStart <= nextWeek && scheduleEnd >= now) {
-                return count + (schedule.work_weeks?.reduce((shiftCount: number, week: any) => {
-                    return shiftCount + (week.shifts?.length || 0);
-                }, 0) || 0);
-            }
-            return count;
-        }, 0);
+            // A schedule is upcoming if it starts within the next 7 days or is currently active
+            return (scheduleStart <= nextWeek && scheduleEnd >= now);
+        }) || []).length;
         
         loading.value = false;
     } catch (error) {
@@ -137,19 +133,19 @@ onMounted(() => {
 
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Upcoming Shifts</CardTitle>
+                        <CardTitle class="text-sm font-medium">Upcoming Schedules</CardTitle>
                         <Clock class="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">{{ loading ? '-' : upcomingShifts }}</div>
+                        <div class="text-2xl font-bold">{{ loading ? '-' : upcomingSchedules }}</div>
                         <p class="text-xs text-muted-foreground">
-                            Next 7 days
+                            Active or starting within 7 days
                         </p>
                     </CardContent>
                 </Card>
             </div>
 
-            <!-- Quick Actions -->
+            <!-- Quick Actions and Recent Schedules -->
             <div class="grid gap-4 md:grid-cols-2">
                 <Card>
                     <CardHeader>
@@ -240,7 +236,7 @@ onMounted(() => {
                 <CardHeader>
                     <CardTitle>Getting Started</CardTitle>
                     <CardDescription>
-                        Tips to help you get the most out of Schedule Builder
+                        Tips to help you get the most out of Timelio
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
