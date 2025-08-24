@@ -28,13 +28,13 @@ defineProps<Props>();
 </script>
 
 <template>
-    <Head title="Schedule Builder - Simplify Your Workforce Management" />
+    <Head title="Timelio - Simplify Your Workforce Management" />
     <div class="flex min-h-screen flex-col items-center bg-white p-6 text-gray-900 dark:bg-gray-900 dark:text-white lg:justify-center lg:p-8">
         <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md dark:bg-gray-900/80 z-50">
             <div class="mx-auto max-w-7xl px-6 py-4">
                 <nav class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <span class="text-xl font-bold text-blue-600 dark:text-blue-400">Schedule Builder</span>
+                        <span class="text-xl font-bold text-blue-600 dark:text-blue-400">Timelio</span>
                     </div>
                     <div class="flex items-center gap-4">
                         <Link
@@ -130,23 +130,9 @@ defineProps<Props>();
         <!-- Footer -->
         <footer class="mt-32 border-t border-gray-200 dark:border-gray-800">
             <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-                <div class="flex justify-center space-x-6 md:order-2">
-                    <a href="#" class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300">
-                        <span class="sr-only">Features</span>
-                        Features
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300">
-                        <span class="sr-only">Help Center</span>
-                        Help Center
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300">
-                        <span class="sr-only">Contact</span>
-                        Contact
-                    </a>
-                </div>
                 <div class="mt-8 md:order-1 md:mt-0">
                     <p class="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
-                        &copy; 2024 Schedule Builder. All rights reserved.
+                        &copy; 2025 Timelio. All rights reserved.
                     </p>
                 </div>
             </div>
