@@ -30,13 +30,6 @@ defineProps<Props>();
 <template>
     <Head title="Timelio - Simplify Your Workforce Management" />
     <div class="flex min-h-screen flex-col items-center bg-gradient-to-br from-slate-50 text-gray-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950 dark:text-white overflow-x-hidden">
-        <!-- Animated background elements -->
-        <div class="fixed inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
-        </div>
-
         <header class="fixed top-0 left-0 right-0 bg-white/70 backdrop-blur-xl border-b border-white/20 dark:bg-gray-900/70 dark:border-gray-800/20 z-50 transition-all duration-300">
             <div class="mx-auto max-w-7xl px-6 py-4">
                 <nav class="flex items-center justify-between">
@@ -82,10 +75,6 @@ defineProps<Props>();
         <div class="relative mt-24 px-6 lg:px-8 pt-16 pb-8">
             <div class="mx-auto max-w-7xl">
                 <div class="text-center relative">
-                    <!-- Floating decorative elements -->
-                    <div class="absolute -top-8 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-bounce animation-delay-1000"></div>
-                    <div class="absolute -top-4 right-1/3 w-1 h-1 bg-cyan-400 rounded-full animate-bounce animation-delay-2000"></div>
-                    <div class="absolute top-2 left-1/5 w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce animation-delay-3000"></div>
                     
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
                         <span class="block bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-300 dark:to-white bg-clip-text text-transparent">
@@ -174,66 +163,6 @@ defineProps<Props>();
 </template>
 
 <style scoped>
-/* Component-specific animation enhancements */
-@keyframes bounce-gentle {
-  0%, 100% { 
-    transform: translateY(0);
-  }
-  50% { 
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.animate-bounce-gentle {
-  animation: bounce-gentle 2s ease-in-out infinite;
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out;
-}
-
-.animate-gradient-shift {
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
-}
-
-/* Staggered animation delays for floating elements */
-.animation-delay-1000 {
-  animation-delay: 1s;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-3000 {
-  animation-delay: 3s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
 /* Enhanced hover effects */
 .group:hover .group-hover\:scale-110 {
   transform: scale(1.1);
@@ -270,21 +199,5 @@ defineProps<Props>();
 
 .shadow-blue-500\/40 {
   box-shadow: 0 20px 40px -12px rgba(59, 130, 246, 0.4);
-}
-
-.shadow-cyan-500\/30 {
-  box-shadow: 0 10px 25px -3px rgba(6, 182, 212, 0.3);
-}
-
-.shadow-cyan-500\/40 {
-  box-shadow: 0 20px 40px -12px rgba(6, 182, 212, 0.4);
-}
-
-.shadow-purple-500\/30 {
-  box-shadow: 0 10px 25px -3px rgba(168, 85, 247, 0.3);
-}
-
-.shadow-purple-500\/40 {
-  box-shadow: 0 20px 40px -12px rgba(168, 85, 247, 0.4);
 }
 </style>
