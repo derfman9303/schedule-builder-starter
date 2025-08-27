@@ -130,7 +130,7 @@ defineProps<Props>();
         </div>
 
         <!-- Footer -->
-        <footer class="mt-10 border-t border-gray-200/50 dark:border-gray-800/50 bg-white/30 dark:bg-gray-900/30">
+        <footer class="mt-10 border-t border-gray-200/50 dark:border-gray-800/50">
             <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Quick Links -->
