@@ -134,7 +134,7 @@ defineProps<Props>();
             <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Quick Links -->
-                    <div>
+                    <div class="text-center md:text-left">
                         <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Product</h3>
                         <ul class="space-y-3">
                             <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Features</a></li>
@@ -143,7 +143,7 @@ defineProps<Props>();
                     </div>
                     
                     <!-- Support -->
-                    <div>
+                    <div class="text-center md:text-left">
                         <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Support</h3>
                         <ul class="space-y-3">
                             <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">Privacy Policy</a></li>
