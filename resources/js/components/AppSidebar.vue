@@ -29,11 +29,11 @@ const mainNavItems: NavItem[] = [
     //     href: '/config',
     //     icon: SlidersHorizontal,
     // },
-    // {
-    //     title: 'Dashboard',
-    //     href: '/dashboard',
-    //     icon: LayoutGrid,
-    // },
+    {
+        title: 'Dashboard',
+        href: '/dashboard',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

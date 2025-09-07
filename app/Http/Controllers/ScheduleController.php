@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\LaravelPdf\PdfBuilder;
-use function Spatie\LaravelPdf\Support\pdf;
+use ZanySoft\LaravelPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use App\Models\Schedule;
 use App\Models\Employee;
@@ -19,7 +19,7 @@ class ScheduleController extends Controller
             ->get();
     }
 
-    public function export(Schedule $schedule): PdfBuilder
+    public function export(Schedule $schedule): Response
     {
         if ($schedule->user_id !== auth()->id()) {
             abort(403);
@@ -28,10 +28,10 @@ class ScheduleController extends Controller
         $fileName = 'schedule_' . $schedule->id . '.pdf';
         $data = $schedule->load(['workWeeks.employee', 'workWeeks.shifts']);
 
-        return pdf()
-            ->view('schedules.index', ['schedule' => $data])
-            ->format('a4')
-            ->name($fileName);
+        $pdf = new PDF();
+        $pdf->loadView('schedules.index', ['schedule' => $data]);
+
+        return $pdf->stream($fileName);
     }
 
     public function store(Request $request): Schedule
