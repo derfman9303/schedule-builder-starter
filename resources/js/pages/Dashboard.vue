@@ -9,12 +9,6 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import type { Schedule } from '@/types/Schedule';
 
-// Extend Schedule interface to include created_at field
-interface ScheduleWithTimestamps extends Schedule {
-    created_at?: string;
-    updated_at?: string;
-}
-
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -23,7 +17,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 // Dashboard data
-const recentSchedules = ref<ScheduleWithTimestamps[]>([]);
+const recentSchedules = ref<Schedule[]>([]);
 const totalEmployees = ref<number>(0);
 const totalSchedules = ref<number>(0);
 const upcomingSchedules = ref<number>(0);
@@ -45,7 +39,7 @@ const fetchDashboardData = async () => {
         const now = new Date();
         const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
         
-        upcomingSchedules.value = (schedulesResponse.data.filter((schedule: ScheduleWithTimestamps) => {
+        upcomingSchedules.value = (schedulesResponse.data.filter((schedule: Schedule) => {
             const scheduleStart = new Date(schedule.start_date);
             const scheduleEnd = new Date(schedule.end_date);
             

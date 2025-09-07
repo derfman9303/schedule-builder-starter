@@ -6,4 +6,6 @@ export interface Schedule {
     start_date: string;
     end_date: string;
     work_weeks?: WorkWeek[];
+    created_at?: string;
+    updated_at?: string;
 }
