@@ -129,6 +129,154 @@ defineProps<Props>();
             </div>
         </div>
 
+        <!-- Pricing Section -->
+        <section class="py-20 px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+            <div class="mx-auto max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">
+                        <span class="bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-300 dark:to-white bg-clip-text text-transparent">
+                            Simple, Transparent Pricing
+                        </span>
+                    </h2>
+                    <p class="mt-6 text-xl leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                        Start free and upgrade when you're ready. No hidden fees, no surprises.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Free Plan -->
+                    <div class="relative rounded-3xl border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Free</h3>
+                            <div class="mt-4 flex items-baseline justify-center">
+                                <span class="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">$0</span>
+                                <span class="ml-1 text-xl font-semibold leading-8 text-gray-600 dark:text-gray-300">/month</span>
+                            </div>
+                            <p class="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">
+                                Perfect for testing and small teams getting started
+                            </p>
+                        </div>
+                        
+                        <ul class="mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Up to 5 employees
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Basic scheduling features
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Email support
+                            </li>
+                        </ul>
+                        
+                        <Link
+                            :href="route('register')"
+                            class="mt-8 block w-full rounded-2xl border border-blue-600 bg-transparent px-6 py-3 text-center text-sm font-semibold text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+                        >
+                            Get Started Free
+                        </Link>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="relative rounded-3xl border-2 border-blue-600 bg-gradient-to-b from-blue-50 to-white dark:from-blue-950/30 dark:to-gray-800 p-8 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 group">
+                        <!-- Popular badge -->
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                                Most Popular
+                            </span>
+                        </div>
+                        
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Pro</h3>
+                            <div class="mt-4 flex items-baseline justify-center">
+                                <span class="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">$5</span>
+                                <span class="ml-1 text-xl font-semibold leading-8 text-gray-600 dark:text-gray-300">/month</span>
+                            </div>
+                            <p class="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">
+                                Everything you need to manage your growing team
+                            </p>
+                        </div>
+                        
+                        <ul class="mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Unlimited employees
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Advanced scheduling & automation
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Priority support
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                Analytics & reporting
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                                No watermark
+                            </li>
+                        </ul>
+                        
+                        <Link
+                            :href="route('register')"
+                            class="mt-8 block w-full rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+                        >
+                            Start Free Trial
+                        </Link>
+                    </div>
+                </div>
+
+                <!-- FAQ or additional info -->
+                <div class="mt-16 text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        All plans include a 14-day free trial. No credit card required. Cancel anytime.
+                    </p>
+                    <div class="mt-4 flex items-center justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <span>SSL encrypted</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <span>24/7 uptime</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Money-back guarantee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="mt-10 border-t border-gray-200/50 dark:border-gray-800/50">
             <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
