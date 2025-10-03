@@ -81,7 +81,7 @@
                                         class="hover:bg-muted/50"
                                     >
                                         <TableCell class="font-medium">
-                                            {{ employee.last_name }}, {{ employee.first_name }}
+                                            {{ employee.first_name }} {{ employee.last_name }}
                                         </TableCell>
                                         <TableCell class="text-muted-foreground">
                                             {{ employee.email }}
