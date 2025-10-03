@@ -130,11 +130,11 @@ defineProps<Props>();
         </div>
 
         <!-- Pricing Section -->
-        <section class="py-20 px-6 lg:px-8 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+        <section class="py-20 px-6 lg:px-8">
             <div class="mx-auto max-w-7xl">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold tracking-tight">
-                        <span class="bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-300 dark:to-white bg-clip-text text-transparent">
+                        <span class="bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 dark:from-blue-400 dark:via-cyan-400 dark:to-purple-400 bg-clip-text text-transparent">
                             Simple, Transparent Pricing
                         </span>
                     </h2>
@@ -145,7 +145,7 @@ defineProps<Props>();
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     <!-- Free Plan -->
-                    <div class="relative rounded-3xl border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="relative rounded-3xl border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl p-8 shadow-xl flex flex-col">
                         <div class="text-center">
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Free</h3>
                             <div class="mt-4 flex items-baseline justify-center">
@@ -157,7 +157,7 @@ defineProps<Props>();
                             </p>
                         </div>
                         
-                        <ul class="mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                        <ul class="mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-300 flex-grow">
                             <li class="flex gap-x-3">
                                 <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
@@ -187,7 +187,7 @@ defineProps<Props>();
                     </div>
 
                     <!-- Pro Plan -->
-                    <div class="relative rounded-3xl border-2 border-blue-600 bg-gradient-to-b from-blue-50 to-white dark:from-blue-950/30 dark:to-gray-800 p-8 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 group">
+                    <div class="relative rounded-3xl border-2 border-blue-600 bg-gradient-to-b from-blue-50 to-white dark:from-blue-950/30 dark:to-gray-800 p-8 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 group flex flex-col">
                         <!-- Popular badge -->
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
                             <span class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
@@ -206,7 +206,7 @@ defineProps<Props>();
                             </p>
                         </div>
                         
-                        <ul class="mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                        <ul class="mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-300 flex-grow">
                             <li class="flex gap-x-3">
                                 <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
