@@ -95,7 +95,7 @@ defineProps<Props>();
                             class="group relative rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/40 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50 w-full sm:w-auto"
                         >
                             <span class="relative z-10 flex items-center justify-center space-x-2">
-                                <span>Start Free Trial</span>
+                                <span>Start For Free</span>
                                 <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
@@ -106,12 +106,6 @@ defineProps<Props>();
 
                     <!-- Trust indicators -->
                     <div class="mt-16 flex items-center justify-center space-x-8 text-gray-500 dark:text-gray-400">
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-sm font-medium">14-day free trial</span>
-                        </div>
                         <div class="flex items-center space-x-2">
                             <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -243,7 +237,7 @@ defineProps<Props>();
                             :href="route('register')"
                             class="mt-8 block w-full rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
                         >
-                            Start Free Trial
+                            Start For Free
                         </Link>
                     </div>
                 </div>
@@ -251,7 +245,7 @@ defineProps<Props>();
                 <!-- FAQ or additional info -->
                 <div class="mt-16 text-center">
                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                        All plans include a 14-day free trial. No credit card required. Cancel anytime.
+                        No credit card required. Cancel anytime.
                     </p>
                     <div class="mt-4 flex items-center justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
                         <div class="flex items-center space-x-2">
