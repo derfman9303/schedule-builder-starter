@@ -192,8 +192,8 @@ export function useSchedule() {
         }
         // Add visual feedback with dotted border only, no background color
         const target = event.currentTarget as HTMLElement;
-        target.classList.add('border-blue-400', 'border-2', 'border-dashed');
         target.classList.remove('border-transparent');
+        target.classList.add('border-blue-400', 'border-2', 'border-dashed');
     };
 
     const handleDragLeave = (event: DragEvent) => {
