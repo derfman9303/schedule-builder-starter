@@ -21,7 +21,7 @@ const page = usePage<SharedData>();
                 >
                     <Link :href="item.href">
                         <component :is="item.icon" />
-                        <span>{{ item.title }}</span>
+                        <span :class="{ 'font-bold': item.bold }">{{ item.title }}</span>
                     </Link>
                 </SidebarMenuButton>
             </SidebarMenuItem>

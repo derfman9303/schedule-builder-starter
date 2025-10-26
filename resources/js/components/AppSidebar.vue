@@ -13,46 +13,35 @@ const mainNavItems: NavItem[] = [
         title: 'Create a Schedule',
         href: '/schedules/new',
         icon: CalendarPlus,
+        bold: true,
     },
     {
         title: 'Schedules',
         href: '/schedules',
         icon: Calendar,
+        bold: false,
     },
     {
         title: 'Employees',
         href: '/employees',
         icon: Users,
+        bold: false,
     },
     {
         title: 'Departments',
         href: '/departments',
         icon: Store,
-    },      
-    // {
-    //     title: 'Configuration',
-    //     href: '/config',
-    //     icon: SlidersHorizontal,
-    // },
+        bold: false,
+    },
     {
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
+        bold: false,
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    // {
-    //     title: 'Github Repo',
-    //     href: 'https://github.com/laravel/vue-starter-kit',
-    //     icon: Folder,
-    // },
-    // {
-    //     title: 'Documentation',
-    //     href: 'https://laravel.com/docs/starter-kits#vue',
-    //     icon: BookOpen,
-    // },
-];
+const footerNavItems: NavItem[] = [];
 </script>
 
 <template>
