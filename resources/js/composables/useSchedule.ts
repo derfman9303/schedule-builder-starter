@@ -241,6 +241,21 @@ export function useSchedule() {
         }
     };
 
+    /**
+     * Format date to a more readable format without timezone conversion issues
+     */
+    const formatDate = (dateString: string): string => {
+        // Parse date components manually to avoid any timezone conversion
+        const [year, month, day] = dateString.split('-').map(Number);
+        const date = new Date(year, month - 1, day);
+        
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    };
+
     return {
         weekDaysLowerCase,
         weekDaysShort,
@@ -263,5 +278,6 @@ export function useSchedule() {
         handleDragOver,
         handleDragLeave,
         handleDrop,
+        formatDate,
     };
 }

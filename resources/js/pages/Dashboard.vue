@@ -8,6 +8,7 @@ import { Calendar, Users, Clock, FileText, Plus, TrendingUp } from 'lucide-vue-n
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import type { Schedule } from '@/types/Schedule';
+import { useSchedule } from '@/composables/useSchedule';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,6 +16,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
+
+const { formatDate } = useSchedule();
 
 // Dashboard data
 const recentSchedules = ref<Schedule[]>([]);
@@ -69,14 +72,6 @@ const navigateToNewSchedule = () => {
 
 const navigateToAddEmployee = () => {
     router.visit('/employees/add');
-};
-
-const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    });
 };
 
 onMounted(() => {

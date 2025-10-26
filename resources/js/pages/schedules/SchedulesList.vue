@@ -166,10 +166,13 @@ import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, 
 import { type BreadcrumbItem } from '@/types'
 import { type Schedule } from '@/types/Schedule';
 import { Plus, LoaderCircle, Calendar, FileText, Download, Trash2 } from 'lucide-vue-next';
+import { useSchedule } from '@/composables/useSchedule';
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Schedules', href: '/schedules' },
 ]
+
+const { formatDate } = useSchedule();
 
 const schedules = ref<Schedule[]>([]);
 const isLoading = ref<boolean>(true);
@@ -237,16 +240,7 @@ function openDialog(schedule: Schedule): void {
     dialogOpen.value = true;
 };
 
-/**
- * Format date to a more readable format
- */
-function formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    });
-}
+
 
 onMounted(() => {
     fetchData();
