@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -53,5 +53,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function employees()
     {
         return $this->hasMany(Employee::class);
+    }
+
+    /**
+     * Get the departments for the user.
+     */
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
     }
 }
