@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ScheduleController;
 
@@ -26,6 +27,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             Route::put('', [ScheduleController::class, 'update'])->name('schedules.update');
             Route::delete('', [ScheduleController::class, 'delete'])->name('schedules.delete');
         });
+    });
+
+    Route::group(['prefix' => 'departments'], function () {
+        Route::get('', [DepartmentController::class, 'index'])->name('departments.index');
     });
 });
 
