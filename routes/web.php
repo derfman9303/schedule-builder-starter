@@ -41,6 +41,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         })->name('employees.edit');
     });
 
+    Route::group(['prefix' => 'departments'], function () {
+        Route::get('/', function () {
+            return Inertia::render('departments/Departments');
+        })->name('departments.index');
+    });
+
     Route::get('config', function () {
         return Inertia::render('Config');
     })->name('config');
