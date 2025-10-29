@@ -3,10 +3,7 @@
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full w-full flex-1 flex-col gap-6 rounded-xl p-6">
-            <!-- Page Header -->
-            <div class="flex flex-col space-y-2">
-                <h1 class="text-3xl font-bold tracking-tight">Add New Department</h1>
-            </div>
+            <h1 class="text-3xl font-bold tracking-tight">Add New Department</h1>
 
             <!-- Department Form Card -->
             <Card class="max-w-lg">

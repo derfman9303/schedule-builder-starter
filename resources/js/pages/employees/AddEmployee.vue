@@ -2,71 +2,88 @@
     <Head title="Add Employee" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <form @submit.prevent="submit" class="flex flex-col gap-6 max-w-lg">
-            <div class="grid gap-6 p-4">
-                <div class="grid gap-2">
-                    <Label for="first_name">First Name</Label>
-                    <Input
-                        id="first_name"
-                        type="text"
-                        required
-                        autofocus
-                        v-model="form.first_name"
-                        placeholder="John"
-                        :disabled="form.processing"
-                    />
-                    <InputError :message="form.errors.first_name" />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="last_name">Last Name</Label>
-                    <Input
-                        id="last_name"
-                        type="text"
-                        required
-                        v-model="form.last_name"
-                        placeholder="Doe"
-                        :disabled="form.processing"
-                    />
-                    <InputError :message="form.errors.last_name" />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        required
-                        autofocus
-                        autocomplete="email"
-                        v-model="form.email"
-                        placeholder="email@example.com"
-                        :disabled="form.processing"
-                    />
-                    <InputError :message="form.errors.email" />
-                </div>
-                <div class="grid gap-2">
-                    <Label for="phone">Phone Number</Label>
-                    <Input
-                        id="phone"
-                        type="text"
-                        v-model="form.phone"
-                        placeholder="(123) 456-7890"
-                        :disabled="form.processing"
-                    />
-                    <InputError :message="form.errors.phone" />
-                </div>
-                <Button
-                    type="submit"
-                    class="w-fit bg-blue-500 hover:bg-blue-600 cursor-pointer"
-                    :disabled="form.processing"
-                >
-                    <LoaderCircle
-                        v-if="form.processing"
-                        class="h-4 w-4 animate-spin"
-                    />
-                    Save
-                </Button>
-            </div>
-        </form>
+        <div class="flex h-full w-full flex-1 flex-col gap-6 rounded-xl p-6">
+            <h1 class="text-3xl font-bold tracking-tight">Add New Employee</h1>
+
+            <!-- Employee Form Card -->
+            <Card class="max-w-lg">
+                <CardHeader>
+                    <CardTitle class="flex items-center gap-2">
+                        <UserPlus class="h-5 w-5" />
+                        Employee Information
+                    </CardTitle>
+                    <CardDescription>
+                        Enter the details for your new employee
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submit" class="space-y-6">
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <div class="space-y-2">
+                                <Label for="first_name">First Name</Label>
+                                <Input
+                                    id="first_name"
+                                    type="text"
+                                    required
+                                    autofocus
+                                    v-model="form.first_name"
+                                    placeholder="John"
+                                    :disabled="form.processing"
+                                />
+                                <InputError :message="form.errors.first_name" />
+                            </div>
+                            <div class="space-y-2">
+                                <Label for="last_name">Last Name</Label>
+                                <Input
+                                    id="last_name"
+                                    type="text"
+                                    required
+                                    v-model="form.last_name"
+                                    placeholder="Doe"
+                                    :disabled="form.processing"
+                                />
+                                <InputError :message="form.errors.last_name" />
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <Label for="email">Email address</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                required
+                                autocomplete="email"
+                                v-model="form.email"
+                                placeholder="email@example.com"
+                                :disabled="form.processing"
+                            />
+                            <InputError :message="form.errors.email" />
+                        </div>
+                        <div class="space-y-2">
+                            <Label for="phone">Phone Number</Label>
+                            <Input
+                                id="phone"
+                                type="text"
+                                v-model="form.phone"
+                                placeholder="(123) 456-7890"
+                                :disabled="form.processing"
+                            />
+                            <InputError :message="form.errors.phone" />
+                        </div>
+                        <Button
+                            type="submit"
+                            class="w-fit bg-blue-500 hover:bg-blue-600 cursor-pointer"
+                            :disabled="form.processing"
+                        >
+                            <LoaderCircle
+                                v-if="form.processing"
+                                class="h-4 w-4 animate-spin mr-2"
+                            />
+                            Save Employee
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
     </AppLayout>
 </template>
 
@@ -74,10 +91,11 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm, router } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
+import { LoaderCircle, UserPlus } from 'lucide-vue-next';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import InputError from '@/components/InputError.vue';
 import { watch } from 'vue';
 import axios from 'axios';
