@@ -190,17 +190,15 @@ export function useSchedule() {
         if (event.dataTransfer) {
             event.dataTransfer.dropEffect = 'move';
         }
-        // Add visual feedback with dotted border only, no background color
+        // Add visual feedback with specific drag classes that don't interfere with hover
         const target = event.currentTarget as HTMLElement;
-        target.classList.remove('border-transparent');
-        target.classList.add('border-blue-400', 'border-2', 'border-dashed');
+        target.classList.add('drag-over');
     };
 
     const handleDragLeave = (event: DragEvent) => {
         // Remove visual feedback
         const target = event.currentTarget as HTMLElement;
-        target.classList.remove('border-blue-400', 'border-2', 'border-dashed');
-        target.classList.add('border-transparent');
+        target.classList.remove('drag-over');
     };
 
     const handleDrop = (event: DragEvent, targetWorkWeekIndex: number, targetDayOffset: number, schedule: Schedule) => {
@@ -208,8 +206,7 @@ export function useSchedule() {
         
         // Remove visual feedback
         const target = event.currentTarget as HTMLElement;
-        target.classList.remove('border-blue-400', 'border-2', 'border-dashed');
-        target.classList.add('border-transparent');
+        target.classList.remove('drag-over');
         
         if (!event.dataTransfer) return;
         

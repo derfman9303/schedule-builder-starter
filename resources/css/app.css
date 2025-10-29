@@ -296,3 +296,10 @@ html {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
+
+/* Drag and drop visual feedback */
+.drag-over {
+  border-color: #60a5fa !important; /* blue-400 */
+  border-width: 2px !important;
+  border-style: dashed !important;
+}
