@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ScheduleController;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'employees'], function () {
@@ -31,6 +30,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::group(['prefix' => 'departments'], function () {
         Route::get('', [DepartmentController::class, 'index'])->name('departments.index');
+        Route::post('', [DepartmentController::class, 'store'])->name('departments.store');
     });
 });
 
