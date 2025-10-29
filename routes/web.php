@@ -49,8 +49,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             return Inertia::render('departments/AddDepartment');
         })->name('departments.new');
 
-        Route::get('/edit/{department}', function () {
-            return Inertia::render('departments/EditDepartment');
+        Route::get('/edit/{department}', function ($department) {
+            return Inertia::render('departments/EditDepartment', [
+                'department' => $department,
+            ]);
         })->name('departments.edit');
     });
 

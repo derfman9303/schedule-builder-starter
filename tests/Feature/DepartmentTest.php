@@ -82,4 +82,59 @@ class DepartmentTest extends TestCase
         $response->assertStatus(403);
         $this->assertDatabaseHas('departments', ['id' => $department->id]);
     }
+
+    public function test_user_can_view_their_own_department(): void
+    {
+        $user = User::factory()->create();
+        $department = Department::factory()->create(['user_id' => $user->id]);
+
+        $response = $this->actingAs($user)->getJson("/api/departments/{$department->id}");
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['name' => $department->name]);
+    }
+
+    public function test_user_cannot_view_other_users_department(): void
+    {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $department = Department::factory()->create(['user_id' => $user2->id]);
+
+        $response = $this->actingAs($user1)->getJson("/api/departments/{$department->id}");
+
+        $response->assertStatus(403);
+    }
+
+    public function test_user_can_update_their_own_department(): void
+    {
+        $user = User::factory()->create();
+        $department = Department::factory()->create(['user_id' => $user->id]);
+
+        $response = $this->actingAs($user)->putJson("/api/departments/{$department->id}", [
+            'name' => 'Updated Department Name',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('departments', [
+            'id' => $department->id,
+            'name' => 'Updated Department Name',
+        ]);
+    }
+
+    public function test_user_cannot_update_other_users_department(): void
+    {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $department = Department::factory()->create(['user_id' => $user2->id, 'name' => 'Original Name']);
+
+        $response = $this->actingAs($user1)->putJson("/api/departments/{$department->id}", [
+            'name' => 'Hacked Name',
+        ]);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseHas('departments', [
+            'id' => $department->id,
+            'name' => 'Original Name',
+        ]);
+    }
 }

@@ -27,6 +27,30 @@ class DepartmentController extends Controller
         return response()->json($department, 201);
     }
 
+    public function show(Department $department): JsonResponse
+    {
+        // Ensure the user can only view their own departments
+        if ($department->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($department);
+    }
+
+    public function update(StoreDepartmentRequest $request, Department $department): JsonResponse
+    {
+        // Ensure the user can only update their own departments
+        if ($department->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $department->update([
+            'name' => $request->validated('name'),
+        ]);
+
+        return response()->json($department);
+    }
+
     public function destroy(Department $department): JsonResponse
     {
         // Ensure the user can only delete their own departments
