@@ -45,6 +45,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::get('/', function () {
             return Inertia::render('departments/Departments');
         })->name('departments.index');
+
+        Route::get('/new', function () {
+            return Inertia::render('departments/AddDepartment');
+        })->name('departments.new');
     });
 
     Route::get('config', function () {

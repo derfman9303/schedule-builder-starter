@@ -31,7 +31,7 @@
                 />
             </div>
 
-            <!-- Schedules Content -->
+            <!-- Departments Content -->
             <div v-else>
                 <!-- Empty State -->
                 <Card v-if="departments.length === 0">
@@ -54,7 +54,7 @@
 
                 <!-- Departments Table -->
                 <Card v-else>
-                    
+
                 </Card>
             </div>
         </div>
