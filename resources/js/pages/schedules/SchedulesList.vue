@@ -12,7 +12,7 @@
                             Manage and organize your work schedules
                         </p>
                     </div>
-                    <Button asChild>
+                    <Button asChild class="bg-blue-500 hover:bg-blue-600">
                         <Link href="/schedules/new">
                             <Plus class="h-4 w-4 mr-2" />
                             New Schedule
@@ -42,7 +42,7 @@
                             <p class="text-muted-foreground mb-4">
                                 Get started by creating your first schedule
                             </p>
-                            <Button asChild>
+                            <Button asChild class="bg-blue-500 hover:bg-blue-600">
                                 <Link href="/schedules/new">
                                     <Plus class="h-4 w-4 mr-2" />
                                     Create Your First Schedule

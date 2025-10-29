@@ -216,7 +216,7 @@
                                                                 <Button
                                                                     @click="addWorkWeek(selectedEmployee, schedule, selectedEmployee, newEmployee)"
                                                                     :disabled="!selectedEmployee"
-                                                                    class="w-full cursor-pointer"
+                                                                    class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
                                                                 >
                                                                     Add Employee
                                                                 </Button>
@@ -231,7 +231,7 @@
                                                                 <Button
                                                                     @click="addWorkWeek(newEmployee, schedule, selectedEmployee, newEmployee)"
                                                                     :disabled="!newEmployee.full_name"
-                                                                    class="w-full cursor-pointer"
+                                                                    class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
                                                                 >
                                                                     Add New Employee
                                                                 </Button>
@@ -261,7 +261,7 @@
                     <Button
                         @click="updateSchedule"
                         :disabled="buttonLoading"
-                        class="min-w-[120px] cursor-pointer"
+                        class="min-w-[120px] cursor-pointer bg-blue-500 hover:bg-blue-600"
                     >
                         <Loader2
                             v-if="buttonLoading"

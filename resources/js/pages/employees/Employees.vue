@@ -12,7 +12,7 @@
                             Manage your team members and their information
                         </p>
                     </div>
-                    <Button asChild>
+                    <Button asChild class="bg-blue-500 hover:bg-blue-600">
                         <Link href="/employees/add">
                             <Plus class="h-4 w-4 mr-2" />
                             New Employee
@@ -42,7 +42,7 @@
                             <p class="text-muted-foreground mb-4">
                                 Get started by adding your first team member
                             </p>
-                            <Button asChild>
+                            <Button asChild class="bg-blue-500 hover:bg-blue-600">
                                 <Link href="/employees/add">
                                     <Plus class="h-4 w-4 mr-2" />
                                     Add Your First Employee
