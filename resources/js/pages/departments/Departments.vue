@@ -54,22 +54,138 @@
 
                 <!-- Departments Table -->
                 <Card v-else>
+                    <CardHeader>
+                        <CardTitle class="flex items-center gap-2">
+                            <Building2 class="h-5 w-5" />
+                            Your Departments
+                        </CardTitle>
+                        <CardDescription>
+                            View and manage all your departments
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div class="rounded-md border">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Department Name</TableHead>
+                                        <TableHead>Created</TableHead>
+                                        <TableHead class="text-center">Actions</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    <TableRow
+                                        v-for="department in paginatedDepartments"
+                                        :key="department.id"
+                                        class="hover:bg-muted/50"
+                                    >
+                                        <TableCell class="font-medium">
+                                            {{ department.name }}
+                                        </TableCell>
+                                        <TableCell class="text-muted-foreground">
+                                            {{ formatDate(department.created_at) }}
+                                        </TableCell>
+                                        <TableCell class="text-right">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                    size="sm"
+                                                >
+                                                    <Link :href="`/departments/edit/${department.id}`">
+                                                        <Edit class="h-4 w-4 mr-1" />
+                                                        Edit
+                                                    </Link>
+                                                </Button>
+                                                <Button
+                                                    @click="department.id && openDialog(department.id, department.name)"
+                                                    variant="outline"
+                                                    size="sm"
+                                                    class="text-destructive hover:text-destructive cursor-pointer"
+                                                    :disabled="!department.id"
+                                                >
+                                                    <Trash2 class="h-4 w-4 mr-1" />
+                                                    Delete
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </div>
 
+                        <!-- Pagination -->
+                        <div
+                            v-if="departments.length"
+                            class="flex justify-between items-center mt-4"
+                        >
+                            <Button
+                                variant="outline"
+                                :disabled="currentPage === 1"
+                                @click="currentPage--"
+                                class="cursor-pointer"
+                            >
+                                Previous
+                            </Button>
+                            <span class="text-sm text-muted-foreground">
+                                Page {{ currentPage }} of {{ totalPages }}
+                            </span>
+                            <Button
+                                variant="outline"
+                                :disabled="currentPage === totalPages"
+                                @click="currentPage++"
+                                class="cursor-pointer"
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </CardContent>
                 </Card>
+
+                <!-- Delete Dialog -->
+                <AlertDialog :open="dialogOpen" @update:open="dialogOpen = $event">
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Department</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Are you sure you want to delete "{{ departmentToDelete.name }}"? This action cannot be undone.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel class="cursor-pointer">Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                                @click="deleteDepartment"
+                                class="bg-destructive text-destructive-foreground text-white cursor-pointer hover:bg-destructive/90"
+                            >
+                                Delete
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
         </div>
     </AppLayout>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
+
+interface Department {
+    id: number;
+    name: string;
+    user_id: number;
+    created_at: string;
+    updated_at: string;
+}
 import { Head, Link } from '@inertiajs/vue3';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogCancel, AlertDialogAction, AlertDialogTitle, AlertDialogDescription } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { Plus, Store, LoaderCircle } from 'lucide-vue-next';
+import { Plus, Store, LoaderCircle, Building2, Edit, Trash2 } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -78,8 +194,20 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const departments = ref([]);
+const departments = ref<Department[]>([]);
 const isLoading = ref(false);
+const currentPage = ref(1);
+const itemsPerPage = ref(10);
+const dialogOpen = ref(false);
+const departmentToDelete = ref<{ id: number | null, name: string }>({ id: null, name: '' });
+
+// Computed properties
+const totalPages = computed(() => Math.ceil(departments.value.length / itemsPerPage.value));
+const paginatedDepartments = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage.value;
+    const end = start + itemsPerPage.value;
+    return departments.value.slice(start, end);
+});
 
 function fetchData() {
     isLoading.value = true;
@@ -93,6 +221,41 @@ function fetchData() {
         })
         .finally(() => {
             isLoading.value = false;
+        });
+}
+
+function formatDate(dateString: string): string {
+    return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
+function openDialog(id: number, name: string): void {
+    departmentToDelete.value = { id, name };
+    dialogOpen.value = true;
+}
+
+function deleteDepartment() {
+    if (!departmentToDelete.value.id) return;
+
+    axios.delete(`/api/departments/${departmentToDelete.value.id}`)
+        .then(() => {
+            // Remove the department from the local array
+            departments.value = departments.value.filter(d => d.id !== departmentToDelete.value.id);
+            
+            // Adjust current page if necessary
+            if (paginatedDepartments.value.length === 0 && currentPage.value > 1) {
+                currentPage.value--;
+            }
+            
+            dialogOpen.value = false;
+            departmentToDelete.value = { id: null, name: '' };
+        })
+        .catch((error) => {
+            console.error('Error deleting department:', error);
+            // You could add a toast notification here for error handling
         });
 }
 

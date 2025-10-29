@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -49,6 +48,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::get('/new', function () {
             return Inertia::render('departments/AddDepartment');
         })->name('departments.new');
+
+        Route::get('/edit/{department}', function () {
+            return Inertia::render('departments/EditDepartment');
+        })->name('departments.edit');
     });
 
     Route::get('config', function () {

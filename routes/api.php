@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'departments'], function () {
         Route::get('', [DepartmentController::class, 'index'])->name('departments.index');
         Route::post('', [DepartmentController::class, 'store'])->name('departments.store');
+        Route::delete('{department}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
     });
 });
 

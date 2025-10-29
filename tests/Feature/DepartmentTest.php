@@ -59,4 +59,27 @@ class DepartmentTest extends TestCase
         $response->assertJsonFragment(['name' => 'User 1 Dept']);
         $response->assertJsonMissing(['name' => 'User 2 Dept']);
     }
+
+    public function test_user_can_delete_their_own_department(): void
+    {
+        $user = User::factory()->create();
+        $department = Department::factory()->create(['user_id' => $user->id]);
+
+        $response = $this->actingAs($user)->deleteJson("/api/departments/{$department->id}");
+
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('departments', ['id' => $department->id]);
+    }
+
+    public function test_user_cannot_delete_other_users_department(): void
+    {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $department = Department::factory()->create(['user_id' => $user2->id]);
+
+        $response = $this->actingAs($user1)->deleteJson("/api/departments/{$department->id}");
+
+        $response->assertStatus(403);
+        $this->assertDatabaseHas('departments', ['id' => $department->id]);
+    }
 }

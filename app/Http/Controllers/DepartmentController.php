@@ -26,4 +26,16 @@ class DepartmentController extends Controller
 
         return response()->json($department, 201);
     }
+
+    public function destroy(Department $department): JsonResponse
+    {
+        // Ensure the user can only delete their own departments
+        if ($department->user_id !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $department->delete();
+
+        return response()->json(['message' => 'Department deleted successfully']);
+    }
 }
