@@ -19,6 +19,7 @@
                 <label for="start-time" class="text-gray-700 p-[5px]">Start Time:</label>
                 <input
                     v-model="startTime"
+                    @change="updateShift"
                     id="start-time"
                     class="p-[5px] cursor-pointer"
                     name="start time"
@@ -29,6 +30,7 @@
                 <label for="end-time" class="text-gray-700 p-[5px]">End Time:</label>
                 <input
                     v-model="endTime"
+                    @change="updateShift"
                     id="end-time"
                     class="p-[5px] cursor-pointer"
                     name="end time"
@@ -36,14 +38,6 @@
                 />
             </div>
             <div class="flex justify-between w-full mt-4">
-                <PopoverClose class="w-[48%]">
-                    <Button
-                        class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-full"
-                        @click="updateShift"
-                    >
-                        Update
-                    </Button>
-                </PopoverClose>
                 <PopoverClose class="w-[48%]">
                     <Button
                         class="bg-red-500 hover:bg-red-600 text-white cursor-pointer w-full"
