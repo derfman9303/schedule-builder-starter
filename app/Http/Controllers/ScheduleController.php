@@ -46,8 +46,8 @@ class ScheduleController extends Controller
             'work_weeks.*.shifts'        => 'nullable|array',
             'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
             'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
-            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i:s',
-            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i:s|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
+            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
             'work_weeks.*.shifts.*.day_offset' => 'required|integer|in:0,1,2,3,4,5,6',
         ]);
 
@@ -106,8 +106,8 @@ class ScheduleController extends Controller
             'work_weeks.*.shifts'        => 'nullable|array',
             'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
             'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
-            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i:s',
-            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i:s|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
+            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
             'work_weeks.*.shifts.*.day_offset' => 'required|integer|in:0,1,2,3,4,5,6',
         ]);
 

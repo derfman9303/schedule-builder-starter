@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
+    use HasFactory;
     const USER_ID = 'user_id';
     const NAME = 'name';
     const START_DATE = 'start_date';

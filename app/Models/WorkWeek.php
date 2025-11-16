@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkWeek extends Model
 {
+    use HasFactory;
     const SCHEDULE_ID = 'schedule_id';
     const EMPLOYEE_ID = 'employee_id';
     const EMPLOYEE_NAME = 'employee_name';

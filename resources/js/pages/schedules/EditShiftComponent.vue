@@ -62,7 +62,7 @@ import { defineProps, ref } from 'vue';
 import { type Shift } from '@/types/Shift';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { PopoverClose } from 'reka-ui';
-import { ArrowBigRightDash, ArrowBigLeftDash, X } from 'lucide-vue-next';
+import { X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 
 const props = defineProps<{
