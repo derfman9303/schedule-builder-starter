@@ -19,6 +19,8 @@ class Shift extends Model
 
     const DAY_OFFSET = 'day_offset';
 
+    const DEPARTMENT_ID = 'department_id';
+
     protected $fillable = [
         self::WORK_WEEK_ID,
         self::START_TIME,
@@ -26,6 +28,7 @@ class Shift extends Model
         self::WEEK_DAY,
         self::DATE,
         self::DAY_OFFSET,
+        self::DEPARTMENT_ID,
     ];
 
     protected function startTime(): Attribute
@@ -47,5 +50,10 @@ class Shift extends Model
     public function workWeek()
     {
         return $this->belongsTo(WorkWeek::class, self::WORK_WEEK_ID);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, self::DEPARTMENT_ID);
     }
 }
