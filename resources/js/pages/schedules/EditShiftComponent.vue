@@ -78,8 +78,8 @@ const endTime = ref(props.shift?.end_time);
 function updateShift() {
     emit('update-shift', {
         ...props.shift,
-        start_time: startTime.value,
-        end_time: endTime.value,
+        start_time: startTime.value + ':00',
+        end_time: endTime.value + ':00',
     });
 }
 

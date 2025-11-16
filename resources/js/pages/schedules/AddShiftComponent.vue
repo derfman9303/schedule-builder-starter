@@ -57,8 +57,8 @@ const emit = defineEmits(['add-shift']);
 
 function addShift() {
     emit('add-shift', {
-        start_time: startTime.value,
-        end_time: endTime.value,
+        start_time: startTime.value + ':00',
+        end_time: endTime.value + ':00',
     });
 }
 </script>
