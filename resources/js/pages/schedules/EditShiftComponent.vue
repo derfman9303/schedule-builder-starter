@@ -2,21 +2,11 @@
     <Popover>
         <PopoverTrigger>
             <div
-                class="rounded-lg px-2 py-[3px] w-[100px] min-h-[50px] cursor-pointer text-sm flex flex-col justify-center"
+                class="rounded-lg px-2 py-[3px] w-[125px] min-h-[40px] cursor-pointer text-xs flex flex-col justify-center"
                 :class="color"
             >
-                <div class="flex justify-between">
-                    <div class="flex items-center">
-                        <ArrowBigRightDash :size="16" class="text-white" />
-                    </div>
-                    <span class="text-white">{{ formatTimeTo12Hour(props.shift?.start_time) }}</span>
-                </div>
-                <div class="flex justify-between">
-                    <div class="flex items-center">
-                        <ArrowBigLeftDash :size="16" class="text-white" />
-                    </div>
-                    <span class="text-white">{{ formatTimeTo12Hour(props.shift?.end_time) }}</span>
-                </div>
+                <span class="text-white">Retail</span>
+                <span class="text-white">{{ formatTimeTo12Hour(props.shift?.start_time) }} - {{ formatTimeTo12Hour(props.shift?.end_time) }}</span>
             </div>
         </PopoverTrigger>
         <PopoverContent class="w-64">
