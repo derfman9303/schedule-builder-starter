@@ -72,6 +72,7 @@ export function useSchedule() {
         if (existingShift) {
             existingShift.start_time = shift.start_time;
             existingShift.end_time = shift.end_time;
+            existingShift.department_id = shift.department_id;
         }
     }
 
@@ -88,6 +89,7 @@ export function useSchedule() {
             day_offset: dayOffset,
             start_time: shift.start_time,
             end_time: shift.end_time,
+            department_id: shift.department_id,
         };
 
         workWeek.shifts.push(newShift);

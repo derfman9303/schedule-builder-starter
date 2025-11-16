@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use ZanySoft\LaravelPDF\PDF;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
-use App\Models\Schedule;
-use App\Models\Employee;
+use ZanySoft\LaravelPDF\PDF;
 
 class ScheduleController extends Controller
 {
@@ -25,10 +24,10 @@ class ScheduleController extends Controller
             abort(403);
         }
 
-        $fileName = 'schedule_' . $schedule->id . '.pdf';
+        $fileName = 'schedule_'.$schedule->id.'.pdf';
         $data = $schedule->load(['workWeeks.employee', 'workWeeks.shifts']);
 
-        $pdf = new PDF();
+        $pdf = new PDF;
         $pdf->loadView('schedules.index', ['schedule' => $data]);
 
         return $pdf->stream($fileName);
@@ -37,21 +36,22 @@ class ScheduleController extends Controller
     public function store(Request $request): Schedule
     {
         $request->validate([
-            'name'                  => 'nullable|string|max:255',
-            'start_date'            => 'required|date',
-            'end_date'              => 'required|date|after_or_equal:start_date',
-            'work_weeks'            => 'required|array|min:1',
-            'work_weeks.*.employee_id'   => 'nullable|integer|exists:employees,id',
+            'name' => 'nullable|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'work_weeks' => 'required|array|min:1',
+            'work_weeks.*.employee_id' => 'nullable|integer|exists:employees,id',
             'work_weeks.*.employee_name' => 'required|string|max:255',
-            'work_weeks.*.shifts'        => 'nullable|array',
-            'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
-            'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
+            'work_weeks.*.shifts' => 'nullable|array',
+            'work_weeks.*.shifts.*.week_day' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'work_weeks.*.shifts.*.date' => 'nullable|date_format:Y-m-d',
             'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
-            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.end_time' => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
             'work_weeks.*.shifts.*.day_offset' => 'required|integer|in:0,1,2,3,4,5,6',
+            'work_weeks.*.shifts.*.department_id' => 'nullable|integer|exists:departments,id',
         ]);
 
-        $schedule = new Schedule();
+        $schedule = new Schedule;
         $schedule->user_id = auth()->id();
         $schedule->name = $request->input('name', '');
         $schedule->start_date = $request->input('start_date');
@@ -71,6 +71,7 @@ class ScheduleController extends Controller
                     'start_time' => $shift['start_time'],
                     'end_time' => $shift['end_time'],
                     'day_offset' => $shift['day_offset'],
+                    'department_id' => $shift['department_id'] ?? null,
                 ]);
             }
         }
@@ -97,18 +98,19 @@ class ScheduleController extends Controller
         }
 
         $request->validate([
-            'name'                  => 'nullable|string|max:255',
-            'start_date'            => 'required|date',
-            'end_date'              => 'required|date|after_or_equal:start_date',
-            'work_weeks'            => 'required|array|min:1',
-            'work_weeks.*.employee_id'   => 'nullable|integer|exists:employees,id',
+            'name' => 'nullable|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'work_weeks' => 'required|array|min:1',
+            'work_weeks.*.employee_id' => 'nullable|integer|exists:employees,id',
             'work_weeks.*.employee_name' => 'required|string|max:255',
-            'work_weeks.*.shifts'        => 'nullable|array',
-            'work_weeks.*.shifts.*.week_day'   => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
-            'work_weeks.*.shifts.*.date'       => 'nullable|date_format:Y-m-d',
+            'work_weeks.*.shifts' => 'nullable|array',
+            'work_weeks.*.shifts.*.week_day' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'work_weeks.*.shifts.*.date' => 'nullable|date_format:Y-m-d',
             'work_weeks.*.shifts.*.start_time' => 'required|date_format:H:i',
-            'work_weeks.*.shifts.*.end_time'   => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
+            'work_weeks.*.shifts.*.end_time' => 'required|date_format:H:i|after:work_weeks.*.shifts.*.start_time',
             'work_weeks.*.shifts.*.day_offset' => 'required|integer|in:0,1,2,3,4,5,6',
+            'work_weeks.*.shifts.*.department_id' => 'nullable|integer|exists:departments,id',
         ]);
 
         $schedule->update($request->only(['name', 'start_date', 'end_date']));
@@ -129,6 +131,7 @@ class ScheduleController extends Controller
                     'start_time' => $shift['start_time'],
                     'end_time' => $shift['end_time'],
                     'day_offset' => $shift['day_offset'],
+                    'department_id' => $shift['department_id'] ?? null,
                 ]);
             }
         }
