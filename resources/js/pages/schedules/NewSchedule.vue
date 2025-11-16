@@ -286,6 +286,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
+import { useDepartments } from '@/composables/useDepartments';
 import { DateFormatter, getLocalTimeZone, today } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -322,6 +323,8 @@ const {
     handleDragLeave,
     handleDrop,
 } = useSchedule();
+
+const { loadDepartments } = useDepartments();
 
 const isLoading = ref(false);
 const buttonLoading = ref(false);
@@ -365,6 +368,8 @@ function loadData() {
 
     startDate.value = today(getLocalTimeZone());
     endDate.value = startDate.value.copy().add({ days: 6 });
+
+    loadDepartments();
 
     axios.get('/api/employees')
         .then(response => {

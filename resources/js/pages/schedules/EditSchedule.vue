@@ -287,6 +287,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { useSchedule } from '@/composables/useSchedule';
+import { useDepartments } from '@/composables/useDepartments';
 import { DateFormatter, getLocalTimeZone } from '@internationalized/date';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -330,6 +331,8 @@ const {
     handleDrop,
 } = useSchedule();
 
+const { loadDepartments } = useDepartments();
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Schedules',
@@ -366,6 +369,8 @@ const df = new DateFormatter('en-US', {
 
 async function loadData() {
     isLoading.value = true;
+
+    loadDepartments();
 
     const employeeRequest = axios.get('/api/employees')
         .then(response => {

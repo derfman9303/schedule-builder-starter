@@ -16,7 +16,7 @@
                 </PopoverClose>
             </div>
             <div class="flex flex-row justify-between">
-                <label for="start-time" class="text-gray-700 p-[5px]">Start Time:</label>
+                <label for="start-time" class="text-gray-700 p-[5px] pl-0">Start Time:</label>
                 <input
                     v-model="startTime"
                     @change="updateShift"
@@ -27,7 +27,7 @@
                 />
             </div>
             <div class="flex flex-row justify-between">
-                <label for="end-time" class="text-gray-700 p-[5px]">End Time:</label>
+                <label for="end-time" class="text-gray-700 p-[5px] pl-0">End Time:</label>
                 <input
                     v-model="endTime"
                     @change="updateShift"
@@ -36,6 +36,31 @@
                     name="end time"
                     type="time"
                 />
+            </div>
+            <div class="flex flex-col gap-2 mt-2">
+                <label for="department" class="text-gray-700 text-sm">Department (Optional):</label>
+                <Select
+                    v-model="departmentId"
+                    @update:model-value="updateShift"
+                    class="w-full"
+                >
+                    <SelectTrigger class="cursor-pointer w-full">
+                        <SelectValue placeholder="Select a Department" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem :value="null" class="cursor-pointer">
+                            None
+                        </SelectItem>
+                        <SelectItem
+                            v-for="department in departments"
+                            :key="department.id"
+                            :value="department.id"
+                            class="cursor-pointer"
+                        >
+                            {{ department.name }}
+                        </SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             <div class="flex justify-between w-full mt-4">
                 <PopoverClose class="w-[48%]">
@@ -58,6 +83,8 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover
 import { PopoverClose } from 'reka-ui';
 import { X } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useDepartments } from '@/composables/useDepartments';
 
 const props = defineProps<{
     shift: Shift | undefined;
@@ -68,12 +95,16 @@ const props = defineProps<{
 const emit = defineEmits(['update-shift', 'remove-shift']);
 const startTime = ref(props.shift?.start_time);
 const endTime = ref(props.shift?.end_time);
+const departmentId = ref<number | null>(props.shift?.department_id ?? null);
+
+const { departments } = useDepartments();
 
 function updateShift() {
     emit('update-shift', {
         ...props.shift,
         start_time: startTime.value,
         end_time: endTime.value,
+        department_id: departmentId.value,
     });
 }
 
