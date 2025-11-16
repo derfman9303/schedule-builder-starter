@@ -1,11 +1,6 @@
 import { ref } from 'vue';
 import axios from 'axios';
-
-export interface Department {
-    id: number;
-    name: string;
-    user_id: number;
-}
+import { type Department } from '@/types/Department';
 
 const departments = ref<Department[]>([]);
 const isLoading = ref(false);
