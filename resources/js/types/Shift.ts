@@ -6,6 +6,7 @@ export interface Shift {
     week_day?: string;
     date?: string;
     day_offset?: number;
+    department_id?: number | null;
     created_at?: string;
     updated_at?: string;
 }
