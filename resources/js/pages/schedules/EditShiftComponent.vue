@@ -5,7 +5,7 @@
                 class="rounded-lg px-2 py-[3px] w-[125px] min-h-[40px] cursor-pointer text-xs flex flex-col justify-center"
                 :class="color"
             >
-                <span class="text-white">Retail</span>
+                <span class="text-white">{{ props.shift?.department?.name || '' }}</span>
                 <span class="text-white">{{ formatTimeTo12Hour(props.shift?.start_time) }} - {{ formatTimeTo12Hour(props.shift?.end_time) }}</span>
             </div>
         </PopoverTrigger>

@@ -88,6 +88,7 @@ class ScheduleController extends Controller
         return $schedule->load([
             'workWeeks.employee',
             'workWeeks.shifts',
+            'workWeeks.shifts.department',
         ]);
     }
 
