@@ -5,6 +5,10 @@ import { type Employee } from '@/types/Employee';
 import { type Shift } from '@/types/Shift';
 import { type DateValue, getDayOfWeek, getLocalTimeZone, DateFormatter } from '@internationalized/date';
 
+// Shared state across all instances
+const startDate = ref<DateValue>();
+const endDate = ref<DateValue>();
+
 export function useSchedule() {
     const weekDaysLowerCase = [
         'sunday',
@@ -33,9 +37,6 @@ export function useSchedule() {
         'bg-emerald-600',
         'bg-orange-600',
     ];
-
-    const startDate = ref<DateValue>();
-    const endDate = ref<DateValue>();
 
     const header_df = new DateFormatter('en-US', {
         month: 'numeric',
