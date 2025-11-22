@@ -1,7 +1,7 @@
 <template>
     <Popover>
-        <PopoverTrigger>
-            <div class="border rounded-xs p-2 w-[125px] min-h-[40px] flex cursor-pointer">
+        <PopoverTrigger class="w-full">
+            <div class="border rounded-xs p-2 min-h-[45px] flex cursor-pointer">
                 <Plus :size="20" class="text-gray-300 m-auto" />
             </div>
         </PopoverTrigger>

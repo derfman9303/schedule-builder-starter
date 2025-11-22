@@ -103,13 +103,13 @@
                             <TableHeader>
                                 <TableRow>
                                     <TableHead class="w-[120px]">Employee</TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(0) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(0) }}</span></TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(1) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(1) }}</span></TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(2) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(2) }}</span></TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(3) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(3) }}</span></TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(4) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(4) }}</span></TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(5) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(5) }}</span></TableHead>
-                                    <TableHead class="text-center">{{ weekDayShort(6) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(6) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(0) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(0) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(1) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(1) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(2) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(2) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(3) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(3) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(4) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(4) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(5) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(5) }}</span></TableHead>
+                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(6) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(6) }}</span></TableHead>
                                     <TableHead class="text-center w-[100px]">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
@@ -125,7 +125,7 @@
                                             @dragover="handleDragOver"
                                             @dragleave="handleDragLeave"
                                             @drop="(event) => handleDrop(event, index, day_offset, schedule)"
-                                            class="min-h-[45px] w-[125px] flex items-center justify-center transition-colors rounded-md border-2 border-dashed border-transparent hover:border-muted-foreground/25 m-auto"
+                                            class="min-h-[45px] flex items-center justify-center transition-colors rounded-md border-2 border-dashed border-transparent hover:border-muted-foreground/25 m-auto"
                                         >
                                             <div
                                                 v-if="getShift(work_week, day_offset)"

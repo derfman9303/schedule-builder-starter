@@ -1,8 +1,8 @@
 <template>
     <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger class="w-full">
             <div
-                class="rounded-lg px-2 py-[3px] w-[125px] min-h-[40px] cursor-pointer text-xs flex flex-col justify-center"
+                class="rounded-lg px-2 py-[3px] min-h-[45px] cursor-pointer text-xs flex flex-col justify-center"
                 :class="color"
             >
                 <span class="text-white">{{ props.shift?.department?.name || '' }}</span>
