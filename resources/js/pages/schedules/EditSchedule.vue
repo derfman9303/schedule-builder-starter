@@ -103,13 +103,14 @@
                             <TableHeader>
                                 <TableRow>
                                     <TableHead class="w-[120px]">Employee</TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(0) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(0) }}</span></TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(1) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(1) }}</span></TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(2) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(2) }}</span></TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(3) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(3) }}</span></TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(4) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(4) }}</span></TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(5) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(5) }}</span></TableHead>
-                                    <TableHead class="text-center min-w-[125px]">{{ weekDayShort(6) }}<br><span class="text-xs text-muted-foreground">{{ headerDateString(6) }}</span></TableHead>
+                                    <TableHead 
+                                        v-for="day in 7" 
+                                        :key="day - 1" 
+                                        class="text-center min-w-[125px]"
+                                    >
+                                        {{ weekDayShort(day - 1) }}<br>
+                                        <span class="text-xs text-muted-foreground">{{ headerDateString(day - 1) }}</span>
+                                    </TableHead>
                                     <TableHead class="text-center w-[100px]">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
