@@ -35,7 +35,7 @@
             border: 1px solid #333;
             padding: 3px;
             text-align: center;
-            vertical-align: top;
+            vertical-align: middle;
         }
         
         .schedule-table th {
@@ -66,11 +66,36 @@
         }
         
         .shift-info {
-            font-size: 11px;
+            font-size: 10px;
+            line-height: 1.3;
         }
         
         .shift-time {
             font-weight: bold;
+            font-size: 10px;
+        }
+        
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .time-row span:first-child {
+            text-align: left;
+            font-weight: normal;
+        }
+        
+        .time-row span:last-child {
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .shift-department {
+            font-size: 9px;
+            color: #555;
+            margin-bottom: 2px;
+            font-style: italic;
         }
         
         .empty-shift {
@@ -139,9 +164,14 @@
                         <td class="shift-cell">
                             @if ($shift)
                                 <div class="shift-info">
+                                    @if ($shift->department)
+                                        <div class="shift-department">
+                                            {{ $shift->department->name }}
+                                        </div>
+                                    @endif
                                     <div class="shift-time">
-                                        {{ \Carbon\Carbon::parse($shift->start_time)->format('g:i A') }}<br>
-                                        {{ \Carbon\Carbon::parse($shift->end_time)->format('g:i A') }}
+                                        → {{ \Carbon\Carbon::parse($shift->start_time)->format('g:i A') }}<br>
+                                        ← {{ \Carbon\Carbon::parse($shift->end_time)->format('g:i A') }}
                                     </div>
                                 </div>
                             @else
